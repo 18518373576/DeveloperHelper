@@ -89,7 +89,7 @@ public class ContentProviderActivity extends BaseActivity {
 
     private void function_06() {
         List<Media> mediaList = new ArrayList<>();
-        //查询数据
+        //查询数据,测试同步gitee和github
     }
 
     private void function_05() {

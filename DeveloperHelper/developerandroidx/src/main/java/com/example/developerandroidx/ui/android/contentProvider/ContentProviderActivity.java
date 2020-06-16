@@ -89,54 +89,7 @@ public class ContentProviderActivity extends BaseActivity {
 
     private void function_06() {
         List<Media> mediaList = new ArrayList<>();
-        //要查询的Audio数据的列
-        String[] projection = new String[]{
-                MediaStore.Audio.Media._ID,
-                MediaStore.Audio.Media.DISPLAY_NAME,
-                MediaStore.Audio.Media.DURATION,
-                MediaStore.Audio.Media.SIZE
-        };
-        //查询条件,这里根据音频长度过滤
-        String selection = MediaStore.Audio.Media.DURATION + " >= ?";
-        //过滤条件的值,这里是过滤掉时长小于1分钟的视频
-        String[] selectionArgs = new String[]{String.valueOf(TimeUnit.MILLISECONDS.convert(10, TimeUnit.SECONDS))};
-        //根据音频名称进行排序
-        //asc：指定列按升序排列 desc：指定列按降序排列
-        String sortOrder = MediaStore.Audio.Media.DISPLAY_NAME + " ASC";
-
-        //try (){ }语句,会在执行完自动执行继承Closeable类的close方法
-        try (Cursor cursor = getApplicationContext().getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                sortOrder
-        )) {
-            if (cursor != null) {
-                //获取各个字段所在的获取到的数据列中的位置
-                int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
-                int nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME);
-                int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION);
-                int sizeColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE);
-
-                while (cursor.moveToNext()) {
-                    long id = cursor.getLong(idColumn);
-                    String name = cursor.getString(nameColumn);
-                    int duration = cursor.getInt(durationColumn);
-                    int size = cursor.getInt(sizeColumn);
-
-                    //获取视频文件的URI
-                    //content://media/external/video/media/163272
-                    //作为对比获取本应用的一张图片的URI
-                    //file:///storage/emulated/0/Android/data/com.example.developerandroidx/files/Pictures/JPEG_20200615_135412_8637409846958515960.jpg
-                    Uri contentUri = ContentUris.withAppendedId(
-                            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
-
-                    mediaList.add(new Media(contentUri, name, duration, size, Media.MediaType.AUDIO));
-                }
-                new MediaListDialog(mediaList).show(context);
-            }
-        }
+        //查询数据,测试同步gitee和github
     }
 
     private void function_05() {
@@ -237,6 +190,7 @@ public class ContentProviderActivity extends BaseActivity {
                 new MediaListDialog(mediaList).show(context);
             }
         }
+
     }
 
     private void function_03() {

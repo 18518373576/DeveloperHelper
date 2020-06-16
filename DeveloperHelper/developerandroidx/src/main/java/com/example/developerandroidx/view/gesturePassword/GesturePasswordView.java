@@ -46,7 +46,7 @@ public class GesturePasswordView extends View {
         passwordPaint.setStrokeWidth(pointRadius);
         passwordPaint.setAntiAlias(true);
         passwordPaint.setStrokeCap(Paint.Cap.ROUND);
-        passwordPaint.setColor(Color.RED);
+        passwordPaint.setColor(Color.LTGRAY);
     }
 
     @Override
@@ -57,7 +57,12 @@ public class GesturePasswordView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.GRAY);
-        canvas.drawPoint(pointRadius/2f, pointRadius/2f, passwordPaint);
+        for (int i = 0; i < 3; i++) {
+            float y = pointRadius * (float) i + pointRadius / 2f;
+            for (int j = 0; j < 3; j++) {
+                float x = pointRadius * (float) j + pointRadius / 2f;
+                canvas.drawPoint(x, y, passwordPaint);
+            }
+        }
     }
 }

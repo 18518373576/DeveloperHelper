@@ -88,7 +88,7 @@ public class ContentProviderActivity extends BaseActivity {
     }
 
     private void function_06() {
-
+        List<Media> mediaList = new ArrayList<>();
     }
 
     private void function_05() {

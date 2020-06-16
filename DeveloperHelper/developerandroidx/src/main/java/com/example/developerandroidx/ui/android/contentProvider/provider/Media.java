@@ -10,7 +10,7 @@ import android.net.Uri;
 public class Media {
 
     public enum MediaType {
-        VIDEO, PIC, MUSIC
+        VIDEO, PIC, AUDIO
     }
 
     private final Uri uri;

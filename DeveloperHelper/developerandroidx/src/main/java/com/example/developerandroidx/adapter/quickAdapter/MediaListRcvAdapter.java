@@ -37,17 +37,26 @@ public class MediaListRcvAdapter extends BaseQuickAdapter<Media, BaseViewHolder>
             case PIC:
                 holder.setText(R.id.tv_duration, "时间:" +
                         StringUtils.getInstance().getFormatTime(item.getDuration(), "yy-MM-dd HH:mm:ss"));
+                Glide
+                        .with(getContext())
+                        .load(item.getUri())
+                        .override(PixelTransformForAppUtil.dip2px(100), PixelTransformForAppUtil.dip2px(100))
+                        .centerCrop()
+                        .into((ImageView) holder.getView(R.id.iv_media_preview));
                 break;
-            default:
+            case VIDEO:
                 holder.setText(R.id.tv_duration, "时长:" + item.getDuration() / 1000f + "秒");
+                Glide
+                        .with(getContext())
+                        .load(item.getUri())
+                        .override(PixelTransformForAppUtil.dip2px(100), PixelTransformForAppUtil.dip2px(100))
+                        .centerCrop()
+                        .into((ImageView) holder.getView(R.id.iv_media_preview));
+                break;
+            case AUDIO:
+                holder.setText(R.id.tv_duration, "时长:" + item.getDuration() / 1000f + "秒");
+                holder.setImageResource(R.id.iv_media_preview, R.mipmap.icon_music);
                 break;
         }
-
-        Glide
-                .with(getContext())
-                .load(item.getUri())
-                .override(PixelTransformForAppUtil.dip2px(100), PixelTransformForAppUtil.dip2px(100))
-                .centerCrop()
-                .into((ImageView) holder.getView(R.id.iv_media_preview));
     }
 }

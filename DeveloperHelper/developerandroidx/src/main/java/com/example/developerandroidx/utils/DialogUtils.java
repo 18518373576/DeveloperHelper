@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.utils.enumPkg.TipType;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
+import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
+import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.BottomMenu;
 import com.kongzue.dialog.v3.FullScreenDialog;
@@ -147,6 +149,26 @@ public class DialogUtils {
                 .setTitle(title)
                 .setMessage(msg)
                 .setStyle(DialogSettings.STYLE.STYLE_IOS)
+                .setOkButton("确定")
+                .show();
+    }
+
+    public interface OnButtonClickedListener {
+        void onClick(String msg, boolean isOkButton);
+    }
+
+    public void showMessageDialog(Context context, String title, String msg,
+                                  String okButton, String cancelButton, OnButtonClickedListener clickedListener) {
+        MessageDialog.build((AppCompatActivity) context)
+                .setTitle(title)
+                .setMessage(msg)
+                .setStyle(DialogSettings.STYLE.STYLE_IOS)
+                .setOkButton(okButton)
+                .setCancelButton(cancelButton)
+                .setOnOkButtonClickListener((baseDialog, v) -> {
+                    clickedListener.onClick(msg, true);
+                    return false;
+                })
                 .show();
     }
 
@@ -160,6 +182,7 @@ public class DialogUtils {
         MessageDialog.build((AppCompatActivity) context)
                 .setTitle("提示")
                 .setMessage(msg)
+                .setOkButton("确定")
                 .setStyle(DialogSettings.STYLE.STYLE_IOS)
                 .show();
     }

@@ -2,6 +2,7 @@ package com.example.developerandroidx.ui.android.contentProvider;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -13,6 +14,7 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.android.contentProvider.dialog.MediaListDialog;
 import com.example.developerandroidx.ui.android.contentProvider.provider.Media;
+import com.example.developerandroidx.utils.DialogUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +57,8 @@ public class ContentProviderActivity extends BaseActivity {
     }
 
     @OnClick({R.id.btn_inner_store, R.id.btn_External_specific_store, R.id.btn_External_public_store
-            , R.id.btn_show_video, R.id.btn_show_pics, R.id.btn_show_music})
+            , R.id.btn_show_video, R.id.btn_show_pics, R.id.btn_show_music, R.id.btn_share_data
+    })
     public void click(View v) {
         tv_desc.setText("");
         switch (v.getId()) {
@@ -83,8 +86,27 @@ public class ContentProviderActivity extends BaseActivity {
             case R.id.btn_show_music:
                 function_06();
                 break;
+            //分享简单数据
+            case R.id.btn_share_data:
+                function_07();
+                break;
 
         }
+    }
+
+    private void function_07() {
+        DialogUtils.getInstance().showMessageDialog(context, "发送消息", "明天有🌧,记得带伞!!!",
+                "发送", "取消", new DialogUtils.OnButtonClickedListener() {
+                    @Override
+                    public void onClick(String msg, boolean isOkButton) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_SEND);
+                        intent.putExtra(Intent.EXTRA_TEXT, msg);
+                        intent.setType("text/plain");
+                        Intent shareIntent = Intent.createChooser(intent, null);
+                        startActivity(shareIntent);
+                    }
+                });
     }
 
     private void function_06() {

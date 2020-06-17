@@ -13,6 +13,6 @@
         android:singleLine="true"
         android:text=""
         android:textColor="@color/dialogButtonIOSNormal"
-        android:textSize="19dp" />
+        android:textSize="16dp" />
 
 </LinearLayout>

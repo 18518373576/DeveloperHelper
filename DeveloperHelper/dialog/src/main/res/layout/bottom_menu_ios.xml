@@ -56,8 +56,8 @@
                         android:id="@+id/title_split_line"
                         android:layout_width="match_parent"
                         android:layout_height="1px"
-                        android:visibility="gone"
-                        android:background="@color/dialogSplitIOSLight" />
+                        android:background="@color/dialogSplitIOSLight"
+                        android:visibility="gone" />
 
                     <ListView
                         android:id="@+id/list_menu"
@@ -94,9 +94,8 @@
                     android:paddingRight="15dp"
                     android:singleLine="true"
                     android:text="CANCEL"
-                    android:textColor="@color/dialogButtonIOSNormal"
-                    android:textSize="19dp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/tipTextColor"
+                    android:textSize="16dp" />
 
             </RelativeLayout>
 

@@ -90,7 +90,6 @@ public class ContentProviderActivity extends BaseActivity {
             case R.id.btn_share_data:
                 function_07();
                 break;
-
         }
     }
 

@@ -28,8 +28,11 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        esv_content.addBodyWithIntent("DevelopHelper", R.color.colorMain,
-                new Intent(context, TechnologyWebviewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/18518373576/androidDevelopHelper"));
+        esv_content.addBodyWithIntent("DevelopHelper(github)", R.color.colorMain,
+                new Intent(context, TechnologyWebviewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/18518373576/DeveloperHelper"));
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBodyWithIntent("DevelopHelper(gitee)", R.color.colorMain,
+                new Intent(context, TechnologyWebviewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://gitee.com/ZhangQQ_123/DeveloperHelper"));
         esv_content.addLine(R.color.lightGrayColor);
         esv_content.addBodyWithIntent("图标库：https://www.iconfont.cn", R.color.colorMain,
                 new Intent(context, TechnologyWebviewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://www.iconfont.cn"));

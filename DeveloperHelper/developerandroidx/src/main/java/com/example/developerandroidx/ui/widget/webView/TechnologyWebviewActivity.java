@@ -1,6 +1,7 @@
 package com.example.developerandroidx.ui.widget.webView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -36,7 +37,18 @@ public class TechnologyWebviewActivity extends BaseActivity {
     @Override
     protected void initView() {
         setTitle("链接");
+        iv_right.setVisibility(View.VISIBLE);
+        iv_right.setImageResource(R.mipmap.icon_share);
         String url = getIntent().getStringExtra(Constant.IntentParams.INTENT_PARAM);
+        iv_right.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, url);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "分享链接");
+            intent.setType("text/url");
+            Intent shareIntent = Intent.createChooser(intent, "分享链接");
+            startActivity(shareIntent);
+        });
         wv_web.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

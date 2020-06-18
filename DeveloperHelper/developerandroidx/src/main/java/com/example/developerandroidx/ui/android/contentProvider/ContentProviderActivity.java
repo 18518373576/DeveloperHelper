@@ -7,11 +7,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.UserDictionary;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.android.contentProvider.dialog.MediaListDialog;
@@ -131,6 +133,7 @@ public class ContentProviderActivity extends BaseActivity {
             return;
         } else {
             Uri returnUri = returnIntent.getData();
+            //Glide.with(context).load(returnUri).into(iv_right);
             DialogUtils.getInstance().showMessageDialog(context, "返回URI", returnUri.toString());
         }
     }
@@ -233,10 +236,9 @@ public class ContentProviderActivity extends BaseActivity {
         //查询条件,这里根据照片大小
         String selection = MediaStore.Images.Media.SIZE + " >= ?";
         //过滤条件的值,这里是过滤掉大小小于1M的照片
-        String[] selectionArgs = new String[]{String.valueOf(1024 * 1024)};
+        String[] selectionArgs = new String[]{String.valueOf(1024*50)};
         //根据拍摄时间进行排序,降序排序
         String sortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC";
-
         //try (){ }语句,会在执行完自动执行继承Closeable类的close方法
         try (Cursor cursor = getApplicationContext().getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,

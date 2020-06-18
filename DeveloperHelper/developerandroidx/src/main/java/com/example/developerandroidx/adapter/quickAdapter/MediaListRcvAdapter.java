@@ -36,7 +36,7 @@ public class MediaListRcvAdapter extends BaseQuickAdapter<Media, BaseViewHolder>
         switch (item.getMediaType()) {
             case PIC:
                 holder.setText(R.id.tv_duration, "时间:" +
-                        StringUtils.getInstance().getFormatTime(item.getDuration(), "yy-MM-dd HH:mm:ss"));
+                        StringUtils.getInstance().getFormatTime(item.getDuration(), "yyyy-MM-dd HH:mm:ss"));
                 Glide
                         .with(getContext())
                         .load(item.getUri())

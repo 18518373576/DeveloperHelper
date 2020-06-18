@@ -21,7 +21,7 @@ compileOptions
         sourceCompatibility = 1.8
     }
 ```
-## 项目模块:
+## 项目结构:
 
 
 ### [1. Android](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/android.jpg)
@@ -49,7 +49,7 @@ compileOptions
 - #### 性能优化
 
 
-### [2. Java](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/android.jpg)
+### [2. Java](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/java.jpg)
 - #### 数据类型和变量
 - #### 操作符
 - #### 流程控制
@@ -73,7 +73,7 @@ compileOptions
 - #### 算法
 
 
-### [3. Widget](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/android.jpg)
+### [3. Widget](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/widget.jpg)
 - #### ActionBar
 - #### ToolBar
 - #### RecyclerView

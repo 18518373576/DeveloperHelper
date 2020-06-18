@@ -4,6 +4,7 @@ import android.widget.TextView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.view.gesturePassword.GesturePasswordView;
 import com.example.developerandroidx.view.gesturePassword.OnPasswordCallBack;
 
@@ -28,7 +29,7 @@ public class GesturePasswordActivity extends BaseActivity {
         gpvPassword.setOnPasswordCallBack(new OnPasswordCallBack() {
             @Override
             public void callBack(String password) {
-                tvPassword.setText(password);
+                DialogUtils.getInstance().showMessageDialog(context, "密码", password);
             }
         });
     }

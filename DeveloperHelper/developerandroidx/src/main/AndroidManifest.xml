@@ -20,10 +20,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         tools:targetApi="n">
-        <activity android:name=".ui.widget.gesturePassword.GesturePasswordActivity"></activity>
-        <activity android:name=".ui.android.contentProvider.ContentProviderActivity" />
-        <activity android:name=".ui.widget.mathematicalCurve.MathematicalCurveActivity" />
-        <activity android:name=".ui.android.rxJava.RxJavaSampleActivity" />
+        <activity
+            android:name=".ui.widget.gesturePassword.GesturePasswordActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.android.contentProvider.ContentProviderActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.widget.mathematicalCurve.MathematicalCurveActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.android.rxJava.RxJavaSampleActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity android:name=".ui.android.httpRequest.historyBlog.HistoryBlogActivity">
             <meta-data
                 android:name="android.notch_support"
@@ -40,7 +52,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.developerandroidx"
+            android:authorities="com.example.developerandroidx.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

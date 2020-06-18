@@ -10,11 +10,15 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.core.content.FileProvider;
+
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.android.contentProvider.dialog.MediaListDialog;
 import com.example.developerandroidx.ui.android.contentProvider.provider.Media;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
 import com.example.developerandroidx.utils.DialogUtils;
+import com.example.developerandroidx.utils.RouteUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,13 +27,13 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 
 public class ContentProviderActivity extends BaseActivity {
 
     @BindView(R.id.tv_desc)
     TextView tv_desc;
+
+    private File file;
 
     @Override
     protected int bindLayout() {
@@ -40,6 +44,10 @@ public class ContentProviderActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         setTitle("App data & files");
+        iv_right.setVisibility(View.VISIBLE);
+        //内容提供者官方文档
+        iv_right.setOnClickListener(v ->
+                RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebviewActivity.class), "https://developer.android.google.cn/guide/topics/providers/content-providers"));
     }
 
     @Override
@@ -47,7 +55,14 @@ public class ContentProviderActivity extends BaseActivity {
         super.initData();
         //在内部存储空间,创建一个log文件
         try {
-            File file = new File(context.getFilesDir(), "appLog.log");
+//            new File(context.getFilesDir(), "log/appLog.log");
+            String filePath = context.getFilesDir().getAbsolutePath() + "/log";
+            String fileName = "appLog.log";
+            File path = new File(filePath);
+            file = new File(filePath, fileName);
+            if (!path.exists()) {
+                path.mkdir();
+            }
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -58,6 +73,7 @@ public class ContentProviderActivity extends BaseActivity {
 
     @OnClick({R.id.btn_inner_store, R.id.btn_External_specific_store, R.id.btn_External_public_store
             , R.id.btn_show_video, R.id.btn_show_pics, R.id.btn_show_music, R.id.btn_share_data
+            , R.id.btn_share_file, R.id.btn_request_file
     })
     public void click(View v) {
         tv_desc.setText("");
@@ -90,7 +106,50 @@ public class ContentProviderActivity extends BaseActivity {
             case R.id.btn_share_data:
                 function_07();
                 break;
+            //文件分享
+            case R.id.btn_share_file:
+                function_08();
+                break;
+            //请求别的应用的分享文件
+            case R.id.btn_request_file:
+                function_09();
+                break;
         }
+    }
+
+    /**
+     * 请求文件共享的回调
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param returnIntent
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent returnIntent) {
+        super.onActivityResult(requestCode, resultCode, returnIntent);
+        if (resultCode != RESULT_OK) {
+            return;
+        } else {
+            Uri returnUri = returnIntent.getData();
+            DialogUtils.getInstance().showMessageDialog(context, "返回URI", returnUri.toString());
+        }
+    }
+
+    private void function_09() {
+        DialogUtils.getInstance().showMessageDialog(context, "请求文件", "文件类型:image/*", "请求", "取消", new DialogUtils.OnButtonClickedListener() {
+            @Override
+            public void onClick(String msg, boolean isOkButton) {
+                Intent requestFileIntent = new Intent(Intent.ACTION_PICK);
+                requestFileIntent.setType("image/*");
+                startActivityForResult(requestFileIntent, 0);
+            }
+        });
+    }
+
+    private void function_08() {
+        Uri photoUri = FileProvider.getUriForFile(context, "com.example.developerandroidx.fileprovider", file);
+        tv_desc.append("FileProvider以URI的形式对外共享文件\n");
+        tv_desc.append("URI:" + photoUri.toString());
     }
 
     private void function_07() {
@@ -101,8 +160,10 @@ public class ContentProviderActivity extends BaseActivity {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_SEND);
                         intent.putExtra(Intent.EXTRA_TEXT, msg);
+//                        intent.setPackage("com.tencent.mm");
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "发送消息");
                         intent.setType("text/plain");
-                        Intent shareIntent = Intent.createChooser(intent, null);
+                        Intent shareIntent = Intent.createChooser(intent, "发送消息");
                         startActivity(shareIntent);
                     }
                 });
@@ -282,15 +343,22 @@ public class ContentProviderActivity extends BaseActivity {
         try {
             tv_desc.append("CanonicalPath:" + context.getFilesDir().getCanonicalPath() + "\n\n");
             tv_desc.append("AbsolutePath:" + context.getFilesDir().getAbsolutePath() + "\n\n");
-            Observable.fromArray(context.fileList())
-                    .subscribe(new Consumer<String>() {
-                        @Override
-                        public void accept(String s) throws Exception {
-                            tv_desc.append("Files:" + s + "\n");
-                        }
-                    });
+            listFiles(context.getFilesDir());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 列出内部存储files文件夹下的文件
+     */
+    private void listFiles(File fileDir) {
+        for (File file : fileDir.listFiles()) {
+            if (file.isDirectory()) {
+                listFiles(file);
+            } else {
+                tv_desc.append("Files:" + file.getAbsolutePath() + "\n");
+            }
         }
     }
 }

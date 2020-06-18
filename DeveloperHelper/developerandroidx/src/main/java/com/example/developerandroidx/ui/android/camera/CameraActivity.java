@@ -165,13 +165,18 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
             try {
+                //创建照片文件
                 photoFile = createImageFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (photoFile != null) {
-                Uri photoUri = FileProvider.getUriForFile(context, "com.example.developerandroidx", photoFile);
+                //把照片文件转换为URI,并传递给相机应用
+                //内容提供者用于分享内容的URI
+                //content://com.example.developerandroidx.fileprovider/my_images/JPEG_20200618_104316_4554176752783716040.jpg
+                Uri photoUri = FileProvider.getUriForFile(context, "com.example.developerandroidx.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                //相机应用把拍摄的照片文件写入到传过去的空的照片文件
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
@@ -208,6 +213,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
             //都转换为uri
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 //拍照结果返回，在打开相机界面的时候已经保存了完整的图片路径，把路径转换为uri
+                //绝对路径生成的URI
                 //file:///storage/emulated/0/Android/data/com.example.developerandroidx/files/Pictures/JPEG_20200615_135412_8637409846958515960.jpg
                 uri = Uri.fromFile(new File(imagePath));
             } else if (requestCode == REQUEST_IMAGE_GALLERY) {

@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp10"
-        android:text="内容提供"
+        android:text="文件提供(FileProvider)"
         app:layout_constraintTop_toBottomOf="@+id/btn_show_pics" />
 
     <Button
@@ -124,5 +124,13 @@
         android:layout_width="@dimen/dp100"
         android:text="文件分享"
         app:layout_constraintStart_toStartOf="@+id/btn_show_music"
+        app:layout_constraintTop_toBottomOf="@+id/tv_03" />
+
+    <Button
+        android:id="@+id/btn_request_file"
+        style="@style/CommonButtonStyle"
+        android:layout_width="@dimen/dp100"
+        android:text="请求文件"
+        app:layout_constraintStart_toStartOf="@+id/btn_show_video"
         app:layout_constraintTop_toBottomOf="@+id/tv_03" />
 </androidx.constraintlayout.widget.ConstraintLayout>

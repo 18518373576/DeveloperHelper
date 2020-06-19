@@ -1,2 +1,3 @@
+include ':dh_sample'
 include ':developerandroidx', ':codeview',':dialog',':zxinglib',"rcvAdapterHelper"
 rootProject.name='DeveloperHelper'

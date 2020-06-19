@@ -133,4 +133,37 @@
         android:text="请求文件"
         app:layout_constraintStart_toStartOf="@+id/btn_show_video"
         app:layout_constraintTop_toBottomOf="@+id/tv_03" />
+
+    <TextView
+        android:id="@+id/tv_04"
+        style="@style/commonText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp10"
+        android:text="操作URI和ContentResolver"
+        app:layout_constraintTop_toBottomOf="@+id/btn_share_data" />
+
+    <Button
+        android:id="@+id/btn_write_log"
+        style="@style/CommonButtonStyle"
+        android:layout_width="@dimen/dp100"
+        android:text="写入log数据"
+        app:layout_constraintStart_toStartOf="@+id/btn_show_pics"
+        app:layout_constraintTop_toBottomOf="@+id/tv_04" />
+
+    <Button
+        android:id="@+id/btn_read_log"
+        style="@style/CommonButtonStyle"
+        android:layout_width="@dimen/dp100"
+        android:text="读取log数据"
+        app:layout_constraintStart_toStartOf="@+id/btn_show_music"
+        app:layout_constraintTop_toBottomOf="@+id/tv_04" />
+
+    <Button
+        android:id="@+id/btn_resolver_provider_data"
+        style="@style/CommonButtonStyle"
+        android:layout_width="@dimen/dp100"
+        android:text="获取Content"
+        app:layout_constraintStart_toStartOf="@+id/btn_show_video"
+        app:layout_constraintTop_toBottomOf="@+id/tv_04" />
 </androidx.constraintlayout.widget.ConstraintLayout>

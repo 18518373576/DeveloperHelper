@@ -3,9 +3,12 @@ package com.example.developerandroidx.ui.android.contentProvider.dialog;
 import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.quickAdapter.MediaListRcvAdapter;
 import com.example.developerandroidx.projectInterface.FunctionDialogInterface;
@@ -34,7 +37,8 @@ public class MediaListDialog implements FunctionDialogInterface {
             public void onBind(FullScreenDialog dialog, View rootView) {
                 RecyclerView rcv_media_list = rootView.findViewById(R.id.rcv_media_list);
                 rcv_media_list.setLayoutManager(new LinearLayoutManager(context));
-                rcv_media_list.setAdapter(new MediaListRcvAdapter(mediaList));
+                MediaListRcvAdapter adapter = new MediaListRcvAdapter(mediaList);
+                rcv_media_list.setAdapter(adapter);
             }
         });
     }

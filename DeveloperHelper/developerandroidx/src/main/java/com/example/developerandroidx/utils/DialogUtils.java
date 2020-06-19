@@ -10,11 +10,13 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.utils.enumPkg.TipType;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
+import com.kongzue.dialog.interfaces.OnInputDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.BottomMenu;
 import com.kongzue.dialog.v3.FullScreenDialog;
+import com.kongzue.dialog.v3.InputDialog;
 import com.kongzue.dialog.v3.MessageDialog;
 import com.kongzue.dialog.v3.TipDialog;
 import com.kongzue.dialog.v3.WaitDialog;
@@ -105,6 +107,22 @@ public class DialogUtils {
                 .setTipTime(2000)
                 .setMessage(msg)
                 .setTip(type)
+                .show();
+    }
+
+    public void showInputDialog(Context context, String desc, String okButton, OnButtonClickedListener listener) {
+        InputDialog.build((AppCompatActivity) context)
+                .setCancelButton("取消")
+                .setOkButton(okButton, new OnInputDialogButtonClickListener() {
+                    @Override
+                    public boolean onClick(BaseDialog baseDialog, View v, String inputStr) {
+                        listener.onClick(inputStr, true);
+                        return false;
+                    }
+                })
+                .setTitle("提示")
+                .setMessage("写入log数据")
+                .setStyle(DialogSettings.STYLE.STYLE_IOS)
                 .show();
     }
 

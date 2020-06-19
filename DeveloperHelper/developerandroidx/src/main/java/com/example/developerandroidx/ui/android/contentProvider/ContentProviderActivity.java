@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.provider.UserDictionary;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 
-import com.bumptech.glide.Glide;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.android.contentProvider.dialog.MediaListDialog;
@@ -22,9 +21,15 @@ import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -35,7 +40,7 @@ public class ContentProviderActivity extends BaseActivity {
     @BindView(R.id.tv_desc)
     TextView tv_desc;
 
-    private File file;
+    private Uri logUri;
 
     @Override
     protected int bindLayout() {
@@ -58,16 +63,20 @@ public class ContentProviderActivity extends BaseActivity {
         //在内部存储空间,创建一个log文件
         try {
 //            new File(context.getFilesDir(), "log/appLog.log");
+            tv_desc.setText("创建appLog.log文件\n");
             String filePath = context.getFilesDir().getAbsolutePath() + "/log";
             String fileName = "appLog.log";
             File path = new File(filePath);
-            file = new File(filePath, fileName);
+            File file = new File(filePath, fileName);
             if (!path.exists()) {
                 path.mkdir();
             }
             if (!file.exists()) {
                 file.createNewFile();
             }
+            tv_desc.append("文件位置:\n" + file.getAbsolutePath() + "\n");
+            logUri = FileProvider.getUriForFile(context, "com.example.developerandroidx.fileprovider", file);
+            tv_desc.append("文件URI:\n" + logUri.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,7 +84,7 @@ public class ContentProviderActivity extends BaseActivity {
 
     @OnClick({R.id.btn_inner_store, R.id.btn_External_specific_store, R.id.btn_External_public_store
             , R.id.btn_show_video, R.id.btn_show_pics, R.id.btn_show_music, R.id.btn_share_data
-            , R.id.btn_share_file, R.id.btn_request_file
+            , R.id.btn_share_file, R.id.btn_request_file, R.id.btn_write_log, R.id.btn_read_log
     })
     public void click(View v) {
         tv_desc.setText("");
@@ -116,15 +125,46 @@ public class ContentProviderActivity extends BaseActivity {
             case R.id.btn_request_file:
                 function_09();
                 break;
+            //写入log文件数据
+            case R.id.btn_write_log:
+                function_10();
+                break;
+            //读log数据
+            case R.id.btn_read_log:
+                function_11();
+                break;
         }
+    }
+
+    private void function_11() {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (InputStream inputStream = getContentResolver().openInputStream(logUri);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(inputStream)))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            DialogUtils.getInstance().showMessageDialog(context, "读取log数据", stringBuilder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void function_10() {
+        DialogUtils.getInstance().showInputDialog(context, "写入log数据", "写入", new DialogUtils.OnButtonClickedListener() {
+            @Override
+            public void onClick(String msg, boolean isOkButton) {
+                try (ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(logUri, "w"); FileOutputStream outputStream = new FileOutputStream(descriptor.getFileDescriptor())) {
+                    outputStream.write(("时间:" + System.currentTimeMillis() + " log:" + msg).getBytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
      * 请求文件共享的回调
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param returnIntent
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent returnIntent) {
@@ -150,9 +190,8 @@ public class ContentProviderActivity extends BaseActivity {
     }
 
     private void function_08() {
-        Uri photoUri = FileProvider.getUriForFile(context, "com.example.developerandroidx.fileprovider", file);
         tv_desc.append("FileProvider以URI的形式对外共享文件\n");
-        tv_desc.append("URI:" + photoUri.toString());
+        tv_desc.append("URI:" + logUri.toString());
     }
 
     private void function_07() {
@@ -236,7 +275,7 @@ public class ContentProviderActivity extends BaseActivity {
         //查询条件,这里根据照片大小
         String selection = MediaStore.Images.Media.SIZE + " >= ?";
         //过滤条件的值,这里是过滤掉大小小于1M的照片
-        String[] selectionArgs = new String[]{String.valueOf(1024*50)};
+        String[] selectionArgs = new String[]{String.valueOf(1024 * 50)};
         //根据拍摄时间进行排序,降序排序
         String sortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC";
         //try (){ }语句,会在执行完自动执行继承Closeable类的close方法

@@ -85,6 +85,7 @@ public class ContentProviderActivity extends BaseActivity {
     @OnClick({R.id.btn_inner_store, R.id.btn_External_specific_store, R.id.btn_External_public_store
             , R.id.btn_show_video, R.id.btn_show_pics, R.id.btn_show_music, R.id.btn_share_data
             , R.id.btn_share_file, R.id.btn_request_file, R.id.btn_write_log, R.id.btn_read_log
+            , R.id.btn_resolver_provider_data
     })
     public void click(View v) {
         tv_desc.setText("");
@@ -133,6 +134,28 @@ public class ContentProviderActivity extends BaseActivity {
             case R.id.btn_read_log:
                 function_11();
                 break;
+            case R.id.btn_resolver_provider_data:
+                function_12();
+                break;
+        }
+    }
+
+    private void function_12() {
+        try (Cursor cursor = getContentResolver().query(Uri.parse("content://com.example.dh_sample.provider/user"), null, null, null, null);) {
+            StringBuffer buffer = new StringBuffer();
+            if (cursor != null && cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    buffer.append("user_id:");
+                    buffer.append(cursor.getString(cursor.getColumnIndex("user_id")) + "\n");
+                    buffer.append("name:");
+                    buffer.append(cursor.getString(cursor.getColumnIndex("name")) + "\n");
+                    buffer.append("tel:");
+                    buffer.append(cursor.getString(cursor.getColumnIndex("tel")) + "\n");
+                }
+                tv_desc.setText(buffer.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -274,7 +297,7 @@ public class ContentProviderActivity extends BaseActivity {
         };
         //查询条件,这里根据照片大小
         String selection = MediaStore.Images.Media.SIZE + " >= ?";
-        //过滤条件的值,这里是过滤掉大小小于1M的照片
+        //过滤条件的值,这里是过滤掉大小小于50k的照片
         String[] selectionArgs = new String[]{String.valueOf(1024 * 50)};
         //根据拍摄时间进行排序,降序排序
         String sortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC";

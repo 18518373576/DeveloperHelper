@@ -2,10 +2,27 @@ package com.example.dh_sample.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.example.dh_sample.db.DB_utils;
+import com.example.dh_sample.db.dao.UserDao;
+
 public class SampleContentProvider extends ContentProvider {
+    //与清单文件authorities一致
+    private static final String AUTHORITY = "com.example.dh_sample.provider";
+    //匹配成功码
+    private static final int MATCH_CODE = 100;
+
+    private static UriMatcher uriMatcher;
+
+    static {
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+        uriMatcher.addURI(AUTHORITY, "user", MATCH_CODE);
+    }
+
     public SampleContentProvider() {
     }
 
@@ -30,15 +47,18 @@ public class SampleContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        // TODO: Implement this to initialize your content provider on startup.
         return false;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        // TODO: Implement this to handle query requests from clients.
-        throw new UnsupportedOperationException("Not yet implemented");
+        int match = uriMatcher.match(uri);
+        if (match == MATCH_CODE) {
+            return DB_utils.getInstance().getDB().getUserDao().getAll();
+        } else {
+            return null;
+        }
     }
 
     @Override

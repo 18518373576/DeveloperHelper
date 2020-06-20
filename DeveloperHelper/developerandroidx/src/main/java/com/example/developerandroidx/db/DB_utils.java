@@ -1,11 +1,9 @@
-package com.example.dh_sample.db;
-
-import android.content.Context;
+package com.example.developerandroidx.db;
 
 import androidx.room.Room;
 
-import com.example.dh_sample.App;
-import com.example.dh_sample.db.database.AppDatabase;
+import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.db.database.AppDatabase;
 
 /**
  * 作者： zjf 2020/6/19 3:43 PM
@@ -33,8 +31,7 @@ public class DB_utils {
     }
 
     private DB_utils() {
-        db = Room.databaseBuilder(App.context, AppDatabase.class, "sample_db.db")
-//                .addMigrations()
+        db = Room.databaseBuilder(App.context, AppDatabase.class, "message.db")
                 .build();
     }
 

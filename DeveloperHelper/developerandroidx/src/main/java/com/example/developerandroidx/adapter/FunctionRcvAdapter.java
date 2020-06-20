@@ -14,6 +14,7 @@ import com.example.developerandroidx.ui.android.architecture.ArchitectureIndexDi
 import com.example.developerandroidx.ui.android.dialog.indexDialog.IndexDialog;
 import com.example.developerandroidx.ui.android.httpRequest.dialog.HttpRequestLibraryDialog;
 import com.example.developerandroidx.ui.android.notification.NotificationDialog;
+import com.example.developerandroidx.ui.android.sqlite.dialog.SelectDbLibraryDialog;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -50,7 +51,6 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                          *给{@link com.example.developerandroidx.ui.MainActivity}发消息，启动扫码界面
                          */
                         case "扫码":
-
                             EventBus.getDefault().post(new EventBusMessageBean(Constant.EventBusMsgId.START_SCAN, this.getClass().getName(), ""));
                             break;
                         /**
@@ -64,6 +64,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "架构":
                             new ArchitectureIndexDialog().show(v.getContext());
+                            break;
+                        case "Sqlite":
+                            new SelectDbLibraryDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

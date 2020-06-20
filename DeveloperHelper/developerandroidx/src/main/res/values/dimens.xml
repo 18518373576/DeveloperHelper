@@ -68,4 +68,8 @@
     <dimen name="sp18">18sp</dimen>
     <dimen name="sp19">19sp</dimen>
     <dimen name="sp20">20sp</dimen>
+
+    <!--    QMUI-->
+    <dimen name="qmui_rv_swipe_action_escape_max_velocity">800dp</dimen>
+    <dimen name="qmui_rv_swipe_action_escape_velocity">120dp</dimen>
 </resources>

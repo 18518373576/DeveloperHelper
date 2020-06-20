@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         tools:targetApi="n">
+        <activity android:name=".ui.android.sqlite.DbControlActivity"></activity>
         <activity
             android:name=".ui.widget.gesturePassword.GesturePasswordActivity"
             android:screenOrientation="portrait"

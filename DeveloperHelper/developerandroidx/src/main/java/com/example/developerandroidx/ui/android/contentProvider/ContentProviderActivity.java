@@ -153,6 +153,8 @@ public class ContentProviderActivity extends BaseActivity {
                     buffer.append(cursor.getString(cursor.getColumnIndex("tel")) + "\n");
                 }
                 tv_desc.setText(buffer.toString());
+            } else {
+                tv_desc.setText("需安装dh_sample提供内容\n已安装获取不到数据检查手机设置是否禁止其他应用启动dh_sample");
             }
         } catch (Exception e) {
             e.printStackTrace();

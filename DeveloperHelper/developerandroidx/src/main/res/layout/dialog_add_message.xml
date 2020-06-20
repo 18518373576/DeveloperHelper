@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp40"
-        android:clickable="true"
-        android:focusable="true"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="visible">
@@ -27,11 +25,11 @@
                 android:id="@+id/iv_header_image"
                 android:layout_width="@dimen/dp80"
                 android:layout_height="@dimen/dp80"
-                android:src="@mipmap/icon_camera"
-                android:tint="@color/grayColor" />
+                android:src="@mipmap/icon_camera" />
         </androidx.cardview.widget.CardView>
 
         <EditText
+            android:id="@+id/et_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp40"
@@ -49,6 +47,7 @@
             android:background="@color/lightGrayColor" />
 
         <EditText
+            android:id="@+id/et_contact_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp40"
@@ -67,6 +66,7 @@
             android:background="@color/lightGrayColor" />
 
         <EditText
+            android:id="@+id/et_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp40"
@@ -93,11 +93,13 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_cancel"
                 style="@style/CancelButtonStyle"
                 android:layout_height="@dimen/dp30"
                 android:text="取消" />
 
             <Button
+                android:id="@+id/btn_save"
                 style="@style/CommonButtonStyle"
                 android:layout_height="@dimen/dp30"
                 android:layout_marginLeft="@dimen/dp10"

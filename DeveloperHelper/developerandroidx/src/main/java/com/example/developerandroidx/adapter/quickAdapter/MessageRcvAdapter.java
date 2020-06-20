@@ -1,11 +1,15 @@
 package com.example.developerandroidx.adapter.quickAdapter;
 
 import android.graphics.Color;
+import android.net.Uri;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.db.entity.Message;
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
+import com.example.developerandroidx.utils.StringUtils;
 import com.example.developerandroidx.view.swipeAction.QMUISwipeAction;
 import com.example.developerandroidx.view.swipeAction.QMUISwipeViewHolder;
 
@@ -38,5 +42,17 @@ public class MessageRcvAdapter extends BaseQuickAdapter<Message, QMUISwipeViewHo
     protected void convert(@NotNull QMUISwipeViewHolder holder, Message item) {
         holder.addSwipeAction(mDeleteAction);
         holder.addSwipeAction(mWriteReviewAction);
+        holder.setText(R.id.tv_name, item.contactName);
+        holder.setText(R.id.tv_last_msg, item.lastMsg);
+        holder.setText(R.id.tv_last_msg_time, StringUtils.getInstance().getFormatTime(item.lastMsgSendTime, "MM月dd日"));
+        Glide
+                .with(getContext())
+                .load(Uri.parse(item.contactHeaderImage))
+                .override(PixelTransformForAppUtil.dip2px(50), PixelTransformForAppUtil.dip2px(50))
+                .centerCrop()
+                .error(R.mipmap.icon_camera)
+                .placeholder(R.mipmap.icon_camera)
+                .fallback(R.mipmap.icon_camera)
+                .into((ImageView) holder.getView(R.id.iv_header_image));
     }
 }

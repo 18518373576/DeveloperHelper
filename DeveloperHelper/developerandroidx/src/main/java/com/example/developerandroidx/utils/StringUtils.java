@@ -1,5 +1,7 @@
 package com.example.developerandroidx.utils;
 
+import android.text.TextUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,5 +35,20 @@ public class StringUtils {
 
     public String getFormatTime(long time, String format) {
         return new SimpleDateFormat(format).format(time);
+    }
+
+    /**
+     * 判断一组字符串是否有空值
+     *
+     * @param strings
+     * @return
+     */
+    public boolean isHasNull(String... strings) {
+        for (String str : strings) {
+            if (TextUtils.isEmpty(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

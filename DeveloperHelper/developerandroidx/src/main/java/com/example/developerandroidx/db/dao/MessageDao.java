@@ -22,12 +22,12 @@ import io.reactivex.Single;
 @Dao
 public interface MessageDao {
 
-    @Query("SELECT * FROM message")
+    @Query("SELECT * FROM message ORDER BY lastMsgSendTime DESC")
     Observable<List<Message>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insert(Message... message);
 
     @Delete
-    Single<Integer> delete(Message message);
+    Single<Integer> delete(Message... message);
 }

@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
 
@@ -34,7 +35,7 @@ public class LoadingPage extends RelativeLayout {
     private void initView(Context context) {
         this.context = context;
         this.setVisibility(GONE);
-        this.setBackgroundColor(Color.rgb(255, 255, 255));
+//        this.setBackgroundColor(Color.rgb(255, 255, 255));
     }
 
     /**
@@ -75,6 +76,25 @@ public class LoadingPage extends RelativeLayout {
         this.removeAllViews();
     }
 
-    public void noData() {
+    public void noData(String msg, boolean isNoData, View contentView) {
+        if (isNoData) {
+            this.removeAllViews();
+            TextView tv_noData = new TextView(context);
+            tv_noData.setText(msg);
+            tv_noData.setTextColor(Color.rgb(190, 190, 190));
+            tv_noData.setTextSize(16);
+            LayoutParams params = new LayoutParams(PixelTransformForAppUtil.dip2px(100), PixelTransformForAppUtil.dip2px(100));
+            params.addRule(CENTER_IN_PARENT);
+            this.addView(tv_noData, params);
+            contentView.setVisibility(GONE);
+            this.setVisibility(VISIBLE);
+        } else {
+            if (contentView.getVisibility() == VISIBLE) {
+                return;
+            }
+            this.setVisibility(GONE);
+            contentView.setVisibility(VISIBLE);
+        }
+
     }
 }

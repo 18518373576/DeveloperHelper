@@ -40,8 +40,10 @@ public class MessageRcvAdapter extends BaseQuickAdapter<Message, QMUISwipeViewHo
 
     @Override
     protected void convert(@NotNull QMUISwipeViewHolder holder, Message item) {
-        holder.addSwipeAction(mDeleteAction);
-        holder.addSwipeAction(mWriteReviewAction);
+        if (!holder.hasAction()) {
+            holder.addSwipeAction(mDeleteAction);
+            holder.addSwipeAction(mWriteReviewAction);
+        }
         holder.setText(R.id.tv_name, item.contactName);
         holder.setText(R.id.tv_last_msg, item.lastMsg);
         holder.setText(R.id.tv_last_msg_time, StringUtils.getInstance().getFormatTime(item.lastMsgSendTime, "MM月dd日"));
@@ -50,9 +52,9 @@ public class MessageRcvAdapter extends BaseQuickAdapter<Message, QMUISwipeViewHo
                 .load(Uri.parse(item.contactHeaderImage))
                 .override(PixelTransformForAppUtil.dip2px(50), PixelTransformForAppUtil.dip2px(50))
                 .centerCrop()
-                .error(R.mipmap.icon_camera)
-                .placeholder(R.mipmap.icon_camera)
-                .fallback(R.mipmap.icon_camera)
+                .error(R.mipmap.icon_lancher)
+                .placeholder(R.mipmap.icon_lancher)
+                .fallback(R.mipmap.icon_lancher)
                 .into((ImageView) holder.getView(R.id.iv_header_image));
     }
 }

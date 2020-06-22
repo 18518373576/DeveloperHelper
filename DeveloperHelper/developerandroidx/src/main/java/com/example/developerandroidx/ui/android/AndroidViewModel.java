@@ -12,6 +12,7 @@ import com.example.developerandroidx.ui.android.broadcastReceiver.BroadcastRecei
 import com.example.developerandroidx.ui.android.camera.CameraActivity;
 import com.example.developerandroidx.ui.android.contentProvider.ContentProviderActivity;
 import com.example.developerandroidx.ui.android.fragment.FragmentActivity;
+import com.example.developerandroidx.ui.android.jni.JniActivity;
 import com.example.developerandroidx.ui.android.rxJava.RxJavaSampleActivity;
 import com.example.developerandroidx.ui.android.service.ServiceActivity;
 import com.example.developerandroidx.ui.android.touchEvent.TouchEventActivity;
@@ -52,7 +53,7 @@ public class AndroidViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("HttpRequest", R.mipmap.icon_internet, ""));
         functionList.add(new FunctionItemBean("RxJava", R.mipmap.icon_rxjava, RouteUtil.getDestination(RxJavaSampleActivity.class)));
         functionList.add(new FunctionItemBean("Animation", R.mipmap.icon_animation, RouteUtil.getDestination(AnimationActivity.class)));
-        functionList.add(new FunctionItemBean("JNI", R.mipmap.icon_jni, ""));
+        functionList.add(new FunctionItemBean("JNI", R.mipmap.icon_jni, RouteUtil.getDestination(JniActivity.class)));
         functionList.add(new FunctionItemBean("扫码", R.mipmap.icon_scan, ""));
         functionList.add(new FunctionItemBean("架构", R.mipmap.icon_architecture, ""));
         functionList.add(new FunctionItemBean("DataBinding", R.mipmap.icon_data_binding, ""));

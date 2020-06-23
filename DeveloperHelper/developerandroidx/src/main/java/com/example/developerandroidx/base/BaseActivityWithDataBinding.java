@@ -10,30 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.developerandroidx.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
 /**
- * 所有activity的基类,使用ButterKnife
+ * 所有activity的基类,使用DataBinding
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> extends AppCompatActivity {
 
     protected Context context;
-    private Unbinder unbinder;
+    protected T binding;
 
-    @BindView(R.id.tv_title)
     protected TextView tv_title;
-    @BindView(R.id.iv_back)
     protected ImageView iv_back;
-    @BindView(R.id.iv_right)
     protected ImageView iv_right;
     protected View decor;
 
@@ -42,10 +36,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         context = this;
         setAndroidNativeLightStatusBar(true);
-        setContentView(bindLayout());
 
-        unbinder = ButterKnife.bind(this);
+        binding = DataBindingUtil.setContentView(this, bindLayout());
+        binding.setLifecycleOwner(this);
 
+        tv_title = binding.getRoot().findViewById(R.id.tv_title);
+        iv_back = binding.getRoot().findViewById(R.id.iv_back);
+        iv_right = binding.getRoot().findViewById(R.id.iv_right);
+        iv_back.setOnClickListener(v -> finish());
 
         initView();
 
@@ -76,15 +74,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         tv_title.setText(title);
     }
 
-    @OnClick({R.id.iv_back})
-    public void onTitleButtonClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-        }
-    }
-
     /**
      * 设置顶栏文字颜色
      *
@@ -105,12 +94,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 获取ViewModel
      *
-     * @param owner      ViewModel库拥有者，可是是fragment或者activity
      * @param modelClass 自己定义的viewModel类
      * @return
      */
-    public ViewModel getViewModel(ViewModelStoreOwner owner, Class modelClass) {
-        return new ViewModelProvider(owner).get(modelClass);
+    public <V extends ViewModel> V getViewModel(Class<V> modelClass) {
+        return new ViewModelProvider(this).get(modelClass);
     }
 
     /**
@@ -132,15 +120,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initData() {
     }
 
-    /**
-     * 释放资源
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
-        unbinder = null;
-    }
 }

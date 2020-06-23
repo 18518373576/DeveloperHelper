@@ -11,6 +11,7 @@ import com.example.developerandroidx.ui.android.animation.AnimationActivity;
 import com.example.developerandroidx.ui.android.broadcastReceiver.BroadcastReceiverActivity;
 import com.example.developerandroidx.ui.android.camera.CameraActivity;
 import com.example.developerandroidx.ui.android.contentProvider.ContentProviderActivity;
+import com.example.developerandroidx.ui.android.dataBinding.DataBindingActivity;
 import com.example.developerandroidx.ui.android.fragment.FragmentActivity;
 import com.example.developerandroidx.ui.android.jni.JniActivity;
 import com.example.developerandroidx.ui.android.rxJava.RxJavaSampleActivity;
@@ -56,7 +57,7 @@ public class AndroidViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("JNI", R.mipmap.icon_jni, RouteUtil.getDestination(JniActivity.class)));
         functionList.add(new FunctionItemBean("扫码", R.mipmap.icon_scan, ""));
         functionList.add(new FunctionItemBean("架构", R.mipmap.icon_architecture, ""));
-        functionList.add(new FunctionItemBean("DataBinding", R.mipmap.icon_data_binding, ""));
+        functionList.add(new FunctionItemBean("DataBinding", R.mipmap.icon_data_binding, RouteUtil.getDestination(DataBindingActivity.class)));
         functionList.add(new FunctionItemBean("地图", R.mipmap.icon_map, ""));
         functionList.add(new FunctionItemBean("性能优化", R.mipmap.icon_performance_optimization,
                 RouteUtil.getDestination(CodeViewActivity.class), CodeVariate.getInstance().getCode_3()));

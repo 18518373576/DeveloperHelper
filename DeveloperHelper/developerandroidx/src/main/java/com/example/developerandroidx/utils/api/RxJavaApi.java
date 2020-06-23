@@ -2,6 +2,7 @@ package com.example.developerandroidx.utils.api;
 
 import com.example.developerandroidx.model.BlogListBean;
 import com.example.developerandroidx.model.HistoryBlogBean;
+import com.example.developerandroidx.model.WeatherModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -24,4 +25,7 @@ public interface RxJavaApi {
 
     @GET("wxarticle/list/{blogId}/{page}/json")
     Observable<HistoryBlogBean> getBlogHistoryList(@Path("blogId") String blogId, @Path("page") String page);
+
+    @GET("https://tianqiapi.com/api?version=v1&appid=88474142&appsecret=T1ns0tGh")
+    Observable<WeatherModel> getWeather();
 }

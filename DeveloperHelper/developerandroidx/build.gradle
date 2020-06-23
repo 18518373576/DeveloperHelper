@@ -6,6 +6,11 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
     ndkVersion '21.2.6472646'
 
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.example.developerandroidx"
         minSdkVersion rootProject.minSdkVersion
@@ -29,7 +34,7 @@ android {
             path "src/main/cpp/CMakeLists.txt"
         }
     }
-    
+
     flavorDimensions 'cpuArch'
     productFlavors {
         arm8 {

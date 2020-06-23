@@ -52,7 +52,7 @@ public abstract class BaseViewModel<T> extends ViewModel {
      * @return
      */
     public LiveData<T> getData() {
-        initData((String) null);
+        initData();
         return myData;
     }
 }

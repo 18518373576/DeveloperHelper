@@ -1,5 +1,6 @@
 package com.example.developerandroidx.utils;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
@@ -29,10 +30,17 @@ public class StringUtils {
      */
     public String getCurrentTime() {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyMMdd HH:mm:ss SSS");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyMMdd HH:mm:ss SSS");
         return format.format(new Date());
     }
 
+    public String getCurrentTime(String formatStr) {
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat(formatStr);
+        return format.format(new Date());
+    }
+
+    @SuppressLint("SimpleDateFormat")
     public String getFormatTime(long time, String format) {
         return new SimpleDateFormat(format).format(time);
     }

@@ -1,5 +1,10 @@
 package com.example.developerandroidx.utils;
 
+import com.example.developerandroidx.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Date: 2020/5/1 10:16
  * 参考:
@@ -16,6 +21,24 @@ public class Constant {
         public static final String MY_PREFERENCE_NAME = "MY_PREFERENCE_NAME";
         public static final String IS_PALYING = "PreferenceKey_01";
         public static final String HTTP_REQUEST_LIBRARY = "PreferenceKey_02";
+    }
+
+    private static Map<String, Integer> weatherIcon = null;
+
+    public static Map<String, Integer> getWeatherIconMap() {
+        if (weatherIcon == null) {
+            weatherIcon = new HashMap<>();
+            weatherIcon.put("xue", R.mipmap.icon_xue);
+            weatherIcon.put("lei", R.mipmap.icon_lei);
+            weatherIcon.put("shachen", R.mipmap.icon_shachen);
+            weatherIcon.put("wu", R.mipmap.icon_wu);
+            weatherIcon.put("bingbao", R.mipmap.icon_bingbao);
+            weatherIcon.put("yun", R.mipmap.icon_yun);
+            weatherIcon.put("yu", R.mipmap.icon_yu);
+            weatherIcon.put("yin", R.mipmap.icon_yin);
+            weatherIcon.put("qing", R.mipmap.icon_qing);
+        }
+        return weatherIcon;
     }
 
     /**

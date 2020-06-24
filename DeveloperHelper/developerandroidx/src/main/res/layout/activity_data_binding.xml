@@ -7,6 +7,14 @@
     <data>
 
         <variable
+            name="adapter"
+            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
+
+        <variable
+            name="linearLayoutManager"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <variable
             name="dataModel"
             type="com.example.developerandroidx.ui.android.dataBinding.DataBindingViewModel" />
     </data>
@@ -65,12 +73,95 @@
             app:layout_constraintTop_toBottomOf="@id/tv_time" />
 
         <LinearLayout
+            android:id="@+id/ll_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/iv_current_weather">
 
+            <ImageView
+                android:layout_width="@dimen/dp12"
+                android:layout_height="@dimen/dp12"
+                android:src="@mipmap/icon_air_quality" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5"
+                android:hint="良"
+                android:text="@{dataModel.airQuality}"
+                android:textSize="@dimen/sp13" />
+
+            <ImageView
+                android:layout_width="@dimen/dp12"
+                android:layout_height="@dimen/dp12"
+                android:layout_marginStart="15dp"
+                android:src="@mipmap/icon_temperature" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5"
+                android:hint="27℃"
+                android:text="@{dataModel.temperature}"
+                android:textSize="@dimen/sp13" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_desc_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ll_desc">
+
+            <ImageView
+                android:layout_width="@dimen/dp12"
+                android:layout_height="@dimen/dp12"
+                android:src="@mipmap/icon_wind_speed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5"
+                android:hint="3级"
+                android:text="@{dataModel.windSpeed}"
+                android:textSize="@dimen/sp13" />
+
+            <ImageView
+                android:layout_width="@dimen/dp12"
+                android:layout_height="@dimen/dp12"
+                android:layout_marginStart="@dimen/dp15"
+                android:src="@mipmap/icon_wind_direction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp5"
+                android:hint="东北风"
+                android:text="@{dataModel.windDirection}"
+                android:textSize="@dimen/sp13" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_weather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="310dp"
+            android:overScrollMode="never"
+            app:adapter="@{adapter}"
+            app:layoutManager="@{linearLayoutManager}" />
+
+        <com.example.developerandroidx.view.loadingView.LoadingPage
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/titleBarHeigt"
+            app:layout_constraintTop_toBottomOf="@id/include13"
+            app:loadingFailImage="@{dataModel.failImageId}"
+            app:loadingState="@{dataModel.loadingState}"
+            app:noDataMsg="@{dataModel.noDataMsg}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

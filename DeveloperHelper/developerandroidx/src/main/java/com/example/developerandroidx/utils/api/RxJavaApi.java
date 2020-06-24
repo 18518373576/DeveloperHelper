@@ -26,6 +26,6 @@ public interface RxJavaApi {
     @GET("wxarticle/list/{blogId}/{page}/json")
     Observable<HistoryBlogBean> getBlogHistoryList(@Path("blogId") String blogId, @Path("page") String page);
 
-    @GET("https://tianqiapi.com/api?version=v1&appid=88474142&appsecret=T1ns0tGh")
+    @GET("https://tianqiapi.com/api?version=v1&appid=88474142&appsecret=T1ns0tGh&cityid=101180101")
     Observable<WeatherModel> getWeather();
 }

@@ -63,6 +63,7 @@ public class DbControlActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         MessageRcvAdapter adapter = new MessageRcvAdapter();
+        adapter.setAnimationEnable(true);
         rcvMessage.setAdapter(adapter);
         viewModel = (DbControlViewModel) getViewModel(this, DbControlViewModel.class);
 
@@ -72,7 +73,7 @@ public class DbControlActivity extends BaseActivity {
         for (int i = 0; i < 100; i++) {
             messages[i] = new Message(i + "", "测试添加" + i, "", "测试" + i, new Date().getTime());
         }
-        viewModel.insertOrUpdate(messages);
+        viewModel.insert(messages);
 
 
         viewModel.getData().observe(this, new Observer<List<Message>>() {
@@ -159,9 +160,9 @@ public class DbControlActivity extends BaseActivity {
                             .load(Uri.parse(message.contactHeaderImage))
                             .override(iv_header_image.getWidth(), iv_header_image.getHeight())
                             .centerCrop()
-                            .error(R.mipmap.icon_lancher)
-                            .placeholder(R.mipmap.icon_lancher)
-                            .fallback(R.mipmap.icon_lancher)
+                            .error(R.mipmap.icon_launcher)
+                            .placeholder(R.mipmap.icon_launcher)
+                            .fallback(R.mipmap.icon_launcher)
                             .into(iv_header_image);
                     et_contact.setText(message.contactName);
                     et_contact_id.setText(message.contactId);
@@ -182,7 +183,12 @@ public class DbControlActivity extends BaseActivity {
                     String headerImageUri = (String) iv_header_image.getTag();
                     String msg = et_msg.getText().toString().trim();
                     if (!StringUtils.getInstance().isHasNull(contactName, contactId, headerImageUri, msg)) {
-                        viewModel.insertOrUpdate(new Message(contactId, msg, headerImageUri, contactName, new Date().getTime()));
+                        Message tempMsg = new Message(contactId, msg, headerImageUri, contactName, new Date().getTime());
+                        if (message == null) {
+                            viewModel.insert(tempMsg);
+                        } else {
+                            viewModel.upDate(tempMsg);
+                        }
                         dialog.doDismiss();
                     } else {
                         btn_save.startAnimation(AnimUtil.getInstance().getShakeAnim());

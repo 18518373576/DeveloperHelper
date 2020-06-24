@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.developerandroidx.db.entity.Message;
 
@@ -25,8 +26,11 @@ public interface MessageDao {
     @Query("SELECT * FROM message ORDER BY lastMsgSendTime DESC")
     Observable<List<Message>> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insert(Message... message);
+
+    @Update
+    Completable update(Message... message);
 
     @Delete
     Single<Integer> delete(Message... message);

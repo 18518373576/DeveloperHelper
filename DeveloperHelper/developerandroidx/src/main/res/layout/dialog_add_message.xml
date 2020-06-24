@@ -25,7 +25,7 @@
                 android:id="@+id/iv_header_image"
                 android:layout_width="@dimen/dp80"
                 android:layout_height="@dimen/dp80"
-                android:src="@mipmap/icon_camera" />
+                android:src="@mipmap/icon_launcher" />
         </androidx.cardview.widget.CardView>
 
         <EditText

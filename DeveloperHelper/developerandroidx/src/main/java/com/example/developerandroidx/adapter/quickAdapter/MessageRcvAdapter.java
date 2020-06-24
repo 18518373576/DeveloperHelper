@@ -15,8 +15,6 @@ import com.example.developerandroidx.view.swipeAction.QMUISwipeViewHolder;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
  * 作者： zjf 2020/6/20 2:25 PM
  * 参考：
@@ -52,9 +50,9 @@ public class MessageRcvAdapter extends BaseQuickAdapter<Message, QMUISwipeViewHo
                 .load(Uri.parse(item.contactHeaderImage))
                 .override(PixelTransformForAppUtil.dip2px(50), PixelTransformForAppUtil.dip2px(50))
                 .centerCrop()
-                .error(R.mipmap.icon_lancher)
-                .placeholder(R.mipmap.icon_lancher)
-                .fallback(R.mipmap.icon_lancher)
+                .error(R.mipmap.icon_launcher)
+                .placeholder(R.mipmap.icon_launcher)
+                .fallback(R.mipmap.icon_launcher)
                 .into((ImageView) holder.getView(R.id.iv_header_image));
     }
 }

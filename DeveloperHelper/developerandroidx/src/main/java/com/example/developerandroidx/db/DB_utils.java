@@ -3,7 +3,8 @@ package com.example.developerandroidx.db;
 import androidx.room.Room;
 
 import com.example.developerandroidx.base.App;
-import com.example.developerandroidx.db.database.AppDatabase;
+import com.example.developerandroidx.db.database.CityDatabase;
+import com.example.developerandroidx.db.database.MessageDatabase;
 
 /**
  * 作者： zjf 2020/6/19 3:43 PM
@@ -11,7 +12,8 @@ import com.example.developerandroidx.db.database.AppDatabase;
  * 描述：数据库使用工具
  */
 public class DB_utils {
-    private final AppDatabase db;
+    private final MessageDatabase messageDatabase;
+    private final CityDatabase citiesDatabase;
 //    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
 //        @Override
 //        public void migrate(SupportSQLiteDatabase database) {
@@ -31,7 +33,10 @@ public class DB_utils {
     }
 
     private DB_utils() {
-        db = Room.databaseBuilder(App.context, AppDatabase.class, "message.db")
+        messageDatabase = Room.databaseBuilder(App.context, MessageDatabase.class, "message.db")
+                .build();
+        citiesDatabase = Room.databaseBuilder(App.context, CityDatabase.class, "city.db")
+                .createFromAsset("city.db")
                 .build();
     }
 
@@ -39,8 +44,12 @@ public class DB_utils {
         return Instance.INSTANCE;
     }
 
-    public AppDatabase getDB() {
-        return db;
+    public MessageDatabase getDB() {
+        return messageDatabase;
+    }
+
+    public CityDatabase getCitiesDatabase() {
+        return citiesDatabase;
     }
 
 }

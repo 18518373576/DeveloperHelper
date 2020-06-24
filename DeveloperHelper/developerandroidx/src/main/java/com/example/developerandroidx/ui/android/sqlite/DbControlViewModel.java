@@ -52,11 +52,39 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
     }
 
     /**
-     * 插入和更新数据
+     * 更新数据
      *
      * @param message
      */
-    public void insertOrUpdate(Message... message) {
+    public void upDate(Message... message) {
+        DB_utils.getInstance().getDB().getMessageDao()
+                .update(message)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.e("数据更新", "完成");
+                        initData();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    /**
+     * 插入数据
+     *
+     * @param message
+     */
+    public void insert(Message... message) {
         DB_utils.getInstance().getDB().getMessageDao()
                 .insert(message)
                 .subscribeOn(Schedulers.io())
@@ -69,7 +97,7 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
                     @Override
                     public void onComplete() {
                         LogUtils.e("数据插入", "完成");
-                        initData((String) null);
+                        initData();
                     }
 
                     @Override
@@ -93,7 +121,7 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
                     @Override
                     public void onSuccess(Integer integer) {
                         LogUtils.e("数据删除", "完成");
-                        initData((String) null);
+                        initData();
                     }
 
                     @Override

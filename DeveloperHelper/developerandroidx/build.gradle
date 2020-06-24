@@ -21,6 +21,10 @@ android {
         //dialog窗口模糊效果
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
+
+        ndk {
+            abiFilters 'x86_64', 'x86', 'arm64-v8a', 'armeabi-v7a'
+        }
     }
 
     buildTypes {
@@ -32,27 +36,6 @@ android {
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-        }
-    }
-
-    flavorDimensions 'cpuArch'
-    productFlavors {
-        arm8 {
-            dimension 'cpuArch'
-            ndk {
-                abiFilters 'arm64-v8a', 'armeabi-v7a'
-            }
-        }
-//        x86_64 {
-//            dimension 'cpuArch'
-//            ndk {
-//                abiFilters 'x86_64', 'x86'
-//            }
-//        }
-        universal {
-            dimension 'cpuArch'
-            // include all default ABIs. with NDK-r16,  it is:
-            //   armeabi-v7a, arm64-v8a, x86, x86_64
         }
     }
 

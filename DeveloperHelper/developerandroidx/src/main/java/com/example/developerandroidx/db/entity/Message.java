@@ -31,4 +31,15 @@ public class Message {
         this.contactName = contactName;
         this.lastMsgSendTime = lastMsgSendTime;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "contactId='" + contactId + '\'' +
+                ", lastMsg='" + lastMsg + '\'' +
+                ", contactHeaderImage='" + contactHeaderImage + '\'' +
+                ", contactName='" + contactName + '\'' +
+                ", lastMsgSendTime=" + lastMsgSendTime +
+                '}';
+    }
 }

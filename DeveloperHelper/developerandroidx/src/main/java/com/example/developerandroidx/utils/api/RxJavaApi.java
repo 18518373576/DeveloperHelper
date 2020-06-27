@@ -7,6 +7,7 @@ import com.example.developerandroidx.model.WeatherModel;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * 作者： zjf 2020/6/11 9:32 AM
@@ -26,6 +27,6 @@ public interface RxJavaApi {
     @GET("wxarticle/list/{blogId}/{page}/json")
     Observable<HistoryBlogBean> getBlogHistoryList(@Path("blogId") String blogId, @Path("page") String page);
 
-    @GET("https://tianqiapi.com/api?version=v1&appid=88474142&appsecret=T1ns0tGh&cityid=101180101")
-    Observable<WeatherModel> getWeather();
+    @GET("https://tianqiapi.com/api?version=v1&appid=88474142&appsecret=T1ns0tGh")
+    Observable<WeatherModel> getWeather(@Query("cityid") String cityid);
 }

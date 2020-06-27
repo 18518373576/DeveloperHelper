@@ -5,11 +5,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.ViewDataBinding;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.utils.enumPkg.TipType;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
-import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnInputDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
 import com.kongzue.dialog.util.BaseDialog;

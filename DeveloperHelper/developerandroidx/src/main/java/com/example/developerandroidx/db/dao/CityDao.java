@@ -17,6 +17,6 @@ import io.reactivex.Observable;
 @Dao
 public interface CityDao {
 
-    @Query("SELECT * FROM city WHERE cityEn OR cityZh LIKE '%'||:cityName||'%'")
+    @Query("SELECT * FROM city WHERE cityEn LIKE '%'||:cityName||'%' OR cityZh LIKE '%'||:cityName||'%'")
     Observable<List<City>> queryByCityName(String cityName);
 }

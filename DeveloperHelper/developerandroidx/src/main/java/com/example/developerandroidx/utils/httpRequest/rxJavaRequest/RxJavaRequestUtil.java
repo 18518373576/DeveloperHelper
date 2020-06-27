@@ -45,8 +45,8 @@ public class RxJavaRequestUtil {
      *
      * @param callBack
      */
-    public void getWeather(CallBack<WeatherModel> callBack) {
-        rxJavaApi.getWeather()
+    public void getWeather(String cityId, CallBack<WeatherModel> callBack) {
+        rxJavaApi.getWeather(cityId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<WeatherModel>() {

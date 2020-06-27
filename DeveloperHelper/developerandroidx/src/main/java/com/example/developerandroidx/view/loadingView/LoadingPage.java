@@ -135,6 +135,7 @@ public class LoadingPage extends RelativeLayout {
     }
 
     public void loadingSuc() {
+        //把其余元素remove掉,只留背景,看着像要展示的内容淡出一样
         this.removeAllViews();
         animate().alpha(0f).setDuration(500).setListener(new AnimatorListenerAdapter() {
             @Override

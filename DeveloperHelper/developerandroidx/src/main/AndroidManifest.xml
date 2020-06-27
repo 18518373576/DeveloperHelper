@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         tools:targetApi="n">
-        <activity android:name=".ui.android.dataBinding.DataBindingActivity"></activity>
+        <activity android:name=".ui.android.map.BaiDuMapActivity"></activity>
+        <activity android:name=".ui.android.dataBinding.DataBindingActivity" />
         <activity android:name=".ui.android.jni.JniActivity" />
         <activity android:name=".ui.android.sqlite.DbControlActivity" />
         <activity

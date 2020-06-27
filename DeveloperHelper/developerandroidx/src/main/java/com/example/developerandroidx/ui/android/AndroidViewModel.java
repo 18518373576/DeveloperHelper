@@ -14,6 +14,7 @@ import com.example.developerandroidx.ui.android.contentProvider.ContentProviderA
 import com.example.developerandroidx.ui.android.dataBinding.DataBindingActivity;
 import com.example.developerandroidx.ui.android.fragment.FragmentActivity;
 import com.example.developerandroidx.ui.android.jni.JniActivity;
+import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
 import com.example.developerandroidx.ui.android.rxJava.RxJavaSampleActivity;
 import com.example.developerandroidx.ui.android.service.ServiceActivity;
 import com.example.developerandroidx.ui.android.touchEvent.TouchEventActivity;
@@ -58,7 +59,7 @@ public class AndroidViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("扫码", R.mipmap.icon_scan, ""));
         functionList.add(new FunctionItemBean("架构", R.mipmap.icon_architecture, ""));
         functionList.add(new FunctionItemBean("DataBinding", R.mipmap.icon_data_binding, RouteUtil.getDestination(DataBindingActivity.class)));
-        functionList.add(new FunctionItemBean("地图", R.mipmap.icon_map, ""));
+        functionList.add(new FunctionItemBean("Map", R.mipmap.icon_map, RouteUtil.getDestination(BaiDuMapActivity.class)));
         functionList.add(new FunctionItemBean("性能优化", R.mipmap.icon_performance_optimization,
                 RouteUtil.getDestination(CodeViewActivity.class), CodeVariate.getInstance().getCode_3()));
 

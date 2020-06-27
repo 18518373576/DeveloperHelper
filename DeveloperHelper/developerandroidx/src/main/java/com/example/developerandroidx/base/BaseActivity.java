@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setAndroidNativeLightStatusBar(true);
+        setNativeStatusBar(true);
         setContentView(bindLayout());
 
         unbinder = ButterKnife.bind(this);
@@ -62,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         iv_right.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
         iv_right.setBackgroundResource(R.drawable.selector_circuler_black);
         //设置顶部信号栏字体颜色
-        setAndroidNativeLightStatusBar(false);
+        setNativeStatusBar(false);
         //设置title文字颜色
         tv_title.setTextColor(getResources().getColor(R.color.white));
     }
@@ -88,11 +88,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 设置顶栏文字颜色
      *
-     * @param dark
+     * @param isDark
      */
-    protected void setAndroidNativeLightStatusBar(boolean dark) {
+    protected void setNativeStatusBar(boolean isDark) {
         decor = this.getWindow().getDecorView();
-        if (dark) {
+        if (isDark) {
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         } else {
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);

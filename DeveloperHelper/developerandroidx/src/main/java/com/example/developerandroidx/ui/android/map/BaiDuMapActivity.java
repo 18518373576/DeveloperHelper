@@ -15,7 +15,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     @Override
     protected void initView() {
         super.initView();
-        setTitle("百度地图");
+        setNativeStatusBar(StateBarType.TRAN);
     }
 
     @Override

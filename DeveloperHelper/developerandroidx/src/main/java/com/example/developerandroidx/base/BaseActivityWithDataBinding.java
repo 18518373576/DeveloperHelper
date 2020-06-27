@@ -14,7 +14,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.developerandroidx.R;
 
@@ -35,7 +34,7 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setAndroidNativeLightStatusBar(true);
+        setNativeStatusBar(StateBarType.DARK);
 
         binding = DataBindingUtil.setContentView(this, bindLayout());
         binding.setLifecycleOwner(this);
@@ -43,7 +42,9 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
         tv_title = binding.getRoot().findViewById(R.id.tv_title);
         iv_back = binding.getRoot().findViewById(R.id.iv_back);
         iv_right = binding.getRoot().findViewById(R.id.iv_right);
-        iv_back.setOnClickListener(v -> finish());
+        if (iv_back != null) {
+            iv_back.setOnClickListener(v -> finish());
+        }
 
         initView();
 
@@ -60,7 +61,7 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
         iv_right.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
         iv_right.setBackgroundResource(R.drawable.selector_circuler_black);
         //设置顶部信号栏字体颜色
-        setAndroidNativeLightStatusBar(false);
+        setNativeStatusBar(StateBarType.LIGHT);
         //设置title文字颜色
         tv_title.setTextColor(getResources().getColor(R.color.white));
     }
@@ -75,18 +76,29 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
     }
 
     /**
-     * 设置顶栏文字颜色
-     *
-     * @param dark
+     * 状态栏(展示信号区域)状态
      */
-    protected void setAndroidNativeLightStatusBar(boolean dark) {
+    protected enum StateBarType {
+        LIGHT, DARK, TRAN
+    }
+
+    /**
+     * 设置顶栏文字颜色
+     */
+    protected void setNativeStatusBar(StateBarType type) {
         decor = this.getWindow().getDecorView();
-        if (dark) {
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            //View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN设置全屏，顶栏展示图片的时候会用到
-            //decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        switch (type) {
+            case DARK:
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                break;
+            case LIGHT:
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                break;
+            case TRAN:
+                //View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN设置全屏，顶栏展示图片的时候会用到
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                decor.setAlpha(0);
+                break;
         }
     }
 

@@ -98,7 +98,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             permissionStr += Manifest.permission.WRITE_EXTERNAL_STORAGE + "##";
         }
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionStr += Manifest.permission.READ_EXTERNAL_STORAGE;
+            permissionStr += Manifest.permission.READ_EXTERNAL_STORAGE + "##";
+        }
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionStr += Manifest.permission.ACCESS_FINE_LOCATION;
         }
         String[] permissions = permissionStr.split("##");
         if (permissions.length != 0) {
@@ -155,8 +158,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1001 && resultCode == CaptureActivity.RESULT_OK)
-        {
+        if (requestCode == 1001 && resultCode == CaptureActivity.RESULT_OK) {
             DialogUtils.getInstance().showMessageDialog(context, "扫码结果", data.getStringExtra(CaptureActivity.KEY_DATA));
 
         }

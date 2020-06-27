@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.R;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
@@ -28,8 +30,16 @@ public class App extends Application {
         initDialog();
         //初始化通知
         initNotification();
-
+        //设置桌面通知数字(华为手机)
         setBadge(10);
+
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        // 默认本地个性化地图初始化方法
+        SDKInitializer.initialize(this);
+
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL);
     }
 
     /**

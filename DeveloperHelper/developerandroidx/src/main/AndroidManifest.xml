@@ -10,9 +10,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".base.App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/icon_launcher"
         android:label="@string/app_name"
         android:resizeableActivity="true"
@@ -20,10 +29,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         tools:targetApi="n">
-        <activity android:name=".ui.android.map.BaiDuMapActivity"></activity>
-        <activity android:name=".ui.android.dataBinding.DataBindingActivity" />
-        <activity android:name=".ui.android.jni.JniActivity" />
-        <activity android:name=".ui.android.sqlite.DbControlActivity" />
+        <!-- AK鉴权 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="NeLOKQfl10FRuz4xWr2yyYcLLXCsRDUV" /> <!-- http://lbsyun.baidu.com/apiconsole/key -->
+
+        <!-- 声明service组件 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true" />
+
+        <activity
+            android:name=".ui.android.map.BaiDuMapActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.android.dataBinding.DataBindingActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.android.jni.JniActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.android.sqlite.DbControlActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.widget.gesturePassword.GesturePasswordActivity"
             android:screenOrientation="portrait"

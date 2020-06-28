@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="model"
+            type="com.example.developerandroidx.ui.android.map.BaiDuMapViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +17,12 @@
         tools:context=".ui.android.map.BaiDuMapActivity">
 
         <com.baidu.mapapi.map.MapView
+            android:id="@+id/mv_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:animateMapStatus="@{model.mapStatusUpdate}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mapCustomStylePath="@{model.mapCustomStylePath}"
+            app:trafficEnabled="@{model.trafficEnabled}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

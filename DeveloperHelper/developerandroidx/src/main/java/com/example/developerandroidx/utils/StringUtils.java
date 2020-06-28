@@ -2,9 +2,24 @@ package com.example.developerandroidx.utils;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.example.developerandroidx.base.App;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @作者： zjf 2020/5/18 10:03
@@ -48,7 +63,7 @@ public class StringUtils {
     /**
      * 判断一组字符串是否有空值
      *
-     * @param strings
+     * @param strings 检查内容
      * @return
      */
     public boolean isHasNull(String... strings) {
@@ -58,5 +73,76 @@ public class StringUtils {
             }
         }
         return false;
+    }
+
+    public interface CallBack<T> {
+        void onFail(String msg);
+
+        void onSuc(T t);
+    }
+
+    /**
+     * 获取百度地图自定义样式路径
+     *
+     * @param customStyleFileName 文件名
+     * @return
+     */
+    public void getCustomStyleFilePath(String customStyleFileName, CallBack<String> callBack) {
+
+        Single.create(new SingleOnSubscribe<String>() {
+            @Override
+            public void subscribe(SingleEmitter<String> emitter) throws Exception {
+                FileOutputStream outputStream = null;
+                InputStream inputStream = null;
+                String parentPath = null;
+                try {
+                    inputStream = App.context.getAssets().open("customConfigdir/" + customStyleFileName);
+                    byte[] buffer = new byte[inputStream.available()];
+                    inputStream.read(buffer);
+
+                    parentPath = App.context.getFilesDir().getAbsolutePath();
+                    File customStyleFile = new File(parentPath + "/" + customStyleFileName);
+                    if (customStyleFile.exists()) {
+                        customStyleFile.delete();
+                    }
+                    customStyleFile.createNewFile();
+
+                    outputStream = new FileOutputStream(customStyleFile);
+                    outputStream.write(buffer);
+                } catch (IOException e) {
+                    emitter.onError(e);
+                    Log.e("CustomMapDemo", "Copy custom style file failed", e);
+                } finally {
+                    try {
+                        if (inputStream != null) {
+                            inputStream.close();
+                        }
+                        if (outputStream != null) {
+                            outputStream.close();
+                        }
+                    } catch (IOException e) {
+                        Log.e("CustomMapDemo", "Close stream failed", e);
+                    }
+                }
+                emitter.onSuccess(parentPath + "/" + customStyleFileName);
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        callBack.onSuc(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callBack.onFail(e.getMessage());
+                    }
+                });
     }
 }

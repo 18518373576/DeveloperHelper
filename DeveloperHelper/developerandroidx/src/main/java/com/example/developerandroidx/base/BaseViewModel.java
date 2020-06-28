@@ -47,6 +47,15 @@ public abstract class BaseViewModel<T> extends ViewModel {
     }
 
     /**
+     * 获取数据,不执行init方法
+     *
+     * @return 带有数据的LiveData
+     */
+    public LiveData<T> getDataWithoutInit() {
+        return myData;
+    }
+
+    /**
      * 如果数据单一用此方法获取数据
      *
      * @return

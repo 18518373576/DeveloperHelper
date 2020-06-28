@@ -17,6 +17,14 @@ public class Constant {
 
     public static boolean isDebug = true;
 
+    public static class Common {
+        //百度地图样式选择
+        public static final String LIGHT_STYLE = "LIGHT_STYLE";
+        public static final String NIGHT_STYLE = "NIGHT_STYLE";
+        public static final String DEFAULT_STYLE = "DEFAULT_STYLE";
+        public static final String MAP_3D = "MAP_3D";
+    }
+
     public static class PreferenceKeys {
         public static final String MY_PREFERENCE_NAME = "MY_PREFERENCE_NAME";
         public static final String IS_PALYING = "PreferenceKey_01";

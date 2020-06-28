@@ -2,8 +2,12 @@ package com.example.developerandroidx.base;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +33,7 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
     protected ImageView iv_back;
     protected ImageView iv_right;
     protected View decor;
+    private Window window;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,7 +91,8 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
      * 设置顶栏文字颜色
      */
     protected void setNativeStatusBar(StateBarType type) {
-        decor = this.getWindow().getDecorView();
+        window = this.getWindow();
+        decor = window.getDecorView();
         switch (type) {
             case DARK:
                 decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -95,9 +101,20 @@ public abstract class BaseActivityWithDataBinding<T extends ViewDataBinding> ext
                 decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                 break;
             case TRAN:
+                //https://www.jianshu.com/p/e89ee0a77bb5
                 //View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN设置全屏，顶栏展示图片的时候会用到
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                decor.setAlpha(0);
+//                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                if (Build.VERSION.SDK_INT >= 21) {//21表示5.0
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(Color.TRANSPARENT);
+                } else if (Build.VERSION.SDK_INT >= 19) {//19表示4.4
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    //虚拟键盘也透明
+                    //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                }
                 break;
         }
     }

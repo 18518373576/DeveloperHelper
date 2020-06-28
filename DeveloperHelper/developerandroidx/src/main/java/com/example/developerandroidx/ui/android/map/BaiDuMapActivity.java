@@ -1,11 +1,17 @@
 package com.example.developerandroidx.ui.android.map;
 
+import android.view.View;
+
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithDataBinding;
 import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
+import com.example.developerandroidx.utils.Constant;
+import com.example.developerandroidx.utils.DialogUtils;
 
-public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuMapBinding> {
+public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuMapBinding> implements View.OnClickListener {
 
+
+    private BaiDuMapViewModel viewModel;
 
     @Override
     protected int bindLayout() {
@@ -22,9 +28,10 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     protected void initData() {
         super.initData();
         //绑定viewModel
-        BaiDuMapViewModel viewModel = getViewModel(BaiDuMapViewModel.class);
+        viewModel = getViewModel(BaiDuMapViewModel.class);
         viewModel.initData();
         binding.setModel(viewModel);
+        binding.setOnClickListener(this);
     }
 
     @Override
@@ -46,5 +53,22 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         super.onDestroy();
         // 在activity执行onDestroy时必须调用mMapView.onDestroy()
         binding.mvMap.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_coverage:
+                DialogUtils.getInstance().showBottomMenu(context,
+                        new String[]{Constant.Common.LIGHT_STYLE, Constant.Common.NIGHT_STYLE,
+                                Constant.Common.DEFAULT_STYLE, Constant.Common.MAP_3D},
+                        new DialogUtils.OnItemClickListener() {
+                            @Override
+                            public void onClick(String text, int index) {
+                                viewModel.setMapCustomStylePath(text);
+                            }
+                        });
+                break;
+        }
     }
 }

@@ -2,12 +2,17 @@ package com.example.developerandroidx.utils.bindingAdapter;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.bumptech.glide.Glide;
 import com.example.developerandroidx.view.loadingView.LoadingPage;
@@ -120,9 +125,11 @@ public class ViewBindingAdapter {
      */
     @BindingAdapter("mapCustomStylePath")
     public static void setMapCustomStylePath(MapView mapView, String mapCustomStylePath) {
-        if (mapCustomStylePath != null) {
+        if (!TextUtils.isEmpty(mapCustomStylePath)) {
             mapView.setMapCustomStylePath(mapCustomStylePath);
             mapView.setMapCustomStyleEnable(true);
+        } else {
+            mapView.setMapCustomStyleEnable(false);
         }
     }
 
@@ -135,5 +142,36 @@ public class ViewBindingAdapter {
     @BindingAdapter("trafficEnabled")
     public static void setTrafficEnabled(MapView mapView, Boolean trafficEnabled) {
         mapView.getMap().setTrafficEnabled(trafficEnabled);
+    }
+
+    /**
+     * 设置地图是否可以旋转
+     */
+    @BindingAdapter("rotateEnable")
+    public static void setRotateEnable(MapView mapView, Boolean rotateEnable) {
+        mapView.getMap().getUiSettings().setRotateGesturesEnabled(rotateEnable);
+    }
+
+    /**
+     * 设置地图是否开启俯视
+     */
+    @BindingAdapter("overlookEnable")
+    public static void setOverlookEnable(MapView mapView, Boolean overlookEnable) {
+        mapView.getMap().getUiSettings().setOverlookingGesturesEnabled(overlookEnable);
+    }
+
+    /**
+     * 设置是否展示3d建筑
+     */
+    @BindingAdapter("buildingsEnabled")
+    public static void setBuildingsEnabled(MapView mapView, Boolean buildingsEnabled) {
+        BaiduMap baiduMap = mapView.getMap();
+        baiduMap.setBuildingsEnabled(buildingsEnabled);
+        MapStatus mapStatus = baiduMap.getMapStatus();
+        if (null != mapStatus) {
+            MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+            // 设置地图状态
+            baiduMap.setMapStatus(mapStatusUpdate);
+        }
     }
 }

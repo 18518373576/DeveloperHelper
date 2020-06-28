@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.android.map.BaiDuMapActivity">
 
     <data>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="model"
@@ -13,16 +17,61 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.android.map.BaiDuMapActivity">
+        android:layout_height="match_parent">
 
         <com.baidu.mapapi.map.MapView
             android:id="@+id/mv_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:animateMapStatus="@{model.mapStatusUpdate}"
+            app:buildingsEnabled="@{model.buildingsEnabled}"
             app:layout_constraintTop_toTopOf="parent"
             app:mapCustomStylePath="@{model.mapCustomStylePath}"
+            app:overlookEnable="@{model.overlookEnable}"
+            app:rotateEnable="@{model.rotateEnable}"
             app:trafficEnabled="@{model.trafficEnabled}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp100"
+            android:layout_marginEnd="@dimen/dp10"
+            android:background="@drawable/bg_circle_white_color"
+            android:elevation="@dimen/dp10"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp5"
+            android:paddingBottom="@dimen/dp5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_coverage"
+                android:layout_width="@dimen/dp35"
+                android:layout_height="@dimen/dp35"
+                android:background="@drawable/selector_circular_gray"
+                android:onClick="@{onClickListener}"
+                android:padding="@dimen/dp6"
+                android:src="@mipmap/icon_coverage"
+                android:stateListAnimator="@drawable/selector_btn_animator" />
+
+            <ImageView
+                android:layout_width="@dimen/dp35"
+                android:layout_height="@dimen/dp35"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@drawable/selector_circular_gray"
+                android:onClick="@{() -> model.toggleTrafficEnabled()}"
+                android:padding="@dimen/dp3"
+                android:src="@{model.trafficLightIcon}"
+                android:stateListAnimator="@drawable/selector_btn_animator" />
+
+            <ImageView
+                android:layout_width="@dimen/dp35"
+                android:layout_height="@dimen/dp35"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@drawable/selector_circular_gray"
+                android:padding="@dimen/dp6"
+                android:src="@mipmap/icon_current_location"
+                android:stateListAnimator="@drawable/selector_btn_animator" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

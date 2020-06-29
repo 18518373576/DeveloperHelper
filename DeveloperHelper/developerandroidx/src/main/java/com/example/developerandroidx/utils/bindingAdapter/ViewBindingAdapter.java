@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.LogoPosition;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -116,6 +117,15 @@ public class ViewBindingAdapter {
     public static void setAnimateMapStatus(MapView mapView, MapStatusUpdate statusUpdate) {
         // 更新地图
         if (statusUpdate != null) {
+            //初始化一些属性,百度log展示位置
+            mapView.setLogoPosition(LogoPosition.logoPostionRightTop);
+            mapView.getMap().setViewPadding(0, 80, 20, 0);
+            //隐藏比例尺
+            mapView.showScaleControl(false);
+            //隐藏缩放按钮
+            mapView.showZoomControls(false);
+            //隐藏指南针
+            mapView.getMap().getUiSettings().setCompassEnabled(false);
             mapView.getMap().animateMapStatus(statusUpdate);
         }
     }

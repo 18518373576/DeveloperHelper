@@ -130,7 +130,7 @@ public class AnimUtil {
      * @param values
      */
     public void startScaleAnimator(View target, int duration, float... values) {
-        startScaleAnimator(target, duration, null, values);
+        startScaleAnimator(target, duration, null, true, values);
     }
 
     /**
@@ -140,15 +140,49 @@ public class AnimUtil {
      * @param duration
      * @param interpolator
      * @param values
+     * @param isAlpha      是否带有淡入淡出效果
      */
-    public void startScaleAnimator(View target, int duration, Interpolator interpolator, float... values) {
+    public void startScaleAnimator(View target, int duration, Interpolator interpolator, boolean isAlpha, float... values) {
+        if (target.getVisibility() != View.VISIBLE) {
+            target.setVisibility(View.VISIBLE);
+        }
         AnimatorSet animatorSet = new AnimatorSet();
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(target, "scaleX", values);
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(target, "scaleY", values);
-        animatorSet.playTogether(animatorX, animatorY);
+        ObjectAnimator animatorAlpha = ObjectAnimator.ofFloat(target, "alpha", values);
+        if (isAlpha) {
+            animatorSet.playTogether(animatorX, animatorY, animatorAlpha);
+        } else {
+            target.setAlpha(1f);
+            animatorSet.playTogether(animatorX, animatorY);
+        }
         animatorSet.setDuration(duration);
         if (interpolator != null) {
             animatorSet.setInterpolator(interpolator);
+        }
+        animatorSet.start();
+    }
+
+    /**
+     * 平移+缩放动画,加弹簧效果插值器
+     *
+     * @param target
+     * @param duration
+     * @param isWithInterpolator 是否使用插值器
+     */
+    public void startTranslateAndScaleAnimator(View target, int duration, boolean isWithInterpolator, float translate, float... ScaleValues) {
+        if (target.getVisibility() != View.VISIBLE) {
+            target.setVisibility(View.VISIBLE);
+        }
+        AnimatorSet animatorSet = new AnimatorSet();
+        LogUtils.e("translationX", String.valueOf(target.getTranslationX()) + "#" + String.valueOf(translate));
+        ObjectAnimator translateAnimator = ObjectAnimator.ofFloat(target, "translationX", target.getTranslationX(), translate);
+        ObjectAnimator animatorX = ObjectAnimator.ofFloat(target, "scaleX", ScaleValues);
+        ObjectAnimator animatorY = ObjectAnimator.ofFloat(target, "scaleY", ScaleValues);
+        animatorSet.playTogether(translateAnimator, animatorX, animatorY);
+        animatorSet.setDuration(duration);
+        if (isWithInterpolator) {
+            animatorSet.setInterpolator(new SpringInterpolator(0.3f));
         }
         animatorSet.start();
     }
@@ -161,7 +195,7 @@ public class AnimUtil {
      * @param values
      */
     public void startSpringScaleAnimator(View target, int duration, float... values) {
-        startScaleAnimator(target, duration, new SpringInterpolator(0.3f), values);
+        startScaleAnimator(target, duration, new SpringInterpolator(0.3f), false, values);
     }
 
     /**

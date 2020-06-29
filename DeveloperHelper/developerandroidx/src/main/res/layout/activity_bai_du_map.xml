@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp100"
             android:layout_marginEnd="@dimen/dp10"
-            android:background="@drawable/bg_circle_white_color"
+            android:background="@drawable/bg_corner_white_color"
             android:elevation="@dimen/dp10"
             android:orientation="vertical"
             android:paddingTop="@dimen/dp5"
@@ -72,10 +72,63 @@
                 android:layout_height="@dimen/dp35"
                 android:layout_marginTop="@dimen/dp5"
                 android:background="@drawable/selector_circular_gray"
-                android:onClick="@{onClickListener}"
+                android:onClick="@{() -> model.showMyLocation()}"
                 android:padding="@dimen/dp6"
                 android:src="@mipmap/icon_current_location"
                 android:stateListAnimator="@drawable/selector_btn_animator" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp250"
+            android:background="@drawable/bg_gradual"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_riding"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
+            android:layout_marginBottom="@dimen/dp100"
+            android:background="@drawable/bg_circle_red_color"
+            android:elevation="@dimen/dp10"
+            android:onClick="@{onClickListener}"
+            android:padding="@dimen/dp30"
+            android:src="@mipmap/icon_riding"
+            android:tint="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_step"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
+            android:layout_marginBottom="@dimen/dp100"
+            android:background="@drawable/bg_circle_red_color"
+            android:elevation="@dimen/dp10"
+            android:onClick="@{onClickListener}"
+            android:padding="@dimen/dp30"
+            android:src="@mipmap/icon_step"
+            android:tint="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="@dimen/dp80"
+            android:layout_height="@dimen/dp80"
+            android:layout_marginBottom="@dimen/dp100"
+            android:background="@drawable/bg_circle_red_color"
+            android:elevation="@dimen/dp10"
+            android:onClick="@{onClickListener}"
+            android:padding="@dimen/dp30"
+            android:src="@{model.playAndStopIcon}"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

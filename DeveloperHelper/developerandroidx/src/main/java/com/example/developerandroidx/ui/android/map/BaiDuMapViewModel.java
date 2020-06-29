@@ -26,7 +26,9 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     private static final String CUSTOM_FILE_NAME_NIGHT = "BaiDuMapStyleNight.sty";
     private String fileName = CUSTOM_FILE_NAME_LIGHT;
     private String currentStyle = "";
-
+    //默认经纬度
+    private double mCurrentLat = 34.78084;
+    private double mCurrentLon = 113.702818;
     //----------------界面元素绑定数据-----------------
     //初始化地图位置
     public MutableLiveData<MapStatusUpdate> mapStatusUpdate = new MutableLiveData<>();
@@ -47,6 +49,8 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     public MutableLiveData<Boolean> myLocationEnabled = new MutableLiveData<>(true);
     //当前位置信息
     public MutableLiveData<MyLocationData> myLocation = new MutableLiveData<>();
+    //底部按钮图标资源
+    public MutableLiveData<Integer> playAndStopIcon = new MutableLiveData<>(R.mipmap.icon_play);
 
     /**
      * 初始化数据
@@ -56,8 +60,15 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     @Override
     protected void initData(@Nullable String... param) {
         //展示默认位置
-        setMapStatusUpdate(16f, -45f, 34.78084, 113.702818);
+        setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
         setMapCustomStylePath(Constant.Common.LIGHT_STYLE);
+    }
+
+    /**
+     * 设置playAndStopIcon
+     */
+    public void setPlayAndStopIcon(int iconId) {
+        playAndStopIcon.setValue(iconId);
     }
 
     /**
@@ -120,7 +131,7 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     }
 
     /**
-     * 设置和更新当前位置
+     * 设置和更新当前位置,当前位置图标在地图上的展示的位置
      *
      * @param mCurrentLat
      * @param mCurrentLon
@@ -128,6 +139,8 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      * @param mCurrentDirection
      */
     public void setMyLocation(double mCurrentLat, double mCurrentLon, float mCurrentAccracy, float mCurrentDirection) {
+        this.mCurrentLat = mCurrentLat;
+        this.mCurrentLon = mCurrentLon;
         MyLocationData myLocationData = new MyLocationData.Builder()
                 .accuracy(mCurrentAccracy)// 设置定位数据的精度信息，单位：米
                 .direction(mCurrentDirection)// 此处设置开发者获取到的方向信息，顺时针0-360
@@ -135,5 +148,12 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
                 .longitude(mCurrentLon)
                 .build();
         myLocation.setValue(myLocationData);
+    }
+
+    /**
+     * 回到当前位置,以当前位置为圆心的地图展示
+     */
+    public void showMyLocation() {
+        setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
     }
 }

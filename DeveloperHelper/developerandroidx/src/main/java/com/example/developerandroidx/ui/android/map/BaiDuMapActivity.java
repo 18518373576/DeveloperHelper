@@ -5,18 +5,19 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.MyLocationData;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithDataBinding;
 import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
+import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
+import com.example.developerandroidx.utils.PixelTransformForAppUtil;
 
 public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuMapBinding> implements View.OnClickListener {
 
@@ -131,17 +132,55 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_coverage:
-                DialogUtils.getInstance().showBottomMenu(context,
-                        new String[]{Constant.Common.LIGHT_STYLE, Constant.Common.NIGHT_STYLE, Constant.Common.DEFAULT_STYLE},
-                        new DialogUtils.OnItemClickListener() {
-                            @Override
-                            public void onClick(String text, int index) {
-                                viewModel.setMapCustomStylePath(text);
-                            }
-                        });
+                showStyleDialog();
                 break;
-            case R.id.iv_my_location:
-                viewModel.setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
+            case R.id.iv_play:
+                startAnimation(R.id.iv_play);
+                break;
+            case R.id.iv_riding:
+                startAnimation(R.id.iv_riding);
+                break;
+            case R.id.iv_step:
+                startAnimation(R.id.iv_step);
+                break;
+        }
+    }
+
+    /**
+     * 选择样式的弹框
+     */
+    private void showStyleDialog() {
+        DialogUtils.getInstance().showBottomMenu(context,
+                new String[]{Constant.Common.LIGHT_STYLE, Constant.Common.NIGHT_STYLE, Constant.Common.DEFAULT_STYLE},
+                new DialogUtils.OnItemClickListener() {
+                    @Override
+                    public void onClick(String text, int index) {
+                        viewModel.setMapCustomStylePath(text);
+                    }
+                });
+    }
+
+    /**
+     * 开启动画
+     *
+     * @param id
+     */
+    private void startAnimation(int id) {
+        switch (id) {
+            //使用动画
+            case R.id.iv_play:
+                AnimUtil.getInstance().startScaleAnimator(binding.ivPlay, 300, 1f, 0f);
+                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 1000,
+                        true, PixelTransformForAppUtil.dip2px(80), 0f, 1f);
+                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivRiding, 1000,
+                        true, -PixelTransformForAppUtil.dip2px(80), 0f, 1f);
+                break;
+            case R.id.iv_riding:
+            case R.id.iv_step:
+                viewModel.setPlayAndStopIcon(R.mipmap.icon_stop);
+                AnimUtil.getInstance().startSpringScaleAnimator(binding.ivPlay, 1000, 0f, 1f);
+                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 300, false, 0f, 1f, 0f);
+                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivRiding, 300, false, 0f, 1f, 0f);
                 break;
         }
     }

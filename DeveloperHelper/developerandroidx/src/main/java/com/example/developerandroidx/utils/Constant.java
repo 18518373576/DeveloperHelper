@@ -22,13 +22,13 @@ public class Constant {
         public static final String LIGHT_STYLE = "LIGHT_STYLE";
         public static final String NIGHT_STYLE = "NIGHT_STYLE";
         public static final String DEFAULT_STYLE = "DEFAULT_STYLE";
-        public static final String MAP_3D = "MAP_3D";
     }
 
     public static class PreferenceKeys {
         public static final String MY_PREFERENCE_NAME = "MY_PREFERENCE_NAME";
         public static final String IS_PALYING = "PreferenceKey_01";
         public static final String HTTP_REQUEST_LIBRARY = "PreferenceKey_02";
+        public static final String TRAFFIC_ENABLED = "PreferenceKey_03";
     }
 
     private static Map<String, Integer> weatherIcon = null;

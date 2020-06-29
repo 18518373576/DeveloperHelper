@@ -14,6 +14,8 @@ import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
 import com.bumptech.glide.Glide;
 import com.example.developerandroidx.view.loadingView.LoadingPage;
 import com.example.developerandroidx.view.loadingView.LoadingState;
@@ -113,8 +115,9 @@ public class ViewBindingAdapter {
     @BindingAdapter("animateMapStatus")
     public static void setAnimateMapStatus(MapView mapView, MapStatusUpdate statusUpdate) {
         // 更新地图
-        if (statusUpdate != null)
+        if (statusUpdate != null) {
             mapView.getMap().animateMapStatus(statusUpdate);
+        }
     }
 
     /**
@@ -173,5 +176,23 @@ public class ViewBindingAdapter {
             // 设置地图状态
             baiduMap.setMapStatus(mapStatusUpdate);
         }
+    }
+
+    /**
+     * 是否开启定位图层
+     */
+    @BindingAdapter("myLocationEnabled")
+    public static void setMyLocationEnabled(MapView mapView, Boolean myLocationEnabled) {
+        // 传入null，则为默认图标,参数1:当前位置模式.参数二:是否开启方向箭头.参数三:自定义位置图标
+        mapView.getMap().setMyLocationConfiguration(new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, null));
+        mapView.getMap().setMyLocationEnabled(myLocationEnabled);
+    }
+
+    /**
+     * 设置当前位置
+     */
+    @BindingAdapter("myLocationData")
+    public static void setMyLocationData(MapView mapView, MyLocationData myLocationData) {
+        mapView.getMap().setMyLocationData(myLocationData);
     }
 }

@@ -27,6 +27,8 @@
             app:buildingsEnabled="@{model.buildingsEnabled}"
             app:layout_constraintTop_toTopOf="parent"
             app:mapCustomStylePath="@{model.mapCustomStylePath}"
+            app:myLocationData="@{model.myLocation}"
+            app:myLocationEnabled="@{model.myLocationEnabled}"
             app:overlookEnable="@{model.overlookEnable}"
             app:rotateEnable="@{model.rotateEnable}"
             app:trafficEnabled="@{model.trafficEnabled}" />
@@ -65,10 +67,12 @@
                 android:stateListAnimator="@drawable/selector_btn_animator" />
 
             <ImageView
+                android:id="@+id/iv_my_location"
                 android:layout_width="@dimen/dp35"
                 android:layout_height="@dimen/dp35"
                 android:layout_marginTop="@dimen/dp5"
                 android:background="@drawable/selector_circular_gray"
+                android:onClick="@{onClickListener}"
                 android:padding="@dimen/dp6"
                 android:src="@mipmap/icon_current_location"
                 android:stateListAnimator="@drawable/selector_btn_animator" />

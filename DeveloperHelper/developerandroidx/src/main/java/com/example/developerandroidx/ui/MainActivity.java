@@ -2,6 +2,7 @@ package com.example.developerandroidx.ui;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.view.View;
 
@@ -10,10 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.model.EventBusMessageBean;
 import com.example.developerandroidx.ui.android.AndroidFragment;
+import com.example.developerandroidx.ui.android.broadcastReceiver.AppBroadcastReceiver;
 import com.example.developerandroidx.ui.java.JavaFragment;
 import com.example.developerandroidx.ui.widget.WidgetFragment;
 import com.example.developerandroidx.utils.CodeVariate;
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView nv_view;
 
     private ArrayList<NavigationBean> list;
+    private AppBroadcastReceiver mReceiver;
 
     /**
      * 绑定layout
@@ -83,6 +87,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void initData() {
         super.initData();
+        // 注册 SDK 广播监听者
+        IntentFilter iFilter = new IntentFilter();
+        iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_OK);
+        iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
+        mReceiver = new AppBroadcastReceiver();
+        registerReceiver(mReceiver, iFilter);
+
         getPermission();
     }
 
@@ -186,6 +197,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onDestroy() {
         nv_view.release();
         EventBus.getDefault().unregister(this);
+        unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 

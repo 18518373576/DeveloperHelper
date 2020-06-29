@@ -8,9 +8,11 @@ import android.os.Bundle;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.RemoteInput;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.App;
 import com.example.developerandroidx.utils.Constant;
+import com.example.developerandroidx.utils.LogUtils;
 
 /**
  * 测试BroadcastReceiver，同时作为整个APP的广播接收器使用
@@ -46,6 +48,12 @@ public class AppBroadcastReceiver extends BroadcastReceiver {
             listener.onReceived(intent);
         }
         switch (intent.getAction()) {
+            case SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR:
+                LogUtils.e("百度地图鉴权", "PERMISSION_CHECK_ERROR");
+                break;
+            case SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_OK:
+                LogUtils.e("百度地图鉴权", "PERMISSION_CHECK_OK");
+                break;
             case Intent.ACTION_SCREEN_ON:
                 /**
                  * 安卓高版本，限制了一些广播在清单文件中的申请

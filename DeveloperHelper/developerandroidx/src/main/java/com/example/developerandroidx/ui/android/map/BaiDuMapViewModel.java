@@ -15,6 +15,16 @@ import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.PreferenceUtils;
 import com.example.developerandroidx.utils.StringUtils;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * 作者： zjf 2020/6/28 9:35 AM
  * 参考：
@@ -26,6 +36,9 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     private static final String CUSTOM_FILE_NAME_NIGHT = "BaiDuMapStyleNight.sty";
     private String fileName = CUSTOM_FILE_NAME_LIGHT;
     private String currentStyle = "";
+    private long oldTime;
+    //计时启动标记,false为停止
+    private boolean timerFlag = false;
     //默认经纬度
     private double mCurrentLat = 34.78084;
     private double mCurrentLon = 113.702818;
@@ -51,6 +64,8 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     public MutableLiveData<MyLocationData> myLocation = new MutableLiveData<>();
     //底部按钮图标资源
     public MutableLiveData<Integer> playAndStopIcon = new MutableLiveData<>(R.mipmap.icon_play);
+    //计时字段展示内容
+    public MutableLiveData<String> time = new MutableLiveData<>("00:00:00");
 
     /**
      * 初始化数据
@@ -67,8 +82,8 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     /**
      * 设置playAndStopIcon
      */
-    public void setPlayAndStopIcon(int iconId) {
-        playAndStopIcon.setValue(iconId);
+    public void setPlayAndStopIcon(boolean isPalying) {
+        playAndStopIcon.setValue(isPalying ? R.mipmap.icon_stop : R.mipmap.icon_play);
     }
 
     /**
@@ -155,5 +170,61 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      */
     public void showMyLocation() {
         setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
+    }
+
+    /**
+     * 停止计时
+     */
+    public void stopTimer() {
+        timerFlag = false;
+    }
+
+    /**
+     * 开始计时
+     */
+    public void startTimer() {
+        timerFlag = true;
+        oldTime = new Date().getTime();
+        // takeUntil含义,直到 aLong > 10,也就是11才停止
+        //         .takeUntil(new Predicate<Long>() {
+        //            @Override
+        //            public boolean test(Long aLong) throws Exception {
+        //                return aLong > 10;
+        //            }
+        //        })
+        //takeWhile含义,当 aLong < 10,就发送事件,直到 aLong >= 10时停止
+        //         .takeWhile(new Predicate<Long>() {
+        //            @Override
+        //            public boolean test(Long aLong) throws Exception {
+        //                return aLong < 10;
+        //            }
+        //        })
+        Observable
+                .interval(0, 1, TimeUnit.SECONDS, Schedulers.newThread())
+                .takeWhile(aLong -> timerFlag)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        long currentTime = new Date().getTime();
+                        time.setValue(StringUtils.getInstance().getTime((int) ((currentTime - oldTime) / 1000)));
+                        LogUtils.e("倒计时", StringUtils.getInstance().getTime((int) ((currentTime - oldTime) / 1000)));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

@@ -133,6 +133,15 @@ public class AnimUtil {
         startScaleAnimator(target, duration, null, true, values);
     }
 
+    public void startAlphaAnimator(View target, int duration, float... values) {
+        if (target.getVisibility() != View.VISIBLE) {
+            target.setVisibility(View.VISIBLE);
+        }
+        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(target, "alpha", values);
+        alphaAnimator.setDuration(duration);
+        alphaAnimator.start();
+    }
+
     /**
      * 缩放动画with插值器
      *
@@ -175,7 +184,7 @@ public class AnimUtil {
             target.setVisibility(View.VISIBLE);
         }
         AnimatorSet animatorSet = new AnimatorSet();
-        LogUtils.e("translationX", String.valueOf(target.getTranslationX()) + "#" + String.valueOf(translate));
+//        LogUtils.e("translationX", String.valueOf(target.getTranslationX()) + "#" + String.valueOf(translate));
         ObjectAnimator translateAnimator = ObjectAnimator.ofFloat(target, "translationX", target.getTranslationX(), translate);
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(target, "scaleX", ScaleValues);
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(target, "scaleY", ScaleValues);

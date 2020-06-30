@@ -5,7 +5,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -25,11 +24,13 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     private BaiDuMapViewModel viewModel;
     private float mCurrentDirection = 0;
     private Double lastX = 0.0;
+    //是否首次加载位置,如果是则以当前位置为圆心展示地图
     private boolean isFirstLoc = true;
     private double mCurrentLat;
     private double mCurrentLon;
     private float mCurrentAccracy;
-    private SensorManager mSensorManager;
+    //配合底部开始和暂停的图标,默认为未开始
+    private boolean isPlaying = false;
 
     @Override
     protected int bindLayout() {
@@ -62,7 +63,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
      */
     private void initSensor() {
         // 获取传感器管理服务
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        SensorManager mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         // 为系统的方向传感器注册监听器
         mSensorManager.registerListener(new SensorEventListener() {
 
@@ -135,15 +136,40 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 showStyleDialog();
                 break;
             case R.id.iv_play:
-                startAnimation(R.id.iv_play);
+                //如果不在运动,开启运动选项
+                if (!isPlaying) {
+                    //此选项为开启运动选择,骑行或步行
+                    startSport(R.id.iv_play);
+                } else {
+                    //如果在运动,弹框提示是否要结束
+                    showAlertDialog();
+                }
                 break;
             case R.id.iv_riding:
-                startAnimation(R.id.iv_riding);
+                startSport(R.id.iv_riding);
                 break;
             case R.id.iv_step:
-                startAnimation(R.id.iv_step);
+                startSport(R.id.iv_step);
                 break;
         }
+    }
+
+    /**
+     * 展示提示对话框
+     */
+    private void showAlertDialog() {
+        DialogUtils.getInstance().showMessageDialog(context, "提示", "确定是否结束运动", "结束", "继续", new DialogUtils.OnButtonClickedListener() {
+            @Override
+            public void onClick(String msg, boolean isOkButton) {
+                if (isOkButton) {
+                    //结束运动
+                    isPlaying = false;
+                    viewModel.stopTimer();
+                    viewModel.setPlayAndStopIcon(isPlaying);
+                    AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, 500, 1f, 0f);
+                }
+            }
+        });
     }
 
     /**
@@ -161,11 +187,11 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     }
 
     /**
-     * 开启动画
+     * 开启运动
      *
      * @param id
      */
-    private void startAnimation(int id) {
+    private void startSport(int id) {
         switch (id) {
             //使用动画
             case R.id.iv_play:
@@ -177,10 +203,13 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 break;
             case R.id.iv_riding:
             case R.id.iv_step:
-                viewModel.setPlayAndStopIcon(R.mipmap.icon_stop);
+                isPlaying = true;
+                viewModel.startTimer();
+                viewModel.setPlayAndStopIcon(isPlaying);
                 AnimUtil.getInstance().startSpringScaleAnimator(binding.ivPlay, 1000, 0f, 1f);
                 AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 300, false, 0f, 1f, 0f);
                 AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivRiding, 300, false, 0f, 1f, 0f);
+                AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, 500, 0f, 1f);
                 break;
         }
     }
@@ -201,6 +230,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
 
     @Override
     protected void onDestroy() {
+        viewModel.stopTimer();
         // 在activity执行onDestroy时必须调用mMapView.onDestroy()
         binding.mvMap.onDestroy();
         super.onDestroy();

@@ -145,4 +145,22 @@ public class StringUtils {
                     }
                 });
     }
+
+    /**
+     * 获取倒计时
+     *
+     * @param l 单位秒
+     * @return 00:00:00
+     */
+    public String getTime(int l) {
+        StringBuffer buffer = new StringBuffer();
+
+        int hour = l / 3600;
+        int minute = (l % 3600) / 60;
+        int sec = (l % 3600) % 60;
+        buffer.append(hour >= 10 ? hour : "0" + hour).append(":")
+                .append(minute >= 10 ? minute : "0" + minute).append(":")
+                .append(sec >= 10 ? sec : "0" + sec);
+        return buffer.toString();
+    }
 }

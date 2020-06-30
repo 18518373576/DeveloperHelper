@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -16,9 +17,10 @@ import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
+import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
 
-public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuMapBinding> implements View.OnClickListener {
+public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuMapBinding> implements View.OnClickListener, View.OnTouchListener {
 
 
     private BaiDuMapViewModel viewModel;
@@ -26,8 +28,8 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     private Double lastX = 0.0;
     //是否首次加载位置,如果是则以当前位置为圆心展示地图
     private boolean isFirstLoc = true;
-    private double mCurrentLat;
-    private double mCurrentLon;
+    private double mCurrentLat = 34.78084;
+    private double mCurrentLon = 113.702818;
     private float mCurrentAccracy;
     //配合底部开始和暂停的图标,默认为未开始
     private boolean isPlaying = false;
@@ -52,6 +54,8 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         binding.setModel(viewModel);
         //绑定点击事件监听
         binding.setOnClickListener(this);
+        //绑定触摸事件
+        binding.setOnTouchListener(this);
         //定位初始化
         initLocation();
         //初始化传感器,用于确定方向
@@ -116,14 +120,68 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
             mCurrentLat = location.getLatitude();
             mCurrentLon = location.getLongitude();
             mCurrentAccracy = location.getRadius();
-//            LogUtils.e("经纬度mCurrentLat", String.valueOf(mCurrentLat));
-//            LogUtils.e("经纬度mCurrentLon", String.valueOf(mCurrentLon));
+            LogUtils.e("经纬度mCurrentLat", String.valueOf(mCurrentLat));
+            LogUtils.e("经纬度mCurrentLon", String.valueOf(mCurrentLon));
             viewModel.setMyLocation(mCurrentLat, mCurrentLon, mCurrentAccracy, mCurrentDirection);
             if (isFirstLoc) {
                 isFirstLoc = false;
                 viewModel.setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
             }
         }
+    }
+
+    /**
+     * 触摸事件
+     *
+     * @param v
+     * @param event
+     * @return
+     */
+    float down_x;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                down_x = event.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (v.getVisibility() != View.VISIBLE) {
+                    return true;
+                }
+                float translate_x = event.getX() - down_x;
+                LogUtils.e("手指位移", String.valueOf(translate_x));
+                switch (v.getId()) {
+                    case R.id.iv_riding:
+                        if (translate_x > 100) {
+                            startOrCancelSport(R.id.iv_riding, true);
+                        }
+                        break;
+                    case R.id.iv_step:
+                        if (translate_x < -100) {
+                            startOrCancelSport(R.id.iv_step, true);
+                        }
+                        break;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                float translate_up_x = event.getX() - down_x;
+                switch (v.getId()) {
+                    case R.id.iv_riding:
+                        if (translate_up_x < 50) {
+                            startOrCancelSport(R.id.iv_riding, false);
+                        }
+                        break;
+                    case R.id.iv_step:
+                        if (translate_up_x > -50) {
+                            startOrCancelSport(R.id.iv_step, false);
+                        }
+                        break;
+                }
+                break;
+        }
+
+        return true;
     }
 
     /**
@@ -139,17 +197,11 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 //如果不在运动,开启运动选项
                 if (!isPlaying) {
                     //此选项为开启运动选择,骑行或步行
-                    startSport(R.id.iv_play);
+                    startOrCancelSport(R.id.iv_play, false);
                 } else {
                     //如果在运动,弹框提示是否要结束
                     showAlertDialog();
                 }
-                break;
-            case R.id.iv_riding:
-                startSport(R.id.iv_riding);
-                break;
-            case R.id.iv_step:
-                startSport(R.id.iv_step);
                 break;
         }
     }
@@ -166,7 +218,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                     isPlaying = false;
                     viewModel.stopTimer();
                     viewModel.setPlayAndStopIcon(isPlaying);
-                    AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, 500, 1f, 0f);
+                    AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, true, 500, 1f, 0f);
                 }
             }
         });
@@ -187,29 +239,31 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     }
 
     /**
-     * 开启运动
+     * 开启运动,执行一些动画效果,非主要逻辑可略过
      *
      * @param id
      */
-    private void startSport(int id) {
+    private void startOrCancelSport(int id, boolean isCancel) {
         switch (id) {
             //使用动画
             case R.id.iv_play:
-                AnimUtil.getInstance().startScaleAnimator(binding.ivPlay, 300, 1f, 0f);
+                AnimUtil.getInstance().startScaleAnimator(binding.ivPlay, 300, true, 1f, 0f);
                 AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 1000,
-                        true, PixelTransformForAppUtil.dip2px(80), 0f, 1f);
+                        true, false, PixelTransformForAppUtil.dip2px(80), 0f, 1f);
                 AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivRiding, 1000,
-                        true, -PixelTransformForAppUtil.dip2px(80), 0f, 1f);
+                        true, false, -PixelTransformForAppUtil.dip2px(80), 0f, 1f);
                 break;
             case R.id.iv_riding:
             case R.id.iv_step:
-                isPlaying = true;
-                viewModel.startTimer();
-                viewModel.setPlayAndStopIcon(isPlaying);
+                if (!isCancel) {
+                    isPlaying = true;
+                    viewModel.startTimer();
+                    viewModel.setPlayAndStopIcon(isPlaying);
+                    AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, false, 500, 0f, 1f);
+                }
                 AnimUtil.getInstance().startSpringScaleAnimator(binding.ivPlay, 1000, 0f, 1f);
-                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 300, false, 0f, 1f, 0f);
-                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivRiding, 300, false, 0f, 1f, 0f);
-                AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, 500, 0f, 1f);
+                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 300, false, true, 0f, 1f, 0f);
+                AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivRiding, 300, false, true, 0f, 1f, 0f);
                 break;
         }
     }

@@ -11,6 +11,10 @@
             type="android.view.View.OnClickListener" />
 
         <variable
+            name="onTouchListener"
+            type="android.view.View.OnTouchListener" />
+
+        <variable
             name="model"
             type="com.example.developerandroidx.ui.android.map.BaiDuMapViewModel" />
     </data>
@@ -25,13 +29,21 @@
             android:layout_height="match_parent"
             app:animateMapStatus="@{model.mapStatusUpdate}"
             app:buildingsEnabled="@{model.buildingsEnabled}"
+            app:init="@{model.init}"
             app:layout_constraintTop_toTopOf="parent"
             app:mapCustomStylePath="@{model.mapCustomStylePath}"
+            app:myLocationConfiguration="@{model.myLocationIconMode}"
             app:myLocationData="@{model.myLocation}"
             app:myLocationEnabled="@{model.myLocationEnabled}"
             app:overlookEnable="@{model.overlookEnable}"
             app:rotateEnable="@{model.rotateEnable}"
             app:trafficEnabled="@{model.trafficEnabled}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp100"
+            android:background="@drawable/bg_gradual_270"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,7 +64,7 @@
                 android:layout_height="@dimen/dp35"
                 android:background="@drawable/selector_circular_gray"
                 android:onClick="@{onClickListener}"
-                android:padding="@dimen/dp6"
+                android:padding="@dimen/dp8"
                 android:src="@mipmap/icon_coverage"
                 android:stateListAnimator="@drawable/selector_btn_animator" />
 
@@ -74,53 +86,53 @@
                 android:background="@drawable/selector_circular_gray"
                 android:onClick="@{() -> model.showMyLocation()}"
                 android:padding="@dimen/dp6"
-                android:src="@mipmap/icon_current_location"
+                android:src="@{model.myLocationIcon}"
                 android:stateListAnimator="@drawable/selector_btn_animator" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp250"
-            android:background="@drawable/bg_gradual"
+            android:layout_height="@dimen/dp280"
+            android:background="@drawable/bg_gradual_90"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
             android:id="@+id/iv_riding"
             android:layout_width="@dimen/dp80"
             android:layout_height="@dimen/dp80"
-            android:layout_marginBottom="@dimen/dp100"
+            android:layout_marginBottom="@dimen/dp120"
             android:background="@drawable/bg_circle_red_color"
             android:elevation="@dimen/dp10"
-            android:onClick="@{onClickListener}"
             android:padding="@dimen/dp30"
             android:src="@mipmap/icon_riding"
             android:tint="@color/white"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onTouchListener="@{onTouchListener}" />
 
         <ImageView
             android:id="@+id/iv_step"
             android:layout_width="@dimen/dp80"
             android:layout_height="@dimen/dp80"
-            android:layout_marginBottom="@dimen/dp100"
+            android:layout_marginBottom="@dimen/dp120"
             android:background="@drawable/bg_circle_red_color"
             android:elevation="@dimen/dp10"
-            android:onClick="@{onClickListener}"
             android:padding="@dimen/dp30"
             android:src="@mipmap/icon_step"
             android:tint="@color/white"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onTouchListener="@{onTouchListener}" />
 
         <ImageView
             android:id="@+id/iv_play"
             android:layout_width="@dimen/dp80"
             android:layout_height="@dimen/dp80"
-            android:layout_marginBottom="@dimen/dp100"
+            android:layout_marginBottom="@dimen/dp120"
             android:background="@drawable/bg_circle_red_color"
             android:elevation="@dimen/dp10"
             android:onClick="@{onClickListener}"
@@ -135,6 +147,7 @@
             android:id="@+id/ll_sport_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp30"
             android:alpha="0"
             android:orientation="horizontal"
             android:padding="@dimen/dp20"
@@ -188,5 +201,17 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/dp120"
+            android:layout_height="@dimen/dp30"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/dp12"
+            android:src="@drawable/bg_circle_gray_color"
+            android:stateListAnimator="@drawable/selector_btn_animator"
+            app:layout_constraintBottom_toBottomOf="@+id/mv_map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

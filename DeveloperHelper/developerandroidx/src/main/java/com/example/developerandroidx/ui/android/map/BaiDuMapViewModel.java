@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.developerandroidx.R;
@@ -42,6 +43,12 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     //默认经纬度
     private double mCurrentLat = 34.78084;
     private double mCurrentLon = 113.702818;
+    //地图位置展示模式图标
+    private int[] locationIcons = new int[]{R.mipmap.icon_current_location_gray, R.mipmap.icon_current_location, R.mipmap.icon_compass};
+    private MyLocationConfiguration.LocationMode[] locationModes =
+            new MyLocationConfiguration.LocationMode[]{MyLocationConfiguration.LocationMode.NORMAL,
+                    MyLocationConfiguration.LocationMode.FOLLOWING,
+                    MyLocationConfiguration.LocationMode.COMPASS};
     //----------------界面元素绑定数据-----------------
     //初始化地图位置
     public MutableLiveData<MapStatusUpdate> mapStatusUpdate = new MutableLiveData<>();
@@ -60,8 +67,15 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
             !PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.TRAFFIC_ENABLED) ? R.mipmap.icon_traffic_light_gray : R.mipmap.icon_traffic_light);
     //是否开启当前位置定位图层
     public MutableLiveData<Boolean> myLocationEnabled = new MutableLiveData<>(true);
+    //地图初始化设置
+    public MutableLiveData<Boolean> init = new MutableLiveData<>(true);
     //当前位置信息
     public MutableLiveData<MyLocationData> myLocation = new MutableLiveData<>();
+    //当前位置模式图标
+    public MutableLiveData<Integer> myLocationIcon = new MutableLiveData<>(
+            locationIcons[PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0)]);
+    public MutableLiveData<MyLocationConfiguration.LocationMode> myLocationIconMode = new MutableLiveData<>(
+            locationModes[PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0)]);
     //底部按钮图标资源
     public MutableLiveData<Integer> playAndStopIcon = new MutableLiveData<>(R.mipmap.icon_play);
     //计时字段展示内容
@@ -146,6 +160,20 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     }
 
     /**
+     * 设置地图旋转角度
+     *
+     * @param rotate
+     */
+    public void setMapStatusUpdate(float rotate) {
+        // 构建地图状态
+        MapStatus.Builder builder = new MapStatus.Builder();
+        // 缩放级别
+        builder.rotate(rotate);
+        // 更新地图
+        mapStatusUpdate.setValue(MapStatusUpdateFactory.newMapStatus(builder.build()));
+    }
+
+    /**
      * 设置和更新当前位置,当前位置图标在地图上的展示的位置
      *
      * @param mCurrentLat
@@ -169,7 +197,16 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      * 回到当前位置,以当前位置为圆心的地图展示
      */
     public void showMyLocation() {
-        setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
+//        setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
+        int locationMode = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0);
+        int nextMode = (locationMode + 1) % 3;
+        if (nextMode != 2) {
+            //不是罗盘模式的时候,恢复旋转为0,就是上北下南
+            setMapStatusUpdate(0f);
+        }
+        myLocationIcon.setValue(locationIcons[nextMode]);
+        myLocationIconMode.setValue(locationModes[nextMode]);
+        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.LOCATION_MODE, nextMode);
     }
 
     /**

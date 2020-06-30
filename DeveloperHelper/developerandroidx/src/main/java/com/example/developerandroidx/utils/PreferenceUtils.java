@@ -66,7 +66,27 @@ public class PreferenceUtils {
      * @param key
      * @return
      */
-    public String getStringalue(String key) {
+    public String getStringValue(String key) {
         return preferences.getString(key, "");
+    }
+
+    /**
+     * 存储整形
+     *
+     * @param key
+     * @param value
+     */
+    public void putIntValue(String key, Integer value) {
+        preferences.edit().putInt(key, value).apply();
+    }
+
+    /**
+     * 获取存储的字符串
+     *
+     * @param key
+     * @return
+     */
+    public Integer getIntValue(String key, int defValue) {
+        return preferences.getInt(key, defValue);
     }
 }

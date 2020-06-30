@@ -60,7 +60,7 @@ public class HttpRequestActivity extends BaseActivity implements BaseRcvAdapter.
          * {@link com.example.developerandroidx.ui.android.httpRequest.dialog.HttpRequestLibraryDialog}
          *  请求使用的库 "OkHttp", "Volley", "Retrofit"
          */
-        requestLibrary = PreferenceUtils.getInstance().getStringalue(Constant.PreferenceKeys.HTTP_REQUEST_LIBRARY);
+        requestLibrary = PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.HTTP_REQUEST_LIBRARY);
         viewModel = (HttpRequestViewModel) getViewModel(this, HttpRequestViewModel.class);
         viewModel.getData(requestLibrary).observe(this, new Observer<BaseModel>() {
             @Override

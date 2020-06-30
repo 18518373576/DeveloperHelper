@@ -29,6 +29,7 @@ public class Constant {
         public static final String IS_PALYING = "PreferenceKey_01";
         public static final String HTTP_REQUEST_LIBRARY = "PreferenceKey_02";
         public static final String TRAFFIC_ENABLED = "PreferenceKey_03";
+        public static final String LOCATION_MODE = "PreferenceKey_04";
     }
 
     private static Map<String, Integer> weatherIcon = null;

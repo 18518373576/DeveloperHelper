@@ -130,15 +130,43 @@ public class AnimUtil {
      * @param values
      */
     public void startScaleAnimator(View target, int duration, float... values) {
-        startScaleAnimator(target, duration, null, true, values);
+        startScaleAnimator(target, duration, null, true, false, values);
     }
 
-    public void startAlphaAnimator(View target, int duration, float... values) {
+    /**
+     * 动画执行完成后,是否隐藏视图
+     *
+     * @param target
+     * @param duration
+     * @param isEndGone
+     * @param values
+     */
+    public void startScaleAnimator(View target, int duration, boolean isEndGone, float... values) {
+        startScaleAnimator(target, duration, null, true, true, values);
+    }
+
+    /**
+     * 开启淡入淡出动画
+     *
+     * @param target
+     * @param duration
+     * @param values
+     */
+    public void startAlphaAnimator(View target, boolean isEndGone, int duration, float... values) {
         if (target.getVisibility() != View.VISIBLE) {
             target.setVisibility(View.VISIBLE);
         }
         ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(target, "alpha", values);
         alphaAnimator.setDuration(duration);
+        if (isEndGone) {
+            alphaAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    target.setVisibility(View.GONE);
+                }
+            });
+        }
         alphaAnimator.start();
     }
 
@@ -151,7 +179,7 @@ public class AnimUtil {
      * @param values
      * @param isAlpha      是否带有淡入淡出效果
      */
-    public void startScaleAnimator(View target, int duration, Interpolator interpolator, boolean isAlpha, float... values) {
+    public void startScaleAnimator(View target, int duration, Interpolator interpolator, boolean isAlpha, boolean isEndGone, float... values) {
         if (target.getVisibility() != View.VISIBLE) {
             target.setVisibility(View.VISIBLE);
         }
@@ -169,6 +197,15 @@ public class AnimUtil {
         if (interpolator != null) {
             animatorSet.setInterpolator(interpolator);
         }
+        if (isEndGone) {
+            animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    target.setVisibility(View.GONE);
+                }
+            });
+        }
         animatorSet.start();
     }
 
@@ -179,7 +216,7 @@ public class AnimUtil {
      * @param duration
      * @param isWithInterpolator 是否使用插值器
      */
-    public void startTranslateAndScaleAnimator(View target, int duration, boolean isWithInterpolator, float translate, float... ScaleValues) {
+    public void startTranslateAndScaleAnimator(View target, int duration, boolean isWithInterpolator, boolean isEndGone, float translate, float... ScaleValues) {
         if (target.getVisibility() != View.VISIBLE) {
             target.setVisibility(View.VISIBLE);
         }
@@ -193,6 +230,15 @@ public class AnimUtil {
         if (isWithInterpolator) {
             animatorSet.setInterpolator(new SpringInterpolator(0.3f));
         }
+        if (isEndGone) {
+            animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    target.setVisibility(View.GONE);
+                }
+            });
+        }
         animatorSet.start();
     }
 
@@ -204,7 +250,7 @@ public class AnimUtil {
      * @param values
      */
     public void startSpringScaleAnimator(View target, int duration, float... values) {
-        startScaleAnimator(target, duration, new SpringInterpolator(0.3f), false, values);
+        startScaleAnimator(target, duration, new SpringInterpolator(0.3f), false, false, values);
     }
 
     /**

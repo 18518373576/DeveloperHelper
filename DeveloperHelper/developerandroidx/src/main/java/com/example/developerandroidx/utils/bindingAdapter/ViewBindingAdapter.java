@@ -3,6 +3,7 @@ package com.example.developerandroidx.utils.bindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
@@ -28,6 +29,13 @@ import com.example.developerandroidx.view.loadingView.LoadingState;
  */
 public class ViewBindingAdapter {
 
+    /**
+     * ------------------View---------------------
+     */
+    @BindingAdapter("onTouchListener")
+    public static void setOnTouchListener(View view, View.OnTouchListener onTouchListener) {
+        view.setOnTouchListener(onTouchListener);
+    }
     /**
      * ------------------imageView--------------------------
      */
@@ -117,16 +125,28 @@ public class ViewBindingAdapter {
     public static void setAnimateMapStatus(MapView mapView, MapStatusUpdate statusUpdate) {
         // 更新地图
         if (statusUpdate != null) {
-            //初始化一些属性,百度log展示位置
+            mapView.getMap().animateMapStatus(statusUpdate);
+        }
+    }
+
+    /**
+     * 执行一些地图的基础设置
+     *
+     * @param mapView
+     * @param init
+     */
+    @BindingAdapter("init")
+    public static void initMap(MapView mapView, Boolean init) {
+        if (init) {
+            //初始化一些属性,百度log展示位置,
             mapView.setLogoPosition(LogoPosition.logoPostionRightTop);
-            mapView.getMap().setViewPadding(0, 80, 20, 0);
+            mapView.getMap().setViewPadding(0, 80, 30, 0);
             //隐藏比例尺
             mapView.showScaleControl(false);
             //隐藏缩放按钮
             mapView.showZoomControls(false);
             //隐藏指南针
             mapView.getMap().getUiSettings().setCompassEnabled(false);
-            mapView.getMap().animateMapStatus(statusUpdate);
         }
     }
 
@@ -193,9 +213,16 @@ public class ViewBindingAdapter {
      */
     @BindingAdapter("myLocationEnabled")
     public static void setMyLocationEnabled(MapView mapView, Boolean myLocationEnabled) {
-        // 传入null，则为默认图标,参数1:当前位置模式.参数二:是否开启方向箭头.参数三:自定义位置图标
-        mapView.getMap().setMyLocationConfiguration(new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, null));
         mapView.getMap().setMyLocationEnabled(myLocationEnabled);
+    }
+
+    /**
+     * 设置当前位置展示模式
+     */
+    @BindingAdapter("myLocationConfiguration")
+    public static void setMyLocationConfiguration(MapView mapView, MyLocationConfiguration.LocationMode locationMode) {
+        // 传入null，则为默认图标,参数1:当前位置模式.参数二:是否开启方向箭头.参数三:自定义位置图标
+        mapView.getMap().setMyLocationConfiguration(new MyLocationConfiguration(locationMode, true, null));
     }
 
     /**

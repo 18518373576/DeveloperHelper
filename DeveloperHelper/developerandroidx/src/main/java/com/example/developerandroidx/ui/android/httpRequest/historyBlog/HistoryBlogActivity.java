@@ -59,7 +59,7 @@ public class HistoryBlogActivity extends BaseActivity implements OnItemClickList
     protected void initData() {
         super.initData();
         id = getIntent().getStringExtra(Constant.IntentParams.INTENT_PARAM);
-        requestLibrary = PreferenceUtils.getInstance().getStringalue(Constant.PreferenceKeys.HTTP_REQUEST_LIBRARY);
+        requestLibrary = PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.HTTP_REQUEST_LIBRARY);
         viewModel = (HistoryBlogViewModel) getViewModel(this, HistoryBlogViewModel.class);
 
         lv_loading.onLoading(rcv_blog_history);

@@ -163,4 +163,24 @@ public class StringUtils {
                 .append(sec >= 10 ? sec : "0" + sec);
         return buffer.toString();
     }
+
+    /**
+     * 获取距离
+     *
+     * @param distance 单位米
+     * @return 单位千米
+     */
+    public String getDistance(float distance) {
+        return String.format("%.2f", distance / 1000f);
+    }
+
+    /**
+     * 获取步数,前面补0
+     *
+     * @param steps
+     * @return
+     */
+    public String getSteps(int steps) {
+        return String.format("%05d", steps);
+    }
 }

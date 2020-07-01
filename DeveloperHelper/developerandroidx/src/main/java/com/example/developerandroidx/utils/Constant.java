@@ -26,10 +26,14 @@ public class Constant {
 
     public static class PreferenceKeys {
         public static final String MY_PREFERENCE_NAME = "MY_PREFERENCE_NAME";
-        public static final String IS_PALYING = "PreferenceKey_01";
+        public static final String IS_PLAYING = "PreferenceKey_01";
         public static final String HTTP_REQUEST_LIBRARY = "PreferenceKey_02";
         public static final String TRAFFIC_ENABLED = "PreferenceKey_03";
         public static final String LOCATION_MODE = "PreferenceKey_04";
+        public static final String LOCATION_LAT = "PreferenceKey_05";
+        public static final String LOCATION_LON = "PreferenceKey_06";
+        public static final String IS_SPORTING = "PreferenceKey_07";
+        public static final String SPORT_TYPE = "PreferenceKey_08";
     }
 
     private static Map<String, Integer> weatherIcon = null;

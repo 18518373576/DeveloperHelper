@@ -9,21 +9,24 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseViewModel;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.PreferenceUtils;
 import com.example.developerandroidx.utils.StringUtils;
+import com.example.developerandroidx.utils.enumPkg.SportType;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -37,12 +40,13 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     private static final String CUSTOM_FILE_NAME_NIGHT = "BaiDuMapStyleNight.sty";
     private String fileName = CUSTOM_FILE_NAME_LIGHT;
     private String currentStyle = "";
-    private long oldTime;
-    //计时启动标记,false为停止
-    private boolean timerFlag = false;
+    //运动启动标记,false为停止
+    private boolean sportFlag = false;
     //默认经纬度
-    private double mCurrentLat = 34.78084;
-    private double mCurrentLon = 113.702818;
+    private double lat = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LAT, "34.78084"));
+    private double lon = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LON, "113.702818"));
+    //地图上画线的点
+    private List<LatLng> points = new ArrayList<>();
     //地图位置展示模式图标
     private int[] locationIcons = new int[]{R.mipmap.icon_current_location_gray, R.mipmap.icon_current_location, R.mipmap.icon_compass};
     private MyLocationConfiguration.LocationMode[] locationModes =
@@ -71,6 +75,8 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     public MutableLiveData<Boolean> init = new MutableLiveData<>(true);
     //当前位置信息
     public MutableLiveData<MyLocationData> myLocation = new MutableLiveData<>();
+    //地图上画线的点
+    public MutableLiveData<List<LatLng>> overlayPoints = new MutableLiveData<>();
     //当前位置模式图标
     public MutableLiveData<Integer> myLocationIcon = new MutableLiveData<>(
             locationIcons[PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0)]);
@@ -80,6 +86,10 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     public MutableLiveData<Integer> playAndStopIcon = new MutableLiveData<>(R.mipmap.icon_play);
     //计时字段展示内容
     public MutableLiveData<String> time = new MutableLiveData<>("00:00:00");
+    //当为骑行是为运动距离,步行时为运动步数
+    public MutableLiveData<String> sportTitle = new MutableLiveData<>("运动距离");
+    //运动的距离或步数
+    public MutableLiveData<String> stepOrDistance = new MutableLiveData<>("0000");
 
     /**
      * 初始化数据
@@ -89,8 +99,24 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     @Override
     protected void initData(@Nullable String... param) {
         //展示默认位置
-        setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
+        LogUtils.e("默认的点", lat + "#" + lon);
+        setMapStatusUpdate(16f, -45f, lat, lon);
         setMapCustomStylePath(Constant.Common.LIGHT_STYLE);
+    }
+
+    public void setSportTitle(SportType sportType) {
+        switch (sportType) {
+            case STEP:
+                sportTitle.setValue("运动步数");
+                break;
+            case RIDING:
+                sportTitle.setValue("运动距离");
+                break;
+        }
+    }
+
+    public void setStepOrDistance(String stepOrDistanceNum) {
+        stepOrDistance.setValue(stepOrDistanceNum);
     }
 
     /**
@@ -160,11 +186,23 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     }
 
     /**
+     * 设置地图缩放比例
+     */
+    public void setMapStatusZoomUpdate(float zoom) {
+        // 构建地图状态
+        MapStatus.Builder builder = new MapStatus.Builder();
+        // 缩放级别
+        builder.zoom(zoom);
+        // 更新地图
+        mapStatusUpdate.setValue(MapStatusUpdateFactory.newMapStatus(builder.build()));
+    }
+
+    /**
      * 设置地图旋转角度
      *
      * @param rotate
      */
-    public void setMapStatusUpdate(float rotate) {
+    public void setMapStatusRotateUpdate(float rotate) {
         // 构建地图状态
         MapStatus.Builder builder = new MapStatus.Builder();
         // 缩放级别
@@ -182,8 +220,19 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      * @param mCurrentDirection
      */
     public void setMyLocation(double mCurrentLat, double mCurrentLon, float mCurrentAccracy, float mCurrentDirection) {
-        this.mCurrentLat = mCurrentLat;
-        this.mCurrentLon = mCurrentLon;
+        //如果两个点的距离小于0.5米或大于10米,则抛弃点,避免在同一个位置停留过久,在成资源浪费
+        if (DistanceUtil.getDistance(new LatLng(lat, lon), new LatLng(mCurrentLat, mCurrentLon)) > 0.2) {
+//            LogUtils.e("距离", String.valueOf(DistanceUtil.getDistance(new LatLng(lat, lon), new LatLng(mCurrentLat, mCurrentLon))));
+            lat = mCurrentLat;
+            lon = mCurrentLon;
+            //记录运动轨迹,构建坐标
+            if (sportFlag) {
+                if (DistanceUtil.getDistance(new LatLng(lat, lon), new LatLng(mCurrentLat, mCurrentLon)) < 5) {
+                    points.add(new LatLng(lat, lon));
+                    overlayPoints.setValue(points);
+                }
+            }
+        }
         MyLocationData myLocationData = new MyLocationData.Builder()
                 .accuracy(mCurrentAccracy)// 设置定位数据的精度信息，单位：米
                 .direction(mCurrentDirection)// 此处设置开发者获取到的方向信息，顺时针0-360
@@ -197,12 +246,11 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      * 回到当前位置,以当前位置为圆心的地图展示
      */
     public void showMyLocation() {
-//        setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
         int locationMode = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0);
         int nextMode = (locationMode + 1) % 3;
         if (nextMode != 2) {
             //不是罗盘模式的时候,恢复旋转为0,就是上北下南
-            setMapStatusUpdate(0f);
+            setMapStatusRotateUpdate(0f);
         }
         myLocationIcon.setValue(locationIcons[nextMode]);
         myLocationIconMode.setValue(locationModes[nextMode]);
@@ -210,58 +258,24 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     }
 
     /**
-     * 停止计时
+     * 停止运动,停止计时
      */
-    public void stopTimer() {
-        timerFlag = false;
+    public void stopSport() {
+        sportFlag = false;
+        points.clear();
     }
 
     /**
-     * 开始计时
+     * 开始运动,开始计时,并记录运动轨迹
      */
-    public void startTimer() {
-        timerFlag = true;
-        oldTime = new Date().getTime();
-        // takeUntil含义,直到 aLong > 10,也就是11才停止
-        //         .takeUntil(new Predicate<Long>() {
-        //            @Override
-        //            public boolean test(Long aLong) throws Exception {
-        //                return aLong > 10;
-        //            }
-        //        })
-        //takeWhile含义,当 aLong < 10,就发送事件,直到 aLong >= 10时停止
-        //         .takeWhile(new Predicate<Long>() {
-        //            @Override
-        //            public boolean test(Long aLong) throws Exception {
-        //                return aLong < 10;
-        //            }
-        //        })
-        Observable
-                .interval(0, 1, TimeUnit.SECONDS, Schedulers.newThread())
-                .takeWhile(aLong -> timerFlag)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+    public void startSport() {
+        sportFlag = true;
+    }
 
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        long currentTime = new Date().getTime();
-                        time.setValue(StringUtils.getInstance().getTime((int) ((currentTime - oldTime) / 1000)));
-                        LogUtils.e("倒计时", StringUtils.getInstance().getTime((int) ((currentTime - oldTime) / 1000)));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+    /**
+     * 更新计时时间
+     */
+    public void setTimer(String timer) {
+        time.setValue(timer);
     }
 }

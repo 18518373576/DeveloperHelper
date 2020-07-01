@@ -43,7 +43,10 @@
 
         <activity
             android:name=".ui.android.map.BaiDuMapActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:taskAffinity=""
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.android.dataBinding.DataBindingActivity"

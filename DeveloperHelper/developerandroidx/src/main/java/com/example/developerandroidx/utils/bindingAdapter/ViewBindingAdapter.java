@@ -18,9 +18,15 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
+import com.baidu.mapapi.model.LatLng;
 import com.bumptech.glide.Glide;
 import com.example.developerandroidx.view.loadingView.LoadingPage;
 import com.example.developerandroidx.view.loadingView.LoadingState;
+
+import java.util.List;
 
 /**
  * 作者： zjf 2020/6/23 12:10 PM
@@ -231,5 +237,24 @@ public class ViewBindingAdapter {
     @BindingAdapter("myLocationData")
     public static void setMyLocationData(MapView mapView, MyLocationData myLocationData) {
         mapView.getMap().setMyLocationData(myLocationData);
+    }
+
+    /**
+     * 在地图上画线
+     */
+    @BindingAdapter("addOverlay")
+    public static void addOverlay(MapView mapView, List<LatLng> points) {
+        if (points != null && points.size() > 2) {
+            //清除所有覆盖图层
+            mapView.getMap().clear();
+            //设置折线的属性
+            OverlayOptions mOverlayOptions = new PolylineOptions()
+                    .width(5)
+                    .color(0xAAFF0000)
+                    .points(points);
+            //在地图上绘制折线
+            //mPloyline 折线对象
+            Overlay mPolyline = mapView.getMap().addOverlay(mOverlayOptions);
+        }
     }
 }

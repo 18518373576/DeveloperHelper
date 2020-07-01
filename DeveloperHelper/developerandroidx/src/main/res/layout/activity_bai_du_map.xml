@@ -27,6 +27,7 @@
             android:id="@+id/mv_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:addOverlay="@{model.overlayPoints}"
             app:animateMapStatus="@{model.mapStatusUpdate}"
             app:buildingsEnabled="@{model.buildingsEnabled}"
             app:init="@{model.init}"
@@ -74,7 +75,7 @@
                 android:layout_marginTop="@dimen/dp5"
                 android:background="@drawable/selector_circular_gray"
                 android:onClick="@{() -> model.toggleTrafficEnabled()}"
-                android:padding="@dimen/dp3"
+                android:padding="@dimen/dp5"
                 android:src="@{model.trafficLightIcon}"
                 android:stateListAnimator="@drawable/selector_btn_animator" />
 
@@ -187,7 +188,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="运动距离"
+                    android:text="@{model.sportTitle}"
                     android:textColor="@color/textColor"
                     android:textSize="@dimen/sp12" />
 
@@ -195,7 +196,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp3"
-                    android:text="00.00KM"
+                    android:text="@{model.stepOrDistance}"
                     android:textColor="@color/textColorBlack"
                     android:textSize="@dimen/sp20"
                     android:textStyle="bold" />

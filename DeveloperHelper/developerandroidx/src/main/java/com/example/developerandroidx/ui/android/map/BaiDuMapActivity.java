@@ -1,38 +1,53 @@
 package com.example.developerandroidx.ui.android.map;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithDataBinding;
 import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
+import com.example.developerandroidx.model.GpsEnentBusMsg;
+import com.example.developerandroidx.model.SportDescEventBusMsg;
+import com.example.developerandroidx.service.MapSportService;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
-import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
+import com.example.developerandroidx.utils.PreferenceUtils;
+import com.example.developerandroidx.utils.enumPkg.SportType;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuMapBinding> implements View.OnClickListener, View.OnTouchListener {
 
 
     private BaiDuMapViewModel viewModel;
-    private float mCurrentDirection = 0;
-    private Double lastX = 0.0;
-    //是否首次加载位置,如果是则以当前位置为圆心展示地图
-    private boolean isFirstLoc = true;
-    private double mCurrentLat = 34.78084;
-    private double mCurrentLon = 113.702818;
-    private float mCurrentAccracy;
+
     //配合底部开始和暂停的图标,默认为未开始
-    private boolean isPlaying = false;
+    private boolean isSporting = PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_SPORTING);
+    //服务实例
+    private MapSportService sportService;
+    //服务连接
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MapSportService.MyBinder binder = (MapSportService.MyBinder) service;
+            sportService = binder.getService();
+            sportService.initLocation();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected int bindLayout() {
@@ -42,6 +57,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     @Override
     protected void initView() {
         super.initView();
+        EventBus.getDefault().register(this);
         setNativeStatusBar(StateBarType.TRAN);
     }
 
@@ -51,87 +67,64 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         //绑定viewModel
         viewModel = getViewModel(BaiDuMapViewModel.class);
         viewModel.initData();
+        //定位服务开启
+        bindService(new Intent(context, MapSportService.class), connection, Context.BIND_AUTO_CREATE);
+
         binding.setModel(viewModel);
         //绑定点击事件监听
         binding.setOnClickListener(this);
         //绑定触摸事件
         binding.setOnTouchListener(this);
-        //定位初始化
-        initLocation();
-        //初始化传感器,用于确定方向
-        initSensor();
+        //如果运动没有结束,则恢复的运动状态
+        recoverSporting(isSporting);
     }
 
-    /**
-     * 初始化传感器
-     */
-    private void initSensor() {
-        // 获取传感器管理服务
-        SensorManager mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        // 为系统的方向传感器注册监听器
-        mSensorManager.registerListener(new SensorEventListener() {
-
-            @Override
-            public void onSensorChanged(SensorEvent sensorEvent) {
-                double x = sensorEvent.values[SensorManager.DATA_X];
-                if (Math.abs(x - lastX) > 1.0) {
-                    mCurrentDirection = (int) x;
-                    viewModel.setMyLocation(mCurrentLat, mCurrentLon, mCurrentAccracy, mCurrentDirection);
-                }
-                lastX = x;
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-        }, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_UI);
-    }
-
-    /**
-     * 定位初始化
-     */
-    public void initLocation() {
-        // 开启定位图层,通过DataBinding进行数据绑定
-//        binding.mvMap.getMap().setMyLocationEnabled(true);
-        // 定位初始化
-        LocationClient mLocClient = new LocationClient(this);
-        mLocClient.registerLocationListener(new MyLocationListener());
-        LocationClientOption option = new LocationClientOption();
-        // 打开gps
-        option.setOpenGps(true);
-        // 设置坐标类型
-        option.setCoorType("bd09ll");
-        option.setScanSpan(2000);
-        mLocClient.setLocOption(option);
-        mLocClient.start();
-    }
-
-    /**
-     * 定位SDK监听函数
-     */
-    private class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // MapView 销毁后不在处理新接收的位置
-            if (location == null) {
-                return;
-            }
-            mCurrentLat = location.getLatitude();
-            mCurrentLon = location.getLongitude();
-            mCurrentAccracy = location.getRadius();
-            LogUtils.e("经纬度mCurrentLat", String.valueOf(mCurrentLat));
-            LogUtils.e("经纬度mCurrentLon", String.valueOf(mCurrentLon));
-            viewModel.setMyLocation(mCurrentLat, mCurrentLon, mCurrentAccracy, mCurrentDirection);
-            if (isFirstLoc) {
-                isFirstLoc = false;
-                viewModel.setMapStatusUpdate(16f, -45f, mCurrentLat, mCurrentLon);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveLocationMsg(GpsEnentBusMsg msg) {
+        viewModel.setMyLocation(msg.currentLat, msg.currentLon, msg.currentAccracy, msg.currentDirection);
+        if (msg.isFirstLoc) {
+            if (isSporting) {
+                viewModel.setMapStatusUpdate(19f, -45f, msg.currentLat, msg.currentLon);
+            } else {
+                viewModel.setMapStatusUpdate(16f, -45f, msg.currentLat, msg.currentLon);
             }
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveSportMsg(SportDescEventBusMsg msg) {
+        viewModel.setTimer(msg.time);
+        switch (msg.sportType) {
+            case RIDING:
+                viewModel.setStepOrDistance(msg.distance + "KM");
+                break;
+            case STEP:
+                viewModel.setStepOrDistance(msg.steps);
+                break;
+        }
+    }
+
     /**
-     * 触摸事件
+     * 运动没有结束退出界面后再进来,恢复运动
+     *
+     * @param isSporting
+     */
+    private void recoverSporting(boolean isSporting) {
+        if (isSporting) {
+            //开启运动,主要作用是更新地图画线的标志
+            viewModel.startSport();
+            if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0) == R.id.iv_riding) {
+                viewModel.setSportTitle(SportType.RIDING);
+            } else {
+                viewModel.setSportTitle(SportType.STEP);
+            }
+            viewModel.setPlayAndStopIcon(true);
+            AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, false, 500, 0f, 1f);
+        }
+    }
+
+    /**
+     * 触摸事件,执行底部按钮的动画效果,非主要逻辑
      *
      * @param v
      * @param event
@@ -150,7 +143,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                     return true;
                 }
                 float translate_x = event.getX() - down_x;
-                LogUtils.e("手指位移", String.valueOf(translate_x));
+//                LogUtils.e("手指位移", String.valueOf(translate_x));
                 switch (v.getId()) {
                     case R.id.iv_riding:
                         if (translate_x > 100) {
@@ -166,21 +159,11 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 break;
             case MotionEvent.ACTION_UP:
                 float translate_up_x = event.getX() - down_x;
-                switch (v.getId()) {
-                    case R.id.iv_riding:
-                        if (translate_up_x < 50) {
-                            startOrCancelSport(R.id.iv_riding, false);
-                        }
-                        break;
-                    case R.id.iv_step:
-                        if (translate_up_x > -50) {
-                            startOrCancelSport(R.id.iv_step, false);
-                        }
-                        break;
+                if (translate_up_x > -10 && translate_up_x < 10) {
+                    startOrCancelSport(v.getId(), false);
                 }
                 break;
         }
-
         return true;
     }
 
@@ -195,7 +178,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 break;
             case R.id.iv_play:
                 //如果不在运动,开启运动选项
-                if (!isPlaying) {
+                if (!isSporting) {
                     //此选项为开启运动选择,骑行或步行
                     startOrCancelSport(R.id.iv_play, false);
                 } else {
@@ -215,10 +198,14 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
             public void onClick(String msg, boolean isOkButton) {
                 if (isOkButton) {
                     //结束运动
-                    isPlaying = false;
-                    viewModel.stopTimer();
-                    viewModel.setPlayAndStopIcon(isPlaying);
+                    isSporting = false;
+                    PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, false);
+                    viewModel.stopSport();
+                    sportService.stopSport();
+                    viewModel.setPlayAndStopIcon(isSporting);
                     AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, true, 500, 1f, 0f);
+                    //结束运动时把地图缩小到默认值
+                    viewModel.setMapStatusZoomUpdate(16f);
                 }
             }
         });
@@ -255,11 +242,31 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 break;
             case R.id.iv_riding:
             case R.id.iv_step:
+                //运动开启标志,运动结束逻辑在提示框showAlertDialog
                 if (!isCancel) {
-                    isPlaying = true;
-                    viewModel.startTimer();
-                    viewModel.setPlayAndStopIcon(isPlaying);
+                    isSporting = true;
+                    //保存运动状态,正在运动
+                    PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, true);
+                    //保存正在运动的项目
+                    PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.SPORT_TYPE, id);
+                    //开启运动时执行startService,避免退出界面后服务销毁,当没有开启运动时使用bindService,退出界面服务自动销毁
+                    //在服务的stopSport方法中执行了stopSelf(),运动结束结束服务,绑定取消服务销毁
+                    startService(new Intent(context, MapSportService.class));
+
+                    //开启运动,主要作用是更新地图画线的标志
+                    viewModel.startSport();
+                    if (id == R.id.iv_riding) {
+                        viewModel.setSportTitle(SportType.RIDING);
+                        //服务运动开启,主要作用是开启运动计时,计算步数和距离
+                        sportService.startSport(SportType.RIDING);
+                    } else {
+                        viewModel.setSportTitle(SportType.STEP);
+                        sportService.startSport(SportType.STEP);
+                    }
+                    viewModel.setPlayAndStopIcon(isSporting);
                     AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, false, 500, 0f, 1f);
+                    //开始运动时,把地图放大
+                    viewModel.setMapStatusZoomUpdate(19f);
                 }
                 AnimUtil.getInstance().startSpringScaleAnimator(binding.ivPlay, 1000, 0f, 1f);
                 AnimUtil.getInstance().startTranslateAndScaleAnimator(binding.ivStep, 300, false, true, 0f, 1f, 0f);
@@ -284,7 +291,9 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
 
     @Override
     protected void onDestroy() {
-        viewModel.stopTimer();
+        EventBus.getDefault().unregister(this);
+        unbindService(connection);
+        viewModel.stopSport();
         // 在activity执行onDestroy时必须调用mMapView.onDestroy()
         binding.mvMap.onDestroy();
         super.onDestroy();

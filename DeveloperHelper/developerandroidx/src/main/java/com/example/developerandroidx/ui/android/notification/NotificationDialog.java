@@ -220,7 +220,7 @@ public class NotificationDialog {
     private PendingIntent pendingIntent;
 
     private void showCustomNotification(Context context) {
-        PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_PALYING, false);
+        PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_PLAYING, false);
         //使用上下文注册一个广播,用于接收自定义view的事件
         registerBroadcastReceiver(context);
         //自定义通知栏的小图
@@ -284,13 +284,13 @@ public class NotificationDialog {
                                 break;
                             case PLAY_STOP:
                                 //默认没播放，点击播放按钮切换播放状态
-                                boolean isPlaying = !PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_PALYING);
+                                boolean isPlaying = !PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_PLAYING);
                                 if (isPlaying) {
                                     notificationLayout.setImageViewResource(R.id.iv_play_stop, R.mipmap.icon_stop);
                                 } else {
                                     notificationLayout.setImageViewResource(R.id.iv_play_stop, R.mipmap.icon_play);
                                 }
-                                PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_PALYING, isPlaying);
+                                PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_PLAYING, isPlaying);
                                 notificationManager.notify(104, customNotification);
                                 break;
                         }

@@ -70,6 +70,10 @@ public class PreferenceUtils {
         return preferences.getString(key, "");
     }
 
+    public String getStringValue(String key, String defValue) {
+        return preferences.getString(key, defValue);
+    }
+
     /**
      * 存储整形
      *

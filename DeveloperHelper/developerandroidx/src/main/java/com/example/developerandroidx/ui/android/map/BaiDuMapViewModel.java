@@ -45,8 +45,6 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     //默认经纬度
     private double lat = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LAT, "34.78084"));
     private double lon = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LON, "113.702818"));
-    //地图上画线的点
-    private List<LatLng> points = new ArrayList<>();
     //地图位置展示模式图标
     private int[] locationIcons = new int[]{R.mipmap.icon_current_location_gray, R.mipmap.icon_current_location, R.mipmap.icon_compass};
     private MyLocationConfiguration.LocationMode[] locationModes =
@@ -212,6 +210,13 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     }
 
     /**
+     * 更新地图上的轨迹
+     */
+    public void setOverlayPoints(List<LatLng> points) {
+        overlayPoints.setValue(points);
+    }
+
+    /**
      * 设置和更新当前位置,当前位置图标在地图上的展示的位置
      *
      * @param mCurrentLat
@@ -220,19 +225,6 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      * @param mCurrentDirection
      */
     public void setMyLocation(double mCurrentLat, double mCurrentLon, float mCurrentAccracy, float mCurrentDirection) {
-        //如果两个点的距离小于0.5米或大于10米,则抛弃点,避免在同一个位置停留过久,在成资源浪费
-        if (DistanceUtil.getDistance(new LatLng(lat, lon), new LatLng(mCurrentLat, mCurrentLon)) > 0.2) {
-//            LogUtils.e("距离", String.valueOf(DistanceUtil.getDistance(new LatLng(lat, lon), new LatLng(mCurrentLat, mCurrentLon))));
-            lat = mCurrentLat;
-            lon = mCurrentLon;
-            //记录运动轨迹,构建坐标
-            if (sportFlag) {
-                if (DistanceUtil.getDistance(new LatLng(lat, lon), new LatLng(mCurrentLat, mCurrentLon)) < 5) {
-                    points.add(new LatLng(lat, lon));
-                    overlayPoints.setValue(points);
-                }
-            }
-        }
         MyLocationData myLocationData = new MyLocationData.Builder()
                 .accuracy(mCurrentAccracy)// 设置定位数据的精度信息，单位：米
                 .direction(mCurrentDirection)// 此处设置开发者获取到的方向信息，顺时针0-360
@@ -262,7 +254,6 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      */
     public void stopSport() {
         sportFlag = false;
-        points.clear();
     }
 
     /**

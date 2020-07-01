@@ -9,7 +9,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
@@ -27,7 +26,6 @@ import com.example.developerandroidx.base.App;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
 import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
-import com.example.developerandroidx.ui.android.notification.NotificationActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.PreferenceUtils;
@@ -36,7 +34,9 @@ import com.example.developerandroidx.utils.enumPkg.SportType;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -154,6 +154,10 @@ public class MapSportService extends Service {
     /**
      * 定位SDK监听函数
      */
+    //地图上画线的点
+    private List<LatLng> points = new ArrayList<>();
+    double i = 0.001;
+
     private class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -165,6 +169,14 @@ public class MapSportService extends Service {
                 double pointsDistance = DistanceUtil.getDistance(new LatLng(mCurrentLat, mCurrentLon), new LatLng(location.getLatitude(), location.getLongitude()));
                 if (pointsDistance < 5) {
                     distance += pointsDistance;
+                }
+                //测试画线
+//                points.add(new LatLng(mCurrentLat + i, mCurrentLon + i));
+//                i += 0.0001;
+//                EventBus.getDefault().post(points);
+                if (pointsDistance < 5 && pointsDistance > 0.1) {
+                    points.add(new LatLng(mCurrentLat, mCurrentLon));
+                    EventBus.getDefault().post(points);
                 }
             }
             mCurrentLat = location.getLatitude();
@@ -230,6 +242,8 @@ public class MapSportService extends Service {
         steps = 0;
         currentSportType = sportType;
         sportFlag = true;
+        //保存运动状态,正在运动
+        PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, true);
         startTimer();
         startForeground();
     }
@@ -239,6 +253,8 @@ public class MapSportService extends Service {
      */
     public void stopSport() {
         sportFlag = false;
+        points.clear();
+        PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, false);
         stopForeground();
         stopSelf();
     }
@@ -306,6 +322,7 @@ public class MapSportService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         return super.onStartCommand(intent, flags, startId);
     }
 

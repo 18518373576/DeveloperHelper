@@ -40,8 +40,6 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     private static final String CUSTOM_FILE_NAME_NIGHT = "BaiDuMapStyleNight.sty";
     private String fileName = CUSTOM_FILE_NAME_LIGHT;
     private String currentStyle = "";
-    //运动启动标记,false为停止
-    private boolean sportFlag = false;
     //默认经纬度
     private double lat = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LAT, "34.78084"));
     private double lon = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LON, "113.702818"));
@@ -98,7 +96,11 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     protected void initData(@Nullable String... param) {
         //展示默认位置
         LogUtils.e("默认的点", lat + "#" + lon);
-        setMapStatusUpdate(16f, -45f, lat, lon);
+        if (PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_SPORTING)) {
+            setMapStatusUpdate(19f, -45f, lat, lon);
+        } else {
+            setMapStatusUpdate(16f, -45f, lat, lon);
+        }
         setMapCustomStylePath(Constant.Common.LIGHT_STYLE);
     }
 
@@ -247,20 +249,6 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
         myLocationIcon.setValue(locationIcons[nextMode]);
         myLocationIconMode.setValue(locationModes[nextMode]);
         PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.LOCATION_MODE, nextMode);
-    }
-
-    /**
-     * 停止运动,停止计时
-     */
-    public void stopSport() {
-        sportFlag = false;
-    }
-
-    /**
-     * 开始运动,开始计时,并记录运动轨迹
-     */
-    public void startSport() {
-        sportFlag = true;
     }
 
     /**

@@ -44,13 +44,6 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
             MapSportService.MyBinder binder = (MapSportService.MyBinder) service;
             sportService = binder.getService();
             sportService.initLocation();
-            if (isSporting) {
-                if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0) == R.id.iv_riding) {
-                    sportService.startSport(SportType.RIDING);
-                } else {
-                    sportService.startSport(SportType.STEP);
-                }
-            }
         }
 
         @Override
@@ -127,9 +120,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     private void recoverSporting(boolean isSporting) {
         if (isSporting) {
             startService(new Intent(this, MapSportService.class));
-            //开启运动,主要作用是更新地图画线的标志
-            viewModel.startSport();
-            if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0) == R.id.iv_riding) {
+            if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0) == Constant.Common.RIDING) {
                 viewModel.setSportTitle(SportType.RIDING);
             } else {
                 viewModel.setSportTitle(SportType.STEP);
@@ -215,7 +206,6 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 if (isOkButton) {
                     //结束运动
                     isSporting = false;
-                    viewModel.stopSport();
                     sportService.stopSport();
                     viewModel.setPlayAndStopIcon(isSporting);
                     AnimUtil.getInstance().startAlphaAnimator(binding.llSportDesc, true, 500, 1f, 0f);
@@ -260,19 +250,19 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 //运动开启标志,运动结束逻辑在提示框showAlertDialog
                 if (!isCancel) {
                     isSporting = true;
-                    //保存正在运动的项目
-                    PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.SPORT_TYPE, id);
                     //开启运动时执行startService,避免退出界面后服务销毁,当没有开启运动时使用bindService,退出界面服务自动销毁
                     //在服务的stopSport方法中执行了stopSelf(),运动结束结束服务,绑定取消服务销毁
                     startService(new Intent(context, MapSportService.class));
 
-                    //开启运动,主要作用是更新地图画线的标志
-                    viewModel.startSport();
                     if (id == R.id.iv_riding) {
+                        //保存正在运动的项目
+                        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.SPORT_TYPE, Constant.Common.RIDING);
                         viewModel.setSportTitle(SportType.RIDING);
                         //服务运动开启,主要作用是开启运动计时,计算步数和距离
                         sportService.startSport(SportType.RIDING);
                     } else {
+                        //保存正在运动的项目
+                        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.SPORT_TYPE, Constant.Common.STEP);
                         viewModel.setSportTitle(SportType.STEP);
                         sportService.startSport(SportType.STEP);
                     }
@@ -306,7 +296,6 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         unbindService(connection);
-        viewModel.stopSport();
         // 在activity执行onDestroy时必须调用mMapView.onDestroy()
         binding.mvMap.onDestroy();
         super.onDestroy();

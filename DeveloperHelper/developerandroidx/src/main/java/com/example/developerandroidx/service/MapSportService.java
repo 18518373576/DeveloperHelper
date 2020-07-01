@@ -62,7 +62,7 @@ public class MapSportService extends Service {
     private double mCurrentLat = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LAT, "34.78084"));
     private double mCurrentLon = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LON, "113.702818"));
     private float mCurrentAccracy;
-    private boolean sportFlag = false;
+    private boolean sportFlag = PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_SPORTING);
     private long oldTime;
     private SportType currentSportType;
 
@@ -70,6 +70,8 @@ public class MapSportService extends Service {
     private float distance = 0;
     //运动步数
     private int steps = 0;
+    //上次时间间隔
+    private int lastTimeSpace = 0;
     private NotificationCompat.Builder builder;
     private PendingIntent pendingIntent;
     private String title;
@@ -93,6 +95,7 @@ public class MapSportService extends Service {
                     if (sportFlag) {
                         if ((int) sensorEvent.values[0] == 1) {
                             steps++;
+                            PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.STEP, steps);
                         }
                     }
                     break;
@@ -169,6 +172,7 @@ public class MapSportService extends Service {
                 double pointsDistance = DistanceUtil.getDistance(new LatLng(mCurrentLat, mCurrentLon), new LatLng(location.getLatitude(), location.getLongitude()));
                 if (pointsDistance < 5) {
                     distance += pointsDistance;
+                    PreferenceUtils.getInstance().putStringValue(Constant.PreferenceKeys.DISTANCE, String.valueOf(distance));
                 }
                 //测试画线
 //                points.add(new LatLng(mCurrentLat + i, mCurrentLon + i));
@@ -238,8 +242,6 @@ public class MapSportService extends Service {
      * 开始运动
      */
     public void startSport(SportType sportType) {
-        distance = 0;
-        steps = 0;
         currentSportType = sportType;
         sportFlag = true;
         //保存运动状态,正在运动
@@ -254,7 +256,12 @@ public class MapSportService extends Service {
     public void stopSport() {
         sportFlag = false;
         points.clear();
+        distance = 0;
+        steps = 0;
         PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, false);
+        PreferenceUtils.getInstance().putStringValue(Constant.PreferenceKeys.DISTANCE, "0");
+        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.STEP, 0);
+        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.TIME_SPACE, 0);
         stopForeground();
         stopSelf();
     }
@@ -288,13 +295,16 @@ public class MapSportService extends Service {
                     @Override
                     public void onNext(Long aLong) {
                         long currentTime = new Date().getTime();
-                        String time = StringUtils.getInstance().getTime((int) ((currentTime - oldTime) / 1000));
+                        //时间间隔
+                        int timeSpace = (int) ((currentTime - oldTime) / 1000) + lastTimeSpace;
+                        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.TIME_SPACE, timeSpace);
+                        String time = StringUtils.getInstance().getTime(timeSpace);
 //                        LogUtils.e("倒计时", StringUtils.getInstance().getTime((int) ((currentTime - oldTime) / 1000)));
                         EventBus.getDefault().post(new SportDescEventBusMsg(time, StringUtils.getInstance().getSteps(steps),
                                 StringUtils.getInstance().getDistance(distance), currentSportType));
 
                         //更新通知,每隔3秒更新一次
-                        if (((int) ((currentTime - oldTime) / 1000) % 3) == 0) {
+                        if ((timeSpace % 3) == 0) {
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MapSportService.this);
                             content = currentSportType == SportType.STEP ?
                                     "运动步数:" + StringUtils.getInstance().getSteps(steps) + "步" :
@@ -302,6 +312,7 @@ public class MapSportService extends Service {
                             initNotificationBuilder();
                             notificationManager.notify(102, builder.build());
                         }
+
                     }
 
                     @Override
@@ -316,14 +327,28 @@ public class MapSportService extends Service {
 
     @Override
     public void onCreate() {
+        if (sportFlag) {
+            distance = Float.parseFloat(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.DISTANCE, "0"));
+            steps = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.STEP, 0);
+            lastTimeSpace = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.TIME_SPACE, 0);
+            if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0) == Constant.Common.RIDING) {
+                startSport(SportType.RIDING);
+            } else {
+                startSport(SportType.STEP);
+            }
+        }
         super.onCreate();
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return super.onUnbind(intent);
     }
 
     @Override

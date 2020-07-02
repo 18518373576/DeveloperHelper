@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.RouteUtil;

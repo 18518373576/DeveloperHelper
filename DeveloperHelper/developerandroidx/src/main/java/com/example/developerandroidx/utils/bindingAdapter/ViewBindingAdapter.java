@@ -244,12 +244,12 @@ public class ViewBindingAdapter {
      */
     @BindingAdapter("addOverlay")
     public static void addOverlay(MapView mapView, List<LatLng> points) {
-        if (points != null && points.size() > 2) {
+        if (points != null && points.size() > 1) {
             //清除所有覆盖图层
             mapView.getMap().clear();
             //设置折线的属性
             OverlayOptions mOverlayOptions = new PolylineOptions()
-                    .width(5)
+                    .width(8)
                     .color(0xAAFF0000)
                     .points(points);
             //在地图上绘制折线

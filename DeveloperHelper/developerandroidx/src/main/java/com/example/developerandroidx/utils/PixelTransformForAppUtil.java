@@ -5,7 +5,7 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 
 /**
  * @作者： zjf 2020/5/11 11:04

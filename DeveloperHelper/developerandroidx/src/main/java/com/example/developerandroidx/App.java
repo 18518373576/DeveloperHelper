@@ -1,4 +1,4 @@
-package com.example.developerandroidx.base;
+package com.example.developerandroidx;
 
 import android.app.Application;
 import android.app.NotificationChannel;
@@ -20,6 +20,9 @@ public class App extends Application {
     public static String IMPORTANCE_HIGH_CHANNEL_ID;
     public static String IMPORTANCE_LOW_CHANNEL_ID;
     public static int defaults;
+
+    //是否注册唤醒的广播
+    public static boolean isRegisterReceiver = false;
 
     @Override
     public void onCreate() {

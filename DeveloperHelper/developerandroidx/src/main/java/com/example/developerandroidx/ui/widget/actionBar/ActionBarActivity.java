@@ -11,9 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.base.BaseActivity;
-import com.example.developerandroidx.ui.widget.codeView.CodeViewActivity;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.RouteUtil;
 

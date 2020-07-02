@@ -15,10 +15,10 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.RemoteInput;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.model.EventBusMessageBean;
-import com.example.developerandroidx.ui.android.broadcastReceiver.AppBroadcastReceiver;
-import com.example.developerandroidx.ui.android.service.service.TestIntentService;
+import com.example.developerandroidx.receiver.AppBroadcastReceiver;
+import com.example.developerandroidx.service.TestIntentService;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.PreferenceUtils;

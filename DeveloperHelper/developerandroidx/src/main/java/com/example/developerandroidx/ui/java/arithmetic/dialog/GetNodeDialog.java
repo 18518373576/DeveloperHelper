@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.projectInterface.FunctionDialogInterface;
 import com.example.developerandroidx.ui.java.dataStructure.dataStructureClass.SingleLinkedList;
 import com.example.developerandroidx.utils.DialogUtils;

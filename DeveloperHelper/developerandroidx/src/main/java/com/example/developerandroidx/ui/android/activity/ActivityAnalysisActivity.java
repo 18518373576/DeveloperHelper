@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.android.activity.activityforResult.ForResultActivity;
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleInstanceActivity;

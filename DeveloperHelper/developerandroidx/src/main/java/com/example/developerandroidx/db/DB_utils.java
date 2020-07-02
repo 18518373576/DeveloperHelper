@@ -2,7 +2,7 @@ package com.example.developerandroidx.db;
 
 import androidx.room.Room;
 
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.db.database.CityDatabase;
 import com.example.developerandroidx.db.database.MessageDatabase;
 

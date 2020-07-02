@@ -1,4 +1,4 @@
-package com.example.developerandroidx.ui.android.service.service;
+package com.example.developerandroidx.service;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -13,9 +13,9 @@ import android.os.IBinder;
 import androidx.core.app.NotificationCompat;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.model.EventBusMessageBean;
-import com.example.developerandroidx.ui.android.broadcastReceiver.AppBroadcastReceiver;
+import com.example.developerandroidx.receiver.AppBroadcastReceiver;
 import com.example.developerandroidx.ui.android.notification.NotificationActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.StringUtils;

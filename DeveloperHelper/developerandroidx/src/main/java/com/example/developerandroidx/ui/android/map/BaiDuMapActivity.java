@@ -4,11 +4,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.baidu.mapapi.model.LatLng;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithDataBinding;
 import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
@@ -32,7 +37,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
 
 
     private BaiDuMapViewModel viewModel;
-
+    private PowerManager powerManager;
     //配合底部开始和暂停的图标,默认为未开始
     private boolean isSporting = PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_SPORTING);
     //服务实例
@@ -80,6 +85,8 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         binding.setOnTouchListener(this);
         //如果运动没有结束,则恢复的运动状态
         recoverSporting(isSporting);
+
+        powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -280,6 +287,20 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
 
     @Override
     protected void onResume() {
+        // 在Android 6.0及以上系统，若定制手机使用到doze模式，请求将应用添加到白名单。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String packageName = App.context.getPackageName();
+            boolean isIgnoring = powerManager.isIgnoringBatteryOptimizations(packageName);
+            if (!isIgnoring) {
+                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                try {
+                    startActivity(intent);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
         // 在activity执行onResume时必须调用mMapView. onResume ()
         binding.mvMap.onResume();
         super.onResume();

@@ -17,8 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
-import com.example.developerandroidx.ui.android.animation.dialog.ScaleViewToViewDialog;
+import com.example.developerandroidx.App;
 
 /**
  * @作者： zjf 2020/5/12 16:42

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 
 import java.io.File;
 import java.io.FileOutputStream;

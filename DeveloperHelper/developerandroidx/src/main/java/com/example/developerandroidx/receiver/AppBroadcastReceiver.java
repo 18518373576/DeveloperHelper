@@ -1,4 +1,4 @@
-package com.example.developerandroidx.ui.android.broadcastReceiver;
+package com.example.developerandroidx.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +10,8 @@ import androidx.core.app.RemoteInput;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
+import com.example.developerandroidx.ui.android.broadcastReceiver.BroadcastReceiverActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
 

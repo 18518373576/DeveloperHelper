@@ -16,7 +16,7 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.model.EventBusMessageBean;
 import com.example.developerandroidx.ui.android.AndroidFragment;
-import com.example.developerandroidx.ui.android.broadcastReceiver.AppBroadcastReceiver;
+import com.example.developerandroidx.receiver.AppBroadcastReceiver;
 import com.example.developerandroidx.ui.java.JavaFragment;
 import com.example.developerandroidx.ui.widget.WidgetFragment;
 import com.example.developerandroidx.utils.CodeVariate;

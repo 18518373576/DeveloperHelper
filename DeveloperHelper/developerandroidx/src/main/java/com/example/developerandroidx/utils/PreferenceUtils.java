@@ -3,7 +3,7 @@ package com.example.developerandroidx.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 
 /**
  * Date: 2020/5/23 7:39

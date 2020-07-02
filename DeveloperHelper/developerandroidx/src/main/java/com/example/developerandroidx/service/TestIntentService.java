@@ -1,4 +1,4 @@
-package com.example.developerandroidx.ui.android.service.service;
+package com.example.developerandroidx.service;
 
 import android.app.IntentService;
 import android.content.Intent;

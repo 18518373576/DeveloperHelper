@@ -1,8 +1,11 @@
 package com.example.developerandroidx.service;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -20,11 +24,20 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.utils.DistanceUtil;
+import com.baidu.trace.LBSTraceClient;
+import com.baidu.trace.Trace;
+import com.baidu.trace.api.track.HistoryTrackRequest;
+import com.baidu.trace.api.track.HistoryTrackResponse;
+import com.baidu.trace.api.track.OnTrackListener;
+import com.baidu.trace.api.track.TrackPoint;
+import com.baidu.trace.model.OnTraceListener;
+import com.baidu.trace.model.PushMessage;
+import com.baidu.trace.model.StatusCodes;
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
+import com.example.developerandroidx.receiver.TrackReceiver;
 import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
@@ -76,6 +89,12 @@ public class MapSportService extends Service {
     private PendingIntent pendingIntent;
     private String title;
     private String content;
+
+    //地图上画线的点
+    private List<LatLng> points = new ArrayList<>();
+    private PowerManager powerManager;
+    private PowerManager.WakeLock wakeLock;
+    private TrackReceiver trackReceiver;
 
     public class MyBinder extends Binder {
         public MapSportService getService() {
@@ -135,9 +154,10 @@ public class MapSportService extends Service {
         LocationClientOption option = new LocationClientOption();
         // 打开gps
         option.setOpenGps(true);
-        // 设置坐标类型
-        option.setCoorType("bd09ll");
+
         option.setScanSpan(2000);
+        option.setCoorType("bd09ll");
+
         mLocClient.setLocOption(option);
         mLocClient.start();
     }
@@ -157,10 +177,6 @@ public class MapSportService extends Service {
     /**
      * 定位SDK监听函数
      */
-    //地图上画线的点
-    private List<LatLng> points = new ArrayList<>();
-    double i = 0.001;
-
     private class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
@@ -168,26 +184,11 @@ public class MapSportService extends Service {
             if (location == null) {
                 return;
             }
-            if (sportFlag) {
-                double pointsDistance = DistanceUtil.getDistance(new LatLng(mCurrentLat, mCurrentLon), new LatLng(location.getLatitude(), location.getLongitude()));
-                if (pointsDistance < 5) {
-                    distance += pointsDistance;
-                    PreferenceUtils.getInstance().putStringValue(Constant.PreferenceKeys.DISTANCE, String.valueOf(distance));
-                }
-                //测试画线
-//                points.add(new LatLng(mCurrentLat + i, mCurrentLon + i));
-//                i += 0.0001;
-//                EventBus.getDefault().post(points);
-                if (pointsDistance < 5 && pointsDistance > 0.1) {
-                    points.add(new LatLng(mCurrentLat, mCurrentLon));
-                    EventBus.getDefault().post(points);
-                }
-            }
+            LogUtils.e("百度经纬度mCurrentLat", String.valueOf(location.getLatitude()));
+            LogUtils.e("百度经纬度mCurrentLon", String.valueOf(location.getLongitude()));
             mCurrentLat = location.getLatitude();
             mCurrentLon = location.getLongitude();
             mCurrentAccracy = location.getRadius();
-            LogUtils.e("经纬度mCurrentLat", String.valueOf(mCurrentLat));
-            LogUtils.e("经纬度mCurrentLon", String.valueOf(mCurrentLon));
             EventBus.getDefault().post(new GpsEnentBusMsg(mCurrentLat, mCurrentLon, mCurrentAccracy, mCurrentDirection, isFirstLoc));
             isFirstLoc = false;
         }
@@ -246,6 +247,9 @@ public class MapSportService extends Service {
         sportFlag = true;
         //保存运动状态,正在运动
         PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, true);
+        //开启鹰眼追踪服务
+        initTrace();
+        //开始计时
         startTimer();
         startForeground();
     }
@@ -255,6 +259,8 @@ public class MapSportService extends Service {
      */
     public void stopSport() {
         sportFlag = false;
+        //关闭鹰眼追踪服务
+        stopTrace();
         points.clear();
         distance = 0;
         steps = 0;
@@ -264,6 +270,172 @@ public class MapSportService extends Service {
         PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.TIME_SPACE, 0);
         stopForeground();
         stopSelf();
+    }
+
+    /**
+     * 注册广播（电源锁、GPS状态）
+     */
+    @SuppressLint("InvalidWakeLockTag")
+    private void registerReceiver() {
+        if (App.isRegisterReceiver) {
+            return;
+        }
+
+        if (null == wakeLock) {
+            powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
+        }
+        if (null == trackReceiver) {
+            trackReceiver = new TrackReceiver(wakeLock);
+        }
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_USER_PRESENT);
+        filter.addAction(StatusCodes.GPS_STATUS_ACTION);
+        registerReceiver(trackReceiver, filter);
+        App.isRegisterReceiver = true;
+
+    }
+
+    private void unregisterPowerReceiver() {
+        if (!App.isRegisterReceiver) {
+            return;
+        }
+        if (null != trackReceiver) {
+            unregisterReceiver(trackReceiver);
+        }
+        App.isRegisterReceiver = false;
+    }
+
+    // 初始化轨迹服务监听器
+    private OnTraceListener mTraceListener = new OnTraceListener() {
+        @Override
+        public void onBindServiceCallback(int status, String message) {
+            LogUtils.e("鹰眼服务onBindServiceCallback", message);
+        }
+
+        // 开启服务回调
+        @Override
+        public void onStartTraceCallback(int status, String message) {
+            LogUtils.e("鹰眼服务onStartTraceCallback", message);
+            if (StatusCodes.SUCCESS == status || StatusCodes.START_TRACE_NETWORK_CONNECT_FAILED <= status) {
+                registerReceiver();
+            }
+        }
+
+        // 停止服务回调
+        @Override
+        public void onStopTraceCallback(int status, String message) {
+            LogUtils.e("鹰眼服务onStopTraceCallback", message);
+            if (StatusCodes.SUCCESS == status || StatusCodes.CACHE_TRACK_NOT_UPLOAD == status) {
+                unregisterPowerReceiver();
+            }
+        }
+
+        // 开启采集回调
+        @Override
+        public void onStartGatherCallback(int status, String message) {
+            LogUtils.e("鹰眼服务onStartGatherCallback", message);
+        }
+
+        // 停止采集回调
+        @Override
+        public void onStopGatherCallback(int status, String message) {
+            LogUtils.e("鹰眼服务onStopGatherCallback", message);
+        }
+
+        // 推送回调
+        @Override
+        public void onPushCallback(byte messageNo, PushMessage message) {
+            LogUtils.e("鹰眼服务onPushCallback", message.getMessage());
+        }
+
+        @Override
+        public void onInitBOSCallback(int status, String message) {
+            LogUtils.e("鹰眼服务onInitBOSCallback", message);
+        }
+    };
+
+    /**
+     * 开启鹰眼追踪定位
+     */
+    // 轨迹服务ID
+    private long serviceId = 222017;
+    // 设备标识
+    private String entityName = "HUA_WEI_mate20X";
+    // 是否需要对象存储服务，默认为：false，关闭对象存储服务。注：鹰眼 Android SDK v3.0以上版本支持随轨迹上传图像等对象数据，
+    // 若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
+    private boolean isNeedObjectStorage = false;
+    // 定位周期(单位:秒)
+    int gatherInterval = 5;
+    // 打包回传周期(单位:秒)
+    int packInterval = 10;
+
+    private Trace mTrace;
+    private LBSTraceClient mTraceClient;
+
+    private void initTrace() {
+        // 初始化轨迹服务
+        mTrace = new Trace(serviceId, entityName, isNeedObjectStorage);
+        // 初始化轨迹服务客户端
+        mTraceClient = new LBSTraceClient(getApplicationContext());
+        // 设置定位和打包周期
+        mTraceClient.setInterval(gatherInterval, packInterval);
+        // 开启服务
+        mTraceClient.startTrace(mTrace, mTraceListener);
+        // 开启采集
+        mTraceClient.startGather(mTraceListener);
+        //轨迹查询,放到定时器里面查询, startTimer()
+//        queryTrace();
+    }
+
+    private void stopTrace() {
+        // 停止服务
+        if (mTraceClient != null)
+            mTraceClient.stopTrace(mTrace, mTraceListener);
+    }
+
+    // 请求标识
+    int tag = 1;
+    // 创建历史轨迹请求实例
+    HistoryTrackRequest historyTrackRequest;
+    // 初始化轨迹监听器
+    OnTrackListener mTrackListener = new OnTrackListener() {
+
+        // 历史轨迹回调
+        @Override
+        public void onHistoryTrackCallback(HistoryTrackResponse response) {
+            if (sportFlag) {
+                distance = (float) response.getDistance();
+                LogUtils.e("鹰眼服务距离测算", distance + "#" + response.getEntityName());
+                if (response.getTrackPoints() != null) {
+                    LogUtils.e("鹰眼服务距离测算", distance + "#" + response.trackPoints.size() + "#" + response.getTotal());
+                }
+                if (response.getTotal() > 0) {
+                    points.clear();
+                    for (TrackPoint point : response.getTrackPoints()) {
+                        points.add(new LatLng(point.getLocation().latitude, point.getLocation().longitude));
+                    }
+                }
+                EventBus.getDefault().post(points);
+            }
+        }
+    };
+
+    /**
+     * 查询历史轨迹
+     */
+    private void queryTrace() {
+        historyTrackRequest = new HistoryTrackRequest(tag, serviceId, entityName);
+        // 设置开始时间
+        historyTrackRequest.setStartTime(oldTime / 1000 - lastTimeSpace);
+        // 设置结束时间
+        historyTrackRequest.setEndTime(System.currentTimeMillis() / 1000);
+
+        // 查询历史轨迹
+        mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener);
     }
 
     private void startTimer() {
@@ -303,8 +475,11 @@ public class MapSportService extends Service {
                         EventBus.getDefault().post(new SportDescEventBusMsg(time, StringUtils.getInstance().getSteps(steps),
                                 StringUtils.getInstance().getDistance(distance), currentSportType));
 
-                        //更新通知,每隔3秒更新一次
-                        if ((timeSpace % 3) == 0) {
+                        //更新通知和查询鹰眼轨迹记录,每隔5秒更新一次
+                        if ((timeSpace % 5) == 0) {
+                            //查询轨迹
+                            queryTrace();
+                            //更新通知
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MapSportService.this);
                             content = currentSportType == SportType.STEP ?
                                     "运动步数:" + StringUtils.getInstance().getSteps(steps) + "步" :
@@ -331,7 +506,7 @@ public class MapSportService extends Service {
             distance = Float.parseFloat(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.DISTANCE, "0"));
             steps = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.STEP, 0);
             lastTimeSpace = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.TIME_SPACE, 0);
-            if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0) == Constant.Common.RIDING) {
+            if (PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.SPORT_TYPE, 0).equals(Constant.Common.RIDING)) {
                 startSport(SportType.RIDING);
             } else {
                 startSport(SportType.STEP);

@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.App;
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
 
 /**

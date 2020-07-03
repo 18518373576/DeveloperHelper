@@ -18,6 +18,7 @@ import com.example.developerandroidx.service.MapSportService;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.LogUtils;
+import com.example.developerandroidx.utils.enumPkg.SportType;
 import com.kongzue.dialog.v3.FullScreenDialog;
 
 import java.util.ArrayList;
@@ -100,7 +101,10 @@ public class HistoryDialog implements FunctionDialogInterface {
                     @Override
                     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                         List<SportHistory> sportHistoryList = (List<SportHistory>) adapter.getData();
+                        //清空上次查询数据
                         sportService.points.clear();
+                        sportService.initProcessOption(
+                                sportHistoryList.get(position).sportType == Constant.Common.RIDING ? SportType.RIDING : SportType.STEP);
                         sportService.queryHistoryTrace(sportHistoryList.get(position).startTime, sportHistoryList.get(position).endTime, 1);
                         dialog.doDismiss();
                     }

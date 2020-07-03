@@ -29,9 +29,12 @@ import com.baidu.trace.Trace;
 import com.baidu.trace.api.track.HistoryTrackRequest;
 import com.baidu.trace.api.track.HistoryTrackResponse;
 import com.baidu.trace.api.track.OnTrackListener;
+import com.baidu.trace.api.track.SupplementMode;
 import com.baidu.trace.api.track.TrackPoint;
 import com.baidu.trace.model.OnTraceListener;
+import com.baidu.trace.model.ProcessOption;
 import com.baidu.trace.model.PushMessage;
+import com.baidu.trace.model.TransportMode;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.db.DB_utils;
@@ -117,6 +120,8 @@ public class MapSportService extends Service {
     //百度地图鹰眼服务
     private Trace mTrace;
     private LBSTraceClient mTraceClient;
+    //纠偏选项
+    private ProcessOption processOption;
 
 
     public class MyBinder extends Binder {
@@ -282,11 +287,37 @@ public class MapSportService extends Service {
                 wakeLock.acquire();
             }
         }
+        initProcessOption(currentSportType);
         //开启鹰眼追踪服务
         initTrace();
         //开始计时
         startTimer();
         startForeground();
+    }
+
+    /**
+     * 初始化纠偏选项
+     */
+    public void initProcessOption(SportType sportType) {
+        // 创建纠偏选项实例
+        processOption = new ProcessOption();
+        // 设置需要去噪
+        processOption.setNeedDenoise(true);
+        // 设置需要抽稀
+        processOption.setNeedVacuate(true);
+        // 设置需要绑路
+        processOption.setNeedMapMatch(true);
+        // 设置精度过滤值(定位精度大于100米的过滤掉)
+        processOption.setRadiusThreshold(100);
+        // 设置交通方式为驾车
+        switch (sportType) {
+            case STEP:
+                processOption.setTransportMode(TransportMode.walking);
+                break;
+            case RIDING:
+                processOption.setTransportMode(TransportMode.riding);
+                break;
+        }
     }
 
     /**
@@ -475,6 +506,17 @@ public class MapSportService extends Service {
         historyTrackRequest.setEndTime(endTime / 1000);
         historyTrackRequest.setPageIndex(pageNum);
         historyTrackRequest.setPageSize(pageSize);
+        // 设置需要纠偏
+        historyTrackRequest.setProcessed(true);
+
+        // 设置纠偏选项
+        if (processOption != null) {
+            historyTrackRequest.setProcessOption(processOption);
+        }
+
+        // 中断里程补偿,riding：使用最短骑行路线距离补充,骑行与步行不再做区分
+        historyTrackRequest.setSupplementMode(SupplementMode.riding);
+
         // 查询历史轨迹
         mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener);
     }

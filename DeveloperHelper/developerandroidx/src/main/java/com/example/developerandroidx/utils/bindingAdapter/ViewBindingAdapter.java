@@ -11,11 +11,14 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.LogoPosition;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
@@ -23,6 +26,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bumptech.glide.Glide;
+import com.example.developerandroidx.R;
 import com.example.developerandroidx.view.loadingView.LoadingPage;
 import com.example.developerandroidx.view.loadingView.LoadingState;
 
@@ -247,6 +251,7 @@ public class ViewBindingAdapter {
         if (points != null && points.size() > 1) {
             //清除所有覆盖图层
             mapView.getMap().clear();
+
             //设置折线的属性
             OverlayOptions mOverlayOptions = new PolylineOptions()
                     .width(8)
@@ -254,7 +259,28 @@ public class ViewBindingAdapter {
                     .points(points);
             //在地图上绘制折线
             //mPloyline 折线对象
-            Overlay mPolyline = mapView.getMap().addOverlay(mOverlayOptions);
+            mapView.getMap().addOverlay(mOverlayOptions);
+
+            //构建起点Marker图标
+            BitmapDescriptor startBitmap = BitmapDescriptorFactory
+                    .fromResource(R.mipmap.icon_start_location);
+            //构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions startOption = new MarkerOptions()
+                    .position(points.get(0))
+                    .perspective(false)
+                    .icon(startBitmap);
+            //在地图上添加Marker，并显示
+            mapView.getMap().addOverlay(startOption);
+            //构建终点Marker图标
+            BitmapDescriptor stopBitmap = BitmapDescriptorFactory
+                    .fromResource(R.mipmap.icon_stop_location);
+            //构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions stopOption = new MarkerOptions()
+                    .position(points.get(points.size() - 1))
+                    .perspective(false)
+                    .icon(stopBitmap);
+            //在地图上添加Marker，并显示
+            mapView.getMap().addOverlay(stopOption);
         }
     }
 }

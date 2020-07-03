@@ -204,10 +204,12 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/iv_history"
             android:layout_width="@dimen/dp120"
             android:layout_height="@dimen/dp30"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{onClickListener}"
             android:padding="@dimen/dp12"
             android:src="@drawable/bg_circle_gray_color"
             android:stateListAnimator="@drawable/selector_btn_animator"

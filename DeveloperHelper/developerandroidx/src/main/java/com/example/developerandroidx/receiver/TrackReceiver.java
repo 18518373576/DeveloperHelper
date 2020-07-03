@@ -1,6 +1,5 @@
 package com.example.developerandroidx.receiver;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +17,6 @@ public class TrackReceiver extends BroadcastReceiver {
         this.wakeLock = wakeLock;
     }
 
-    @SuppressLint("Wakelock")
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();

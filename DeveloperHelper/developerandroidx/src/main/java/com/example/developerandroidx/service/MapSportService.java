@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -32,9 +31,8 @@ import com.baidu.trace.api.track.OnTrackListener;
 import com.baidu.trace.api.track.TrackPoint;
 import com.baidu.trace.model.OnTraceListener;
 import com.baidu.trace.model.PushMessage;
-import com.baidu.trace.model.StatusCodes;
-import com.example.developerandroidx.R;
 import com.example.developerandroidx.App;
+import com.example.developerandroidx.R;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
 import com.example.developerandroidx.receiver.TrackReceiver;
@@ -145,6 +143,9 @@ public class MapSportService extends Service {
      * 定位初始化
      */
     public void initLocation() {
+        if (mLocClient != null) {
+            return;
+        }
         //初始化方位传感器,确定方向
         initSensor();
         // 定位初始化
@@ -242,11 +243,20 @@ public class MapSportService extends Service {
     /**
      * 开始运动
      */
+    @SuppressLint("InvalidWakeLockTag")
     public void startSport(SportType sportType) {
         currentSportType = sportType;
         sportFlag = true;
         //保存运动状态,正在运动
         PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, true);
+        //让进程在后台存活,保持持续定位能力---------特别注意----------------
+        if (null == wakeLock) {
+            powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
+            if (!(wakeLock.isHeld())) {
+                wakeLock.acquire();
+            }
+        }
         //开启鹰眼追踪服务
         initTrace();
         //开始计时
@@ -261,6 +271,10 @@ public class MapSportService extends Service {
         sportFlag = false;
         //关闭鹰眼追踪服务
         stopTrace();
+        //释放掉后台存活服务
+        if (null != wakeLock && wakeLock.isHeld()) {
+            wakeLock.release();
+        }
         points.clear();
         distance = 0;
         steps = 0;
@@ -275,39 +289,31 @@ public class MapSportService extends Service {
     /**
      * 注册广播（电源锁、GPS状态）
      */
-    @SuppressLint("InvalidWakeLockTag")
-    private void registerReceiver() {
-        if (App.isRegisterReceiver) {
-            return;
-        }
+//    @SuppressLint("InvalidWakeLockTag")
+//    private void registerReceiver() {
+//
+//        if (null == wakeLock) {
+//            powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+//            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
+//        }
+//        if (null == trackReceiver) {
+//            trackReceiver = new TrackReceiver(wakeLock);
+//        }
+//
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(Intent.ACTION_SCREEN_OFF);
+//        filter.addAction(Intent.ACTION_SCREEN_ON);
+//        filter.addAction(Intent.ACTION_USER_PRESENT);
+//        filter.addAction(StatusCodes.GPS_STATUS_ACTION);
+//        registerReceiver(trackReceiver, filter);
+//
+//    }
 
-        if (null == wakeLock) {
-            powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
-        }
-        if (null == trackReceiver) {
-            trackReceiver = new TrackReceiver(wakeLock);
-        }
-
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_USER_PRESENT);
-        filter.addAction(StatusCodes.GPS_STATUS_ACTION);
-        registerReceiver(trackReceiver, filter);
-        App.isRegisterReceiver = true;
-
-    }
-
-    private void unregisterPowerReceiver() {
-        if (!App.isRegisterReceiver) {
-            return;
-        }
-        if (null != trackReceiver) {
-            unregisterReceiver(trackReceiver);
-        }
-        App.isRegisterReceiver = false;
-    }
+//    private void unregisterPowerReceiver() {
+//        if (null != trackReceiver) {
+//            unregisterReceiver(trackReceiver);
+//        }
+//    }
 
     // 初始化轨迹服务监听器
     private OnTraceListener mTraceListener = new OnTraceListener() {
@@ -320,18 +326,18 @@ public class MapSportService extends Service {
         @Override
         public void onStartTraceCallback(int status, String message) {
             LogUtils.e("鹰眼服务onStartTraceCallback", message);
-            if (StatusCodes.SUCCESS == status || StatusCodes.START_TRACE_NETWORK_CONNECT_FAILED <= status) {
-                registerReceiver();
-            }
+//            if (StatusCodes.SUCCESS == status || StatusCodes.START_TRACE_NETWORK_CONNECT_FAILED <= status) {
+//                registerReceiver();
+//            }
         }
 
         // 停止服务回调
         @Override
         public void onStopTraceCallback(int status, String message) {
             LogUtils.e("鹰眼服务onStopTraceCallback", message);
-            if (StatusCodes.SUCCESS == status || StatusCodes.CACHE_TRACK_NOT_UPLOAD == status) {
-                unregisterPowerReceiver();
-            }
+//            if (StatusCodes.SUCCESS == status || StatusCodes.CACHE_TRACK_NOT_UPLOAD == status) {
+//                unregisterPowerReceiver();
+//            }
         }
 
         // 开启采集回调
@@ -430,16 +436,20 @@ public class MapSportService extends Service {
     private void queryTrace() {
         historyTrackRequest = new HistoryTrackRequest(tag, serviceId, entityName);
         // 设置开始时间
-        historyTrackRequest.setStartTime(oldTime / 1000 - lastTimeSpace);
+        historyTrackRequest.setStartTime(oldTime / 1000 - 60 * 60 * 2);
         // 设置结束时间
         historyTrackRequest.setEndTime(System.currentTimeMillis() / 1000);
+        historyTrackRequest.setPageIndex(1);
+        historyTrackRequest.setPageSize(1000);
 
+//        mTraceClient.queryLatestPoint();
         // 查询历史轨迹
         mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener);
     }
 
     private void startTimer() {
         oldTime = new Date().getTime();
+//        queryTrace();
         // takeUntil含义,直到 aLong > 10,也就是11才停止
         //         .takeUntil(new Predicate<Long>() {
         //            @Override
@@ -478,7 +488,7 @@ public class MapSportService extends Service {
                         //更新通知和查询鹰眼轨迹记录,每隔5秒更新一次
                         if ((timeSpace % 5) == 0) {
                             //查询轨迹
-                            queryTrace();
+//                            queryTrace();
                             //更新通知
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MapSportService.this);
                             content = currentSportType == SportType.STEP ?

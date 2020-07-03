@@ -20,6 +20,7 @@ import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
 import com.example.developerandroidx.service.MapSportService;
+import com.example.developerandroidx.ui.android.map.dialog.HistoryDialog;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
@@ -200,7 +201,17 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                     showAlertDialog();
                 }
                 break;
+            case R.id.iv_history:
+                showHistoryDialog();
+                break;
         }
+    }
+
+    /**
+     * 展示历史记录对话框
+     */
+    private void showHistoryDialog() {
+        new HistoryDialog().show(context, sportService);
     }
 
     /**

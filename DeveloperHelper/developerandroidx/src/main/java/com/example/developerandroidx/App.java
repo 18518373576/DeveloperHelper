@@ -11,7 +11,6 @@ import android.os.Bundle;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.example.developerandroidx.R;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
 
@@ -21,8 +20,6 @@ public class App extends Application {
     public static String IMPORTANCE_LOW_CHANNEL_ID;
     public static int defaults;
 
-    //是否注册唤醒的广播
-    public static boolean isRegisterReceiver = false;
 
     @Override
     public void onCreate() {
@@ -44,7 +41,6 @@ public class App extends Application {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
     }
-
     /**
      * 华为手机设备桌面通知角标
      *

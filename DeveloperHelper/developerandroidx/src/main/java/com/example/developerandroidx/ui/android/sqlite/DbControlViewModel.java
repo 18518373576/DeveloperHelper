@@ -25,7 +25,7 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
     //获取数据
     @Override
     protected void initData(@Nullable String... param) {
-        DB_utils.getInstance().getDB().getMessageDao().getAll()
+        DB_utils.getInstance().getMessageDB().getMessageDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Message>>() {
@@ -57,7 +57,7 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
      * @param message
      */
     public void upDate(Message... message) {
-        DB_utils.getInstance().getDB().getMessageDao()
+        DB_utils.getInstance().getMessageDB().getMessageDao()
                 .update(message)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -85,7 +85,7 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
      * @param message
      */
     public void insert(Message... message) {
-        DB_utils.getInstance().getDB().getMessageDao()
+        DB_utils.getInstance().getMessageDB().getMessageDao()
                 .insert(message)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +108,7 @@ public class DbControlViewModel extends BaseViewModel<List<Message>> {
     }
 
     public void delete(Message... message) {
-        DB_utils.getInstance().getDB().getMessageDao()
+        DB_utils.getInstance().getMessageDB().getMessageDao()
                 .delete(message)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

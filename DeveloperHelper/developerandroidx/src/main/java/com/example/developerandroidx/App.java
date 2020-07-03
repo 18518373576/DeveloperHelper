@@ -41,6 +41,7 @@ public class App extends Application {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
     }
+
     /**
      * 华为手机设备桌面通知角标
      *

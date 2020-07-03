@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class SportHistoryRcvAdapter extends BaseQuickAdapter<SportHistory, BaseDataBindingHolder<ItemSportHistoryBinding>> {
 
-    public SportHistoryRcvAdapter(List<SportHistory> sportHistoryList) {
-        super(R.layout.item_sport_history, sportHistoryList);
+    public SportHistoryRcvAdapter() {
+        super(R.layout.item_sport_history);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class SportHistoryRcvAdapter extends BaseQuickAdapter<SportHistory, BaseD
         mySportHistory.dateStr = item.dateStr;
         mySportHistory.timeSpace = StringUtils.getInstance().getFormatTime(item.startTime, "HH:mm") + "-" +
                 StringUtils.getInstance().getFormatTime(item.endTime, "HH:mm");
-        mySportHistory.distanceOrSteps = item.sportType == Constant.Common.RIDING ? item.distance / 1000f + "KM" : item.steps + "步";
+        mySportHistory.distanceOrSteps = item.sportType == Constant.Common.RIDING ? StringUtils.getInstance().getDistance(item.distance) + "KM" : item.steps + "步";
         if (binding != null) {
             binding.setSportHistory(mySportHistory);
         }

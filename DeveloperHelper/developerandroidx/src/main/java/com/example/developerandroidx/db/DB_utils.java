@@ -5,6 +5,7 @@ import androidx.room.Room;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.db.database.CityDatabase;
 import com.example.developerandroidx.db.database.MessageDatabase;
+import com.example.developerandroidx.db.database.SportHistoryDatabase;
 
 /**
  * 作者： zjf 2020/6/19 3:43 PM
@@ -14,6 +15,7 @@ import com.example.developerandroidx.db.database.MessageDatabase;
 public class DB_utils {
     private final MessageDatabase messageDatabase;
     private final CityDatabase citiesDatabase;
+    private final SportHistoryDatabase sportHistoryDatabase;
 //    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
 //        @Override
 //        public void migrate(SupportSQLiteDatabase database) {
@@ -38,18 +40,24 @@ public class DB_utils {
         citiesDatabase = Room.databaseBuilder(App.context, CityDatabase.class, "city.db")
                 .createFromAsset("city.db")
                 .build();
+        sportHistoryDatabase = Room.databaseBuilder(App.context, SportHistoryDatabase.class, "sportHistory.db")
+                .build();
     }
 
     public static DB_utils getInstance() {
         return Instance.INSTANCE;
     }
 
-    public MessageDatabase getDB() {
+    public MessageDatabase getMessageDB() {
         return messageDatabase;
     }
 
-    public CityDatabase getCitiesDatabase() {
+    public CityDatabase getCityDB() {
         return citiesDatabase;
+    }
+
+    public SportHistoryDatabase getSportHistoryDB() {
+        return sportHistoryDatabase;
     }
 
 }

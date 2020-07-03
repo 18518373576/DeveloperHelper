@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -33,9 +34,10 @@ import com.baidu.trace.model.OnTraceListener;
 import com.baidu.trace.model.PushMessage;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
+import com.example.developerandroidx.db.DB_utils;
+import com.example.developerandroidx.db.entity.SportHistory;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
-import com.example.developerandroidx.receiver.TrackReceiver;
 import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
@@ -50,6 +52,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -65,34 +68,56 @@ public class MapSportService extends Service {
     private MyLocationListener locationListener;
     private boolean isFirstLoc = true;
 
+    //方向传感器相关
     private float mCurrentDirection = 0;
     private Double lastX = 0.0;
     private MySensorEventListener sensorEventListener;
     private SensorManager mSensorManager;
 
+    //默认当前位置点
     private double mCurrentLat = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LAT, "34.78084"));
     private double mCurrentLon = Double.parseDouble(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.LOCATION_LON, "113.702818"));
     private float mCurrentAccracy;
+    //运动开始标志,true为正在运动
     private boolean sportFlag = PreferenceUtils.getInstance().getBooleanValue(Constant.PreferenceKeys.IS_SPORTING);
+    //计时开始时间
     private long oldTime;
+    //当前运动类型
     private SportType currentSportType;
 
     //运动距离
     private float distance = 0;
     //运动步数
     private int steps = 0;
-    //上次时间间隔
+    //上次时间间隔,主要是记录退出应用没有结束运动,记录运动的时间,再次进来继续计时
     private int lastTimeSpace = 0;
+    //通知相关
     private NotificationCompat.Builder builder;
     private PendingIntent pendingIntent;
     private String title;
     private String content;
 
     //地图上画线的点
-    private List<LatLng> points = new ArrayList<>();
+    public List<LatLng> points = new ArrayList<>();
     private PowerManager powerManager;
     private PowerManager.WakeLock wakeLock;
-    private TrackReceiver trackReceiver;
+
+    // 轨迹服务ID
+    private long serviceId = 222017;
+    // 设备标识
+    private String entityName;
+    // 是否需要对象存储服务，默认为：false，关闭对象存储服务。注：鹰眼 Android SDK v3.0以上版本支持随轨迹上传图像等对象数据，
+    // 若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
+    private boolean isNeedObjectStorage = false;
+    // 定位周期(单位:秒)
+    int gatherInterval = 5;
+    // 打包回传周期(单位:秒)
+    int packInterval = 10;
+
+    //百度地图鹰眼服务
+    private Trace mTrace;
+    private LBSTraceClient mTraceClient;
+
 
     public class MyBinder extends Binder {
         public MapSportService getService() {
@@ -268,6 +293,10 @@ public class MapSportService extends Service {
      * 停止运动
      */
     public void stopSport() {
+        //保存运动数据
+        if (sportFlag) {
+            saveSportData();
+        }
         sportFlag = false;
         //关闭鹰眼追踪服务
         stopTrace();
@@ -287,33 +316,49 @@ public class MapSportService extends Service {
     }
 
     /**
-     * 注册广播（电源锁、GPS状态）
+     * 保存运动数据
      */
-//    @SuppressLint("InvalidWakeLockTag")
-//    private void registerReceiver() {
-//
-//        if (null == wakeLock) {
-//            powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-//            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
-//        }
-//        if (null == trackReceiver) {
-//            trackReceiver = new TrackReceiver(wakeLock);
-//        }
-//
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(Intent.ACTION_SCREEN_OFF);
-//        filter.addAction(Intent.ACTION_SCREEN_ON);
-//        filter.addAction(Intent.ACTION_USER_PRESENT);
-//        filter.addAction(StatusCodes.GPS_STATUS_ACTION);
-//        registerReceiver(trackReceiver, filter);
-//
-//    }
+    SportHistory sportHistory = null;
 
-//    private void unregisterPowerReceiver() {
-//        if (null != trackReceiver) {
-//            unregisterReceiver(trackReceiver);
-//        }
-//    }
+    private void saveSportData() {
+        String dateStr = StringUtils.getInstance().getCurrentTime("yyyy-MM-dd");
+        long startTime = oldTime - (lastTimeSpace * 1000);
+        long endTime = new Date().getTime();
+        if (currentSportType.equals(SportType.RIDING)) {
+            //大于两公里数据才会保存
+            if (distance > 2000) {
+                sportHistory = new SportHistory(dateStr, startTime, endTime, distance, steps, Constant.Common.RIDING);
+
+            }
+        } else {
+            //步数大于2000才会保存
+            if (steps > 2000) {
+                sportHistory = new SportHistory(dateStr, startTime, endTime, distance, steps, Constant.Common.STEP);
+            }
+        }
+        DB_utils.getInstance().getSportHistoryDB()
+                .getSportHistoryDao()
+                .insert(sportHistory)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.e("运动数据插入", "完成");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
 
     // 初始化轨迹服务监听器
     private OnTraceListener mTraceListener = new OnTraceListener() {
@@ -326,18 +371,12 @@ public class MapSportService extends Service {
         @Override
         public void onStartTraceCallback(int status, String message) {
             LogUtils.e("鹰眼服务onStartTraceCallback", message);
-//            if (StatusCodes.SUCCESS == status || StatusCodes.START_TRACE_NETWORK_CONNECT_FAILED <= status) {
-//                registerReceiver();
-//            }
         }
 
         // 停止服务回调
         @Override
         public void onStopTraceCallback(int status, String message) {
             LogUtils.e("鹰眼服务onStopTraceCallback", message);
-//            if (StatusCodes.SUCCESS == status || StatusCodes.CACHE_TRACK_NOT_UPLOAD == status) {
-//                unregisterPowerReceiver();
-//            }
         }
 
         // 开启采集回调
@@ -367,26 +406,9 @@ public class MapSportService extends Service {
     /**
      * 开启鹰眼追踪定位
      */
-    // 轨迹服务ID
-    private long serviceId = 222017;
-    // 设备标识
-    private String entityName = "HUA_WEI_mate20X";
-    // 是否需要对象存储服务，默认为：false，关闭对象存储服务。注：鹰眼 Android SDK v3.0以上版本支持随轨迹上传图像等对象数据，
-    // 若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
-    private boolean isNeedObjectStorage = false;
-    // 定位周期(单位:秒)
-    int gatherInterval = 5;
-    // 打包回传周期(单位:秒)
-    int packInterval = 10;
-
-    private Trace mTrace;
-    private LBSTraceClient mTraceClient;
-
     private void initTrace() {
         // 初始化轨迹服务
         mTrace = new Trace(serviceId, entityName, isNeedObjectStorage);
-        // 初始化轨迹服务客户端
-        mTraceClient = new LBSTraceClient(getApplicationContext());
         // 设置定位和打包周期
         mTraceClient.setInterval(gatherInterval, packInterval);
         // 开启服务
@@ -409,23 +431,27 @@ public class MapSportService extends Service {
     HistoryTrackRequest historyTrackRequest;
     // 初始化轨迹监听器
     OnTrackListener mTrackListener = new OnTrackListener() {
-
         // 历史轨迹回调
         @Override
         public void onHistoryTrackCallback(HistoryTrackResponse response) {
             if (sportFlag) {
                 distance = (float) response.getDistance();
+            }
+
+            if (response.getTotal() > 0) {
                 LogUtils.e("鹰眼服务距离测算", distance + "#" + response.getEntityName());
-                if (response.getTrackPoints() != null) {
-                    LogUtils.e("鹰眼服务距离测算", distance + "#" + response.trackPoints.size() + "#" + response.getTotal());
+                LogUtils.e("鹰眼服务历史位置点", distance + "#" + response.trackPoints.size() + "#" + response.getTotal());
+                //添加位置点
+                for (TrackPoint point : response.getTrackPoints()) {
+                    points.add(new LatLng(point.getLocation().latitude, point.getLocation().longitude));
                 }
-                if (response.getTotal() > 0) {
-                    points.clear();
-                    for (TrackPoint point : response.getTrackPoints()) {
-                        points.add(new LatLng(point.getLocation().latitude, point.getLocation().longitude));
-                    }
+                //说明数据没有拿完
+                if (pageIndex * pageSize < response.getTotal()) {
+                    pageIndex++;
+                    queryHistoryTrace(thisStartTime, thisEndTime, pageIndex);
+                } else {
+                    EventBus.getDefault().post(points);
                 }
-                EventBus.getDefault().post(points);
             }
         }
     };
@@ -433,23 +459,32 @@ public class MapSportService extends Service {
     /**
      * 查询历史轨迹
      */
-    private void queryTrace() {
+    private int pageIndex = 1;
+    private int pageSize = 1000;
+    private long thisStartTime;
+    private long thisEndTime;
+
+    public void queryHistoryTrace(long startTime, long endTime, int pageNum) {
+//        Observable.create()
+        thisStartTime = startTime;
+        thisEndTime = endTime;
         historyTrackRequest = new HistoryTrackRequest(tag, serviceId, entityName);
         // 设置开始时间
-        historyTrackRequest.setStartTime(oldTime / 1000 - 60 * 60 * 2);
+        historyTrackRequest.setStartTime(startTime / 1000);
         // 设置结束时间
-        historyTrackRequest.setEndTime(System.currentTimeMillis() / 1000);
-        historyTrackRequest.setPageIndex(1);
-        historyTrackRequest.setPageSize(1000);
-
-//        mTraceClient.queryLatestPoint();
+        historyTrackRequest.setEndTime(endTime / 1000);
+        historyTrackRequest.setPageIndex(pageNum);
+        historyTrackRequest.setPageSize(pageSize);
         // 查询历史轨迹
         mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener);
     }
 
+    /**
+     * 开始计时
+     */
+
     private void startTimer() {
         oldTime = new Date().getTime();
-//        queryTrace();
         // takeUntil含义,直到 aLong > 10,也就是11才停止
         //         .takeUntil(new Predicate<Long>() {
         //            @Override
@@ -477,7 +512,7 @@ public class MapSportService extends Service {
                     @Override
                     public void onNext(Long aLong) {
                         long currentTime = new Date().getTime();
-                        //时间间隔
+                        //时间间隔,秒
                         int timeSpace = (int) ((currentTime - oldTime) / 1000) + lastTimeSpace;
                         PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.TIME_SPACE, timeSpace);
                         String time = StringUtils.getInstance().getTime(timeSpace);
@@ -488,7 +523,8 @@ public class MapSportService extends Service {
                         //更新通知和查询鹰眼轨迹记录,每隔5秒更新一次
                         if ((timeSpace % 5) == 0) {
                             //查询轨迹
-//                            queryTrace();
+                            points.clear();
+                            queryHistoryTrace(oldTime - (lastTimeSpace * 1000), currentTime, pageIndex);
                             //更新通知
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MapSportService.this);
                             content = currentSportType == SportType.STEP ?
@@ -497,7 +533,6 @@ public class MapSportService extends Service {
                             initNotificationBuilder();
                             notificationManager.notify(102, builder.build());
                         }
-
                     }
 
                     @Override
@@ -512,6 +547,11 @@ public class MapSportService extends Service {
 
     @Override
     public void onCreate() {
+        entityName = getEntityName();
+        //EVR-AL00_6065d59515f43183
+        LogUtils.e("entityName", entityName);
+        // 初始化轨迹服务客户端
+        mTraceClient = new LBSTraceClient(getApplicationContext());
         if (sportFlag) {
             distance = Float.parseFloat(PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.DISTANCE, "0"));
             steps = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.STEP, 0);
@@ -523,6 +563,16 @@ public class MapSportService extends Service {
             }
         }
         super.onCreate();
+    }
+
+    /**
+     * 获取鹰眼服务设备号,每台设备有一个唯一的设备号,实际可以使用用户的账号作为鹰眼的设备号
+     *
+     * @return
+     */
+    private String getEntityName() {
+        String deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        return android.os.Build.MODEL + "_" + deviceId;
     }
 
     @Override

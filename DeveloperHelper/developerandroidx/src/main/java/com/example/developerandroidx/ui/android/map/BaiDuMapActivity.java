@@ -218,7 +218,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
      * 展示提示对话框
      */
     private void showAlertDialog() {
-        DialogUtils.getInstance().showMessageDialog(context, "提示", "确定是否结束运动", "结束", "继续", new DialogUtils.OnButtonClickedListener() {
+        DialogUtils.getInstance().showMessageDialog(context, "提示", "确定是否结束运动,如果骑行距离小于2KM或步数小于2000步,数据不会保存", "结束", "继续", new DialogUtils.OnButtonClickedListener() {
             @Override
             public void onClick(String msg, boolean isOkButton) {
                 if (isOkButton) {

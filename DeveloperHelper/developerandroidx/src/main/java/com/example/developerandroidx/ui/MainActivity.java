@@ -112,7 +112,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             permissionStr += Manifest.permission.READ_EXTERNAL_STORAGE + "##";
         }
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            permissionStr += Manifest.permission.ACCESS_FINE_LOCATION;
+            permissionStr += Manifest.permission.ACCESS_FINE_LOCATION + "##";
+        }
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissionStr += Manifest.permission.READ_PHONE_STATE;
         }
         String[] permissions = permissionStr.split("##");
         if (permissions.length != 0) {

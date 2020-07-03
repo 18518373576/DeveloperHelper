@@ -80,7 +80,7 @@ public class DataBindingViewModel extends BaseViewModel<WeatherModel> {
                     return;
                 }
                 //根据输入数据查询数据库
-                DB_utils.getInstance().getCitiesDatabase().getCitiesDao().queryByCityName(String.valueOf(s))
+                DB_utils.getInstance().getCityDB().getCitiesDao().queryByCityName(String.valueOf(s))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<List<City>>() {

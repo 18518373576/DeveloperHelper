@@ -171,12 +171,13 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
 
     /**
      * 初始化地图数据,展示圆心位置和缩放比例
+     * 含义为,以哪个点为圆心展示地图
      */
-    public void setMapStatusUpdate(float zoom, float overlook, double lat, double lon) {
+    public void setMapStatusUpdate(float zoom, float overlook, double centerLat, double centerLon) {
         // 构建地图状态
         MapStatus.Builder builder = new MapStatus.Builder();
         // 中心点设置为颐和园
-        LatLng center = new LatLng(lat, lon);
+        LatLng center = new LatLng(centerLat, centerLon);
         // 缩放级别
         builder.target(center).zoom(zoom).overlook(overlook);
         // 更新地图
@@ -220,6 +221,7 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
 
     /**
      * 设置和更新当前位置,当前位置图标在地图上的展示的位置
+     * 含义为,设置地图上展示当前位置的圆点在地图上的展示位置
      *
      * @param mCurrentLat
      * @param mCurrentLon
@@ -238,8 +240,12 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
 
     /**
      * 回到当前位置,以当前位置为圆心的地图展示
+     * 此方法的正确含义应为设置当前位置模式,普通模式,跟随模式,罗盘模式
+     * 此方法为android:id="@+id/iv_my_location"的点击事件,点击的时候切换下一个展示模式
      */
     public void showMyLocation() {
+        //默认为普通模式
+        //0,普通模式,1跟随模式,2罗盘模式
         int locationMode = PreferenceUtils.getInstance().getIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0);
         int nextMode = (locationMode + 1) % 3;
         if (nextMode != 2) {
@@ -249,6 +255,19 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
         myLocationIcon.setValue(locationIcons[nextMode]);
         myLocationIconMode.setValue(locationModes[nextMode]);
         PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.LOCATION_MODE, nextMode);
+    }
+
+    /**
+     * 以运动轨迹的起点为圆心展示地图
+     * 此时,当前位置模式必须为普通模式
+     */
+    public void showSportStartPoint(double centerLat, double centerLon) {
+        setMapStatusUpdate(16f, -45f, centerLat, centerLon);
+
+        //设置当前位置模式为普通模式
+        myLocationIcon.setValue(locationIcons[0]);
+        myLocationIconMode.setValue(locationModes[0]);
+        PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.LOCATION_MODE, 0);
     }
 
     /**

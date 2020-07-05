@@ -117,6 +117,10 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceivePoints(List<LatLng> points) {
+        if (!isSporting) {
+            //如果不在运动,说明是查询历史记录,则把地图的中心点展示为,运动开始的点
+            viewModel.showSportStartPoint(points.get(0).latitude, points.get(0).longitude);
+        }
         viewModel.setOverlayPoints(points);
     }
 
@@ -202,7 +206,9 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 }
                 break;
             case R.id.iv_history:
-                showHistoryDialog();
+                if (!isSporting) {
+                    showHistoryDialog();
+                }
                 break;
         }
     }
@@ -218,7 +224,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
      * 展示提示对话框
      */
     private void showAlertDialog() {
-        DialogUtils.getInstance().showMessageDialog(context, "提示", "确定是否结束运动,如果骑行距离小于2KM或步数小于2000步,数据不会保存", "结束", "继续", new DialogUtils.OnButtonClickedListener() {
+        DialogUtils.getInstance().showMessageDialog(context, "提示", "确定是否结束运动", "结束", "继续", new DialogUtils.OnButtonClickedListener() {
             @Override
             public void onClick(String msg, boolean isOkButton) {
                 if (isOkButton) {

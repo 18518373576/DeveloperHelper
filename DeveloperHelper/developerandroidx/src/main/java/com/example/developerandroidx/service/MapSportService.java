@@ -335,9 +335,13 @@ public class MapSportService extends Service {
         if (null != wakeLock && wakeLock.isHeld()) {
             wakeLock.release();
         }
+        //清空画线的点
         points.clear();
+        //运动距离设置为0
         distance = 0;
+        //运动步数设置为0
         steps = 0;
+        //还原保存的运动记录数据
         PreferenceUtils.getInstance().putBooleanValue(Constant.PreferenceKeys.IS_SPORTING, false);
         PreferenceUtils.getInstance().putStringValue(Constant.PreferenceKeys.DISTANCE, "0");
         PreferenceUtils.getInstance().putIntValue(Constant.PreferenceKeys.STEP, 0);
@@ -362,8 +366,8 @@ public class MapSportService extends Service {
 
             }
         } else {
-            //步数大于2000才会保存
-            if (steps > 2000) {
+            //步数大于500才会保存
+            if (steps > 500) {
                 sportHistory = new SportHistory(dateStr, startTime, endTime, distance, steps, Constant.Common.STEP);
             }
         }

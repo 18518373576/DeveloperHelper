@@ -103,6 +103,7 @@ public class HistoryDialog implements FunctionDialogInterface {
                         List<SportHistory> sportHistoryList = (List<SportHistory>) adapter.getData();
                         //清空上次查询数据
                         sportService.points.clear();
+                        // 初始化纠偏选项
                         sportService.initProcessOption(
                                 sportHistoryList.get(position).sportType == Constant.Common.RIDING ? SportType.RIDING : SportType.STEP);
                         sportService.queryHistoryTrace(sportHistoryList.get(position).startTime, sportHistoryList.get(position).endTime, 1);

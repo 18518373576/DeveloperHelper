@@ -26,6 +26,8 @@ public class ExtensibleScrollView extends ScrollView {
     private Context context;
     private LinearLayout contentLayout;
     private OnScrollChangedListener listener;
+    private final int DEFAULT_COLOR = 0;
+    private final int ALERT_COLOR = 1;
 
     /**
      * 可添加的文类型
@@ -107,7 +109,11 @@ public class ExtensibleScrollView extends ScrollView {
      * @param body
      */
     public void addBody(String body) {
-        addText(body, InsertTextType.BODY, 0);
+        addText(body, InsertTextType.BODY, DEFAULT_COLOR);
+    }
+
+    public void addAlertBody(String body) {
+        addText(body, InsertTextType.BODY, ALERT_COLOR);
     }
 
     /**
@@ -116,7 +122,7 @@ public class ExtensibleScrollView extends ScrollView {
      * @param title
      */
     public void addTitle_1(String title) {
-        addText(title, InsertTextType.TITLE_1, 0);
+        addText(title, InsertTextType.TITLE_1, DEFAULT_COLOR);
     }
 
     /**
@@ -126,7 +132,7 @@ public class ExtensibleScrollView extends ScrollView {
      */
     public void addTitle_2(String title) {
 
-        addText(title, InsertTextType.TITLE_2, 0);
+        addText(title, InsertTextType.TITLE_2, DEFAULT_COLOR);
     }
 
     /**
@@ -147,8 +153,10 @@ public class ExtensibleScrollView extends ScrollView {
                 body.setPadding(0, padding, 0, padding);
                 //add增加的间距，mult增加的间距倍数
                 body.setLineSpacing(0, 1.5f);
-                if (colorId == 0) {
+                if (colorId == DEFAULT_COLOR) {
                     body.setTextColor(Color.rgb(110, 110, 110));
+                } else if (colorId == ALERT_COLOR) {
+                    body.setTextColor(Color.rgb(205, 85, 85));
                 } else {
                     body.setTextColor(context.getResources().getColor(colorId));
                 }
@@ -166,7 +174,7 @@ public class ExtensibleScrollView extends ScrollView {
                 title_1.setLineSpacing(0, 1.5f);
                 int padding = PixelTransformUtil.dip2px(context, 5);
                 title_1.setPadding(0, padding, 0, padding);
-                if (colorId == 0) {
+                if (colorId == DEFAULT_COLOR) {
                     title_1.setTextColor(Color.rgb(54, 54, 54));
                 } else {
                     title_1.setTextColor(context.getResources().getColor(colorId));
@@ -185,7 +193,7 @@ public class ExtensibleScrollView extends ScrollView {
                 title_2.setLineSpacing(0, 1.5f);
                 int padding = PixelTransformUtil.dip2px(context, 5);
                 title_2.setPadding(0, padding, 0, padding);
-                if (colorId == 0) {
+                if (colorId == DEFAULT_COLOR) {
                     title_2.setTextColor(Color.rgb(54, 54, 54));
                 } else {
                     title_2.setTextColor(context.getResources().getColor(colorId));

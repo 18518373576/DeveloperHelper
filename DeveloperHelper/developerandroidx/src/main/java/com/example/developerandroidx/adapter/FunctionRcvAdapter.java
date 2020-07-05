@@ -15,6 +15,7 @@ import com.example.developerandroidx.ui.android.dialog.indexDialog.IndexDialog;
 import com.example.developerandroidx.ui.android.httpRequest.dialog.HttpRequestLibraryDialog;
 import com.example.developerandroidx.ui.android.notification.NotificationDialog;
 import com.example.developerandroidx.ui.android.sqlite.dialog.SelectDbLibraryDialog;
+import com.example.developerandroidx.ui.java.extend.ExtendDialog;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -67,6 +68,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "Sqlite":
                             new SelectDbLibraryDialog().show(v.getContext());
+                            break;
+                        case "继承":
+                            new ExtendDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

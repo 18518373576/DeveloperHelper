@@ -25,9 +25,12 @@ compileOptions
 ## 项目结构:
 
 
-### [1. Android](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/android.jpg)
+### 1. Android
+![icon](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/android.jpg)
 - #### Activity
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/activity.jpg)
 - #### Service
+![]()
 - #### Broadcast Receiver
 - #### Content Provider
 - #### Fragment
@@ -50,7 +53,8 @@ compileOptions
 - #### 性能优化
 
 
-### [2. Java](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/java.jpg)
+### 2. Java
+![icon](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/java.jpg)
 - #### 数据类型和变量
 - #### 操作符
 - #### 流程控制
@@ -74,7 +78,8 @@ compileOptions
 - #### 算法
 
 
-### [3. Widget](https://gitee.com/ZhangQQ_123/DeveloperHelper/blob/master/pics/widget.jpg)
+### 3. Widget
+![icon](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/widget.jpg)
 - #### ActionBar
 - #### ToolBar
 - #### RecyclerView

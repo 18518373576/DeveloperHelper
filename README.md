@@ -30,26 +30,43 @@ compileOptions
 - #### Activity
 ![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/activity.jpg)
 - #### Service
-![]()
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/service.jpg)
 - #### Broadcast Receiver
 - #### Content Provider
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/contentProvider.jpg)
 - #### Fragment
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/fragment.jpg)
 - #### Dialog
 - #### Notification
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/notification.jpg)
 - #### Touch Event
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/touchEnent.jpg)
 - #### Bluetooth
 - #### NFC
 - #### Camera
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/camera.jpg)
 - #### Layout
-- #### Sqlite
+- #### Sqlite(RxJava+Room)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/database.jpg)
 - #### HttpRequest
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/http.jpg)
 - #### RxJava
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/rxjava.jpg)
 - #### Animation
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/animation.jpg)
 - #### JNI
 - #### 扫码
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/scan.jpg)
 - #### 架构
-- #### DataBinding
-- #### 地图
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/jiagou.jpg)
+- #### DataBinding(实现天气预报)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/dataBinding.jpg)
+- #### 地图(运动类APP功能实现)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/map_01.jpg)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/map_02.jpg)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/map_03.jpg)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/map_04.jpg)
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/map_05.jpg)
 - #### 性能优化
 
 
@@ -89,6 +106,8 @@ compileOptions
 - #### Custom Toast
 - #### Jsoup
 - #### Mathematical Curve（趋势图）
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/quxian.jpg)
 - #### Navigation（底部导航控件）
 - #### 手势密码
+![](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/password.jpg)
 

@@ -90,6 +90,8 @@ dependencies {
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
     implementation 'com.android.volley:volley:1.1.1'
 
+    //强大的日历控件https://gitee.com/huanghaibin_dev/CalendarView
+    implementation project(':calendarview')
     //room操作数据库
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"

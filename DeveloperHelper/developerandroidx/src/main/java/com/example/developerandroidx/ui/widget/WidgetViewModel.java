@@ -7,6 +7,7 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseViewModel;
 import com.example.developerandroidx.model.FunctionItemBean;
 import com.example.developerandroidx.ui.widget.actionBar.ActionBarActivity;
+import com.example.developerandroidx.ui.widget.calendarView.CalendarActivity;
 import com.example.developerandroidx.ui.widget.gesturePassword.GesturePasswordActivity;
 import com.example.developerandroidx.ui.widget.mathematicalCurve.MathematicalCurveActivity;
 import com.example.developerandroidx.ui.widget.navigationView.NavigationViewActivity;
@@ -35,7 +36,7 @@ public class WidgetViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("RecyclerView", R.mipmap.icon_recycler, ""));
         functionList.add(new FunctionItemBean("CardView", R.mipmap.icon_card_view, ""));
         functionList.add(new FunctionItemBean("WebView", R.mipmap.icon_web_view, RouteUtil.getDestination(WebViewActivity.class)));
-        functionList.add(new FunctionItemBean("CalendarView", R.mipmap.icon_calendar, ""));
+        functionList.add(new FunctionItemBean("CalendarView", R.mipmap.icon_calendar, RouteUtil.getDestination(CalendarActivity.class)));
         functionList.add(new FunctionItemBean("Custom Toast", R.mipmap.icon_toast, ""));
         functionList.add(new FunctionItemBean("Jsoup", R.mipmap.icon_html, ""));
         functionList.add(new FunctionItemBean("Mathematical Curve", R.mipmap.icon_curve, RouteUtil.getDestination(MathematicalCurveActivity.class)));

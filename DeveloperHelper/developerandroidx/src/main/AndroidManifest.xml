@@ -48,7 +48,7 @@
         <service
             android:name=".service.MapSportService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
         <!-- AK鉴权 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -59,6 +59,10 @@
             android:enabled="true"
             android:process=":remote" />
 
+        <activity
+            android:name=".ui.widget.calendarView.CalendarActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.android.map.BaiDuMapActivity"
             android:excludeFromRecents="true"

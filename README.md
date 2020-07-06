@@ -1,4 +1,5 @@
 # androidDevelopHelper
+![icon](https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/icon_lancher.png)
 ###### 以项目形式记录安卓开发的一些知识点
 
 ### 项目环境：

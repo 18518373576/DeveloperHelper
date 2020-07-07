@@ -1,4 +1,4 @@
-package com.example.developerandroidx.utils.httpRequest;
+package com.example.developerandroidx.projectInterface;
 
 /**
  * 作者： zjf 2020/6/7 12:50 PM

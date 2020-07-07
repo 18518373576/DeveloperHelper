@@ -14,8 +14,8 @@ public class SportHistory {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     public int id;//记录ID
-    public String dateStr;//yyyy年MM月dd日
-    public long startTime;//运动开始时间,单位秒:(new Date().getTime())/1000
+    public String dateStr;//yyyy-MM-dd
+    public long startTime;//运动开始时间,单位毫秒:new Date().getTime()
     public long endTime;//运动结束时间
     public float distance;//运动距离,单位米
     public int steps;//运动步数

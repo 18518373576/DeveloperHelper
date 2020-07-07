@@ -1,6 +1,7 @@
 package com.example.developerandroidx.utils.httpRequest.rxJavaRequest;
 
 import com.example.developerandroidx.model.WeatherModel;
+import com.example.developerandroidx.projectInterface.CallBack;
 import com.example.developerandroidx.utils.api.Api;
 import com.example.developerandroidx.utils.api.RxJavaApi;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

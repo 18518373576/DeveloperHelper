@@ -1,5 +1,6 @@
 package com.example.developerandroidx.utils.httpRequest;
 
+import com.example.developerandroidx.projectInterface.RequestCallBack;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.api.Api;
 import com.example.developerandroidx.utils.api.RetrofitApi;

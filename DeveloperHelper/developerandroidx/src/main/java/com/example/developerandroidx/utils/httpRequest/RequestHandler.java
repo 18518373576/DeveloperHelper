@@ -3,6 +3,7 @@ package com.example.developerandroidx.utils.httpRequest;
 import android.os.Handler;
 import android.os.Message;
 
+import com.example.developerandroidx.projectInterface.RequestCallBack;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
 

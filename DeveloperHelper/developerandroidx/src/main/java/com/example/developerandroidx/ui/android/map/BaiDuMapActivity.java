@@ -12,21 +12,25 @@ import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import com.baidu.mapapi.model.LatLng;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithDataBinding;
 import com.example.developerandroidx.databinding.ActivityBaiDuMapBinding;
+import com.example.developerandroidx.db.entity.SportHistory;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
 import com.example.developerandroidx.service.MapSportService;
-import com.example.developerandroidx.ui.android.map.dialog.HistoryDialog;
+import com.example.developerandroidx.ui.widget.calendarView.CalendarActivity;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
 import com.example.developerandroidx.utils.PreferenceUtils;
 import com.example.developerandroidx.utils.enumPkg.SportType;
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -207,17 +211,27 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
                 break;
             case R.id.iv_history:
                 if (!isSporting) {
-                    showHistoryDialog();
+                    //查看运动历史记录
+                    Intent intent = new Intent(context, CalendarActivity.class);
+                    intent.putExtra(Constant.IntentParams.INTENT_PARAM, "BaiDuMapActivity");
+                    startActivityForResult(intent, 100);
                 }
                 break;
         }
     }
 
-    /**
-     * 展示历史记录对话框
-     */
-    private void showHistoryDialog() {
-        new HistoryDialog().show(context, sportService);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            SportHistory sportHistory = new Gson().fromJson(data.getStringExtra(Constant.IntentParams.INTENT_PARAM), SportHistory.class);
+            //清空上次查询数据
+            sportService.points.clear();
+            // 初始化纠偏选项
+            sportService.initProcessOption(
+                    sportHistory.sportType == Constant.Common.RIDING ? SportType.RIDING : SportType.STEP);
+            sportService.queryHistoryTrace(sportHistory.startTime, sportHistory.endTime, 1);
+        }
     }
 
     /**

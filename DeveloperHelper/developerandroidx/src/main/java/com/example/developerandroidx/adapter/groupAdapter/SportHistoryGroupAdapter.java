@@ -1,6 +1,5 @@
-package com.example.developerandroidx.adapter.quickAdapter;
+package com.example.developerandroidx.adapter.groupAdapter;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.databinding.ItemSportHistoryBinding;
@@ -8,19 +7,18 @@ import com.example.developerandroidx.db.entity.SportHistory;
 import com.example.developerandroidx.model.MySportHistory;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.StringUtils;
+import com.example.developerandroidx.view.groupRecyclerView.GroupRecyclerAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
- * 作者： zjf 2020/7/3 9:55 AM
+ * 作者： zjf 2020/7/7 11:53 AM
  * 参考：
  * 描述：
  */
-public class SportHistoryRcvAdapter extends BaseQuickAdapter<SportHistory, BaseDataBindingHolder<ItemSportHistoryBinding>> {
+public class SportHistoryGroupAdapter extends GroupRecyclerAdapter<String, SportHistory> {
 
-    public SportHistoryRcvAdapter() {
+    public SportHistoryGroupAdapter() {
         super(R.layout.item_sport_history);
     }
 

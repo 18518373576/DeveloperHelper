@@ -5,7 +5,7 @@
 
         <variable
             name="sportHistory"
-            type="com.example.developerandroidx.adapter.quickAdapter.SportHistoryRcvAdapter.MySportHistory" />
+            type="com.example.developerandroidx.model.MySportHistory" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

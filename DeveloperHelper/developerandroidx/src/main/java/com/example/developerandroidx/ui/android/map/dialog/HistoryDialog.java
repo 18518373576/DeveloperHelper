@@ -17,15 +17,11 @@ import com.example.developerandroidx.projectInterface.FunctionDialogInterface;
 import com.example.developerandroidx.service.MapSportService;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
-import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.enumPkg.SportType;
 import com.kongzue.dialog.v3.FullScreenDialog;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -34,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * 作者： zjf 2020/7/3 9:36 AM
  * 参考：
- * 描述：
+ * 描述：运动历史记录对话框形式展现,现在使用{@link com.example.developerandroidx.ui.widget.calendarView.CalendarActivity}进行展示
  */
 public class HistoryDialog implements FunctionDialogInterface {
     private MapSportService sportService;

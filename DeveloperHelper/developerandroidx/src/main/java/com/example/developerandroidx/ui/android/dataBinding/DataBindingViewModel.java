@@ -15,7 +15,7 @@ import com.example.developerandroidx.realize.SampleTextWatcher;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.StringUtils;
-import com.example.developerandroidx.utils.httpRequest.rxJavaRequest.CallBack;
+import com.example.developerandroidx.projectInterface.CallBack;
 import com.example.developerandroidx.utils.httpRequest.rxJavaRequest.RxJavaRequestUtil;
 import com.example.developerandroidx.view.loadingView.LoadingState;
 

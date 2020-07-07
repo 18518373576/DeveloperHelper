@@ -16,6 +16,7 @@ import com.example.developerandroidx.ui.android.httpRequest.dialog.HttpRequestLi
 import com.example.developerandroidx.ui.android.notification.NotificationDialog;
 import com.example.developerandroidx.ui.android.sqlite.dialog.SelectDbLibraryDialog;
 import com.example.developerandroidx.ui.java.extend.ExtendDialog;
+import com.example.developerandroidx.ui.java.modifier.ModifierDialog;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -71,6 +72,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "继承":
                             new ExtendDialog().show(v.getContext());
+                            break;
+                        case "修饰符":
+                            new ModifierDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

@@ -17,15 +17,15 @@ public class Constant {
     //创建带回复能力的通知使用到的字段
     public static final String KEY_TEXT_REPLY = "key_text_reply";
 
-    public static boolean isDebug = true;
+    public static final boolean isDebug = true;
 
     public static class Common {
         //百度地图样式选择
         public static final String LIGHT_STYLE = "LIGHT_STYLE";
         public static final String NIGHT_STYLE = "NIGHT_STYLE";
         public static final String DEFAULT_STYLE = "DEFAULT_STYLE";
-        public static Integer RIDING = 100;//骑行
-        public static Integer STEP = 101;//步行
+        public static final Integer RIDING = 100;//骑行
+        public static final Integer STEP = 101;//步行
     }
 
     public static class PreferenceKeys {
@@ -38,9 +38,9 @@ public class Constant {
         public static final String LOCATION_LON = "PreferenceKey_06";
         public static final String IS_SPORTING = "PreferenceKey_07";
         public static final String SPORT_TYPE = "PreferenceKey_08";
-        public static String STEP = "PreferenceKey_09";
-        public static String DISTANCE = "PreferenceKey_10";
-        public static String TIME_SPACE = "PreferenceKey_11";
+        public static final String STEP = "PreferenceKey_09";
+        public static final String DISTANCE = "PreferenceKey_10";
+        public static final String TIME_SPACE = "PreferenceKey_11";
     }
 
     private static Map<String, Integer> weatherIcon = null;

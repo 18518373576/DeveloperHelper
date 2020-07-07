@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.groupAdapter.SportHistoryGroupAdapter;
 import com.example.developerandroidx.base.BaseActivity;
@@ -138,6 +139,10 @@ public class CalendarActivity extends BaseActivity {
 
             @Override
             public void onSuc(List<SportHistory> sportHistoryList) {
+                if (sportHistoryList == null || sportHistoryList.size() == 0) {
+                    App.showNotify("无运动记录");
+                    return;
+                }
                 initCalendar(sportHistoryList);
                 //默认收缩日历
                 calendarLayout.shrink();

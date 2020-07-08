@@ -11,8 +11,10 @@ import android.os.Bundle;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.example.developerandroidx.utils.Constant;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
+import com.tencent.bugly.crashreport.CrashReport;
 
 public class App extends Application {
     public static Context context;
@@ -40,6 +42,9 @@ public class App extends Application {
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
+
+        //bugly初始化95675a9998
+        CrashReport.initCrashReport(getApplicationContext(), "95675a9998", Constant.isDebug);
     }
 
     /**

@@ -90,6 +90,9 @@ dependencies {
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
     implementation 'com.android.volley:volley:1.1.1'
 
+    //腾讯bugly
+    implementation 'com.tencent.bugly:crashreport:3.2.33'
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.3'
     //强大的日历控件https://gitee.com/huanghaibin_dev/CalendarView
     implementation project(':calendarview')
     //room操作数据库

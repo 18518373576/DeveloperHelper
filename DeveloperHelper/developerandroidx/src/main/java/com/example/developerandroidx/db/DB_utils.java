@@ -68,34 +68,4 @@ public class DB_utils {
     public SportHistoryDatabase getSportHistoryDB() {
         return sportHistoryDatabase;
     }
-
-    /**
-     * 获取所有的运动数据
-     */
-    public void getAllSportData(CallBack<List<SportHistory>> callBack) {
-        getSportHistoryDB().getSportHistoryDao().getAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<SportHistory>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<SportHistory> sportHistoryList) {
-                        callBack.onSuc(sportHistoryList);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        callBack.onFail(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 }

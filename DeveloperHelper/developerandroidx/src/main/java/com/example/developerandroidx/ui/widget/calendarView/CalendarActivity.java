@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.groupAdapter.SportHistoryGroupAdapter;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.db.DB_utils;
 import com.example.developerandroidx.db.entity.SportHistory;
-import com.example.developerandroidx.projectInterface.CallBack;
 import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
 import com.example.developerandroidx.utils.Constant;
+import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.view.groupRecyclerView.GroupItemDecoration;
 import com.example.developerandroidx.view.groupRecyclerView.GroupRecyclerView;
@@ -29,6 +30,7 @@ import com.google.gson.Gson;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +39,10 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者： zjf 2020/7/6 3:44 PM
@@ -131,23 +137,40 @@ public class CalendarActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        DB_utils.getInstance().getAllSportData(new CallBack<List<SportHistory>>() {
-            @Override
-            public void onFail(String msg) {
-                LogUtils.e(getPackageName(), msg);
-            }
+        DB_utils.getInstance().getSportHistoryDB().getSportHistoryDao().getAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<SportHistory>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onSuc(List<SportHistory> sportHistoryList) {
-                if (sportHistoryList == null || sportHistoryList.size() == 0) {
-                    App.showNotify("无运动记录");
-                    return;
-                }
-                initCalendar(sportHistoryList);
-                //默认收缩日历
-                calendarLayout.shrink();
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(List<SportHistory> sportHistoryList) {
+                        if (sportHistoryList == null || sportHistoryList.size() == 0) {
+                            App.showNotify("无运动记录");
+                            return;
+                        }
+                        try {
+                            initCalendar(sportHistoryList);
+                            //默认收缩日历
+                            calendarLayout.shrink();
+                        } catch (Exception e) {
+                            DialogUtils.getInstance().showMessageDialog(context, e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.e(getPackageName(), e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     //初始化日历,把运动数据拿出来,进行日历初始化

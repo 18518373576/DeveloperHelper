@@ -363,12 +363,15 @@ public class MapSportService extends Service {
             //大于两公里数据才会保存
             if (distance > 2000) {
                 sportHistory = new SportHistory(dateStr, startTime, endTime, distance, steps, Constant.Common.RIDING);
-
+            } else {
+                return;
             }
         } else {
             //步数大于500才会保存
             if (steps > 500) {
                 sportHistory = new SportHistory(dateStr, startTime, endTime, distance, steps, Constant.Common.STEP);
+            } else {
+                return;
             }
         }
         DB_utils.getInstance().getSportHistoryDB()
@@ -474,8 +477,8 @@ public class MapSportService extends Service {
             }
 
             if (response.getTotal() > 0) {
-                LogUtils.e("鹰眼服务距离测算", distance + "#" + response.getEntityName());
-                LogUtils.e("鹰眼服务历史位置点", distance + "#" + response.trackPoints.size() + "#" + response.getTotal());
+                LogUtils.e("鹰眼服务距离测算", "距离:" + distance + "#" + "用户:" + response.getEntityName());
+                LogUtils.e("鹰眼服务历史位置点", "距离:" + distance + "#" + response.trackPoints.size() + "#" + response.getTotal());
                 //添加位置点
                 for (TrackPoint point : response.getTrackPoints()) {
                     points.add(new LatLng(point.getLocation().latitude, point.getLocation().longitude));

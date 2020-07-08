@@ -113,9 +113,9 @@ public class MapSportService extends Service {
     // 若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
     private boolean isNeedObjectStorage = false;
     // 定位周期(单位:秒)
-    int gatherInterval = 5;
+    int gatherInterval = 2;
     // 打包回传周期(单位:秒)
-    int packInterval = 10;
+    int packInterval = 6;
 
     //百度地图鹰眼服务
     private Trace mTrace;
@@ -308,7 +308,7 @@ public class MapSportService extends Service {
         // 设置需要绑路
         processOption.setNeedMapMatch(true);
         // 设置精度过滤值(定位精度大于100米的过滤掉)
-        processOption.setRadiusThreshold(100);
+        processOption.setRadiusThreshold(20);
         // 设置交通方式为驾车
         switch (sportType) {
             case STEP:

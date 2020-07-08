@@ -116,6 +116,10 @@ public class ExtensibleScrollView extends ScrollView {
         addText(body, InsertTextType.BODY, ALERT_COLOR);
     }
 
+    public void addAlertBody(String body, int colorId) {
+        addText(body, InsertTextType.BODY, colorId);
+    }
+
     /**
      * 添加一级标题，使用默认颜色
      *

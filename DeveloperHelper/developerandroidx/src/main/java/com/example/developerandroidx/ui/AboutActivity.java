@@ -67,7 +67,8 @@ public class AboutActivity extends BaseActivity {
     private void loadUpgradeInfo() {
 
         /***** 获取升级信息 *****/
-        UpgradeInfo upgradeInfo = Beta.getUpgradeInfo();
+        //https://outexp-beta.cdn.qq.com/outbeta/2020/07/09/comexampledeveloperandroidx_1.3_a03dc450-f9b3-5fed-b257-b1346f0cd6b9.apk
+        UpgradeInfo upgradeInfo = Beta.getAppUpgradeInfo();
 
         if (upgradeInfo == null) {
             return;

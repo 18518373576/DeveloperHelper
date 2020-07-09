@@ -15,7 +15,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 2
-        versionName "1.1"
+        versionName "1.2"
 
         //dialog窗口模糊效果
         renderscriptTargetApi 17

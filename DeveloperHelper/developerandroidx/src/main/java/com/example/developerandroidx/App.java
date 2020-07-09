@@ -14,6 +14,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.utils.Constant;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
+import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
 public class App extends Application {
@@ -44,7 +45,7 @@ public class App extends Application {
         SDKInitializer.setCoordType(CoordType.BD09LL);
 
         //bugly初始化95675a9998
-        CrashReport.initCrashReport(getApplicationContext(), "95675a9998", Constant.isDebug);
+        Bugly.init(getApplicationContext(), "95675a9998", Constant.isDebug);
     }
 
     /**

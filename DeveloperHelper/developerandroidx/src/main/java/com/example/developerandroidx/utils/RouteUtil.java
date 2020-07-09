@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.widget.codeView.CodeViewActivity;
 
 import java.util.Map;
@@ -20,7 +23,7 @@ public class RouteUtil {
      * @param activityClass
      * @return
      */
-    public static String getDestination(Class activityClass) {
+    public static String getDestination(Class<? extends AppCompatActivity> activityClass) {
         return activityClass.getName();
     }
 

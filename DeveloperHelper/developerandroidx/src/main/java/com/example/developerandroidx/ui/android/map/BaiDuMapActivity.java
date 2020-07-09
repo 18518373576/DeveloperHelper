@@ -96,13 +96,14 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     }
 
     /**
-     * 定位信息
+     * 定位信息,当前所在的位置信息
      *
      * @param msg
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveLocationMsg(GpsEnentBusMsg msg) {
         viewModel.setMyLocation(msg.currentLat, msg.currentLon, msg.currentAccracy, msg.currentDirection);
+        //如果是首次定位位置的话,对地图做一些初始化操作,是地图以当前位置为圆心展示
         if (msg.isFirstLoc) {
             if (isSporting) {
                 viewModel.setMapStatusUpdate(19f, -45f, msg.currentLat, msg.currentLon);

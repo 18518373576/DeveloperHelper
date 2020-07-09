@@ -9,15 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.groupAdapter.SportHistoryGroupAdapter;
-import com.example.developerandroidx.adapter.quickAdapter.SportHistoryRcvAdapter;
-import com.example.developerandroidx.db.DB_utils;
 import com.example.developerandroidx.db.DaoUtils;
 import com.example.developerandroidx.db.entity.SportHistory;
 import com.example.developerandroidx.projectInterface.CallBack;
@@ -41,10 +38,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者： zjf 2020/7/3 9:36 AM
@@ -122,7 +115,7 @@ public class HistoryDialog implements FunctionDialogInterface {
                     getSchemeCalendar(year, month, day, 0xFFFF7256, "运动"));
 
             //初始化分组recyclerView的数据
-            //如果map中不包含分组,建立一个新的分组
+            //如果map中不包含分组,建立一个新的分组,按日期进行分组
             if (!titles.containsKey(sportHistory.dateStr)) {
                 list = new ArrayList<>();
             }

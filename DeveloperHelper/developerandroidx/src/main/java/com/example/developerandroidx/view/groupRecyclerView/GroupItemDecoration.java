@@ -11,6 +11,8 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.developerandroidx.utils.LogUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,9 +77,13 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
         for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            //获取view在父控件中的位置信息
             int key = params.getViewLayoutPosition();
+            //如果在这个位置有标题的话,就绘制标题
             if (mGroup.containsKey(key)) {
+                //要绘制的groupView的顶部Y值,随着recyclerView的滑动不断的变化
                 top = child.getTop() - params.topMargin - mGroupHeight;
+                //要绘制的groupView的底部Y值
                 bottom = top + mGroupHeight;
                 c.drawRect(paddingLeft, top, right, bottom, mBackgroundPaint);
                 String group = mGroup.get(params.getViewLayoutPosition()).toString();
@@ -113,10 +119,12 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
      * @param parent RecyclerView
      */
     protected void onDrawOverGroup(Canvas c, RecyclerView parent) {
+        //当前页面第一个展示的view的位置
         int firstVisiblePosition = ((LinearLayoutManager) parent.getLayoutManager()).findFirstVisibleItemPosition();
         if (firstVisiblePosition == RecyclerView.NO_POSITION) {
             return;
         }
+        //获取顶部绘制的groupView的标题,获取当前位置的view的标题
         Group group = getCroup(firstVisiblePosition);
         if (group == null)
             return;
@@ -124,15 +132,15 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
         if (TextUtils.isEmpty(groupTitle)) {
             return;
         }
-        boolean isRestore = false;
+        //获取当前展示的首个view的下一个view的标题
         Group nextGroup = getCroup(firstVisiblePosition + 1);
+        //如果下一个View的标题和当前view的标题相同,顶部标题说明不需要被顶出
+        //如果不相等,说明另个标题相遇了,上面的标题要被顶出
         if (nextGroup != null && !group.equals(nextGroup)) {
             //说明是当前组最后一个元素，但不一定碰撞了
             View child = parent.findViewHolderForAdapterPosition(firstVisiblePosition).itemView;
             if (child.getTop() + child.getMeasuredHeight() < mGroupHeight) {
-                //进一步检测碰撞
-                c.save();//保存画布当前的状态
-                isRestore = true;
+                //标题被顶出
                 c.translate(0, child.getTop() + child.getMeasuredHeight() - mGroupHeight);
             }
         }
@@ -140,6 +148,7 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
         int right = parent.getWidth() - parent.getPaddingRight();
         int top = parent.getPaddingTop();
         int bottom = top + mGroupHeight;
+        //画背景
         c.drawRect(left, top, right, bottom, mBackgroundPaint);
         float x;
         float y = top + mTextBaseLine;
@@ -148,11 +157,8 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
         } else {
             x = mPaddingLeft;
         }
+        //画标题
         c.drawText(groupTitle, x, y, mTextPaint);
-        if (isRestore) {
-            //还原画布为初始状态
-            c.restore();
-        }
     }
 
     /**
@@ -210,11 +216,12 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
         mGroup.clear();
         if (adapter == null) return;
         int key = 0;
+        //获取分组信息
         for (int i = 0; i < adapter.getGroupCount(); i++) {
+            //保存分组,key表示分组在list中的位置,value表示分组名称
             if (i == 0) {
                 mGroup.put(isHasHeader ? 1 : 0, adapter.getGroup(i));
                 key += adapter.getChildCount(i) + (isHasHeader ? 1 : 0);
-                ;
             } else {
                 mGroup.put(key, adapter.getGroup(i));
                 key += adapter.getChildCount(i);

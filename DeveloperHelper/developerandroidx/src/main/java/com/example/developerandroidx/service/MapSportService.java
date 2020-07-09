@@ -43,6 +43,7 @@ import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
 import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
 import com.example.developerandroidx.utils.Constant;
+import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.PreferenceUtils;
 import com.example.developerandroidx.utils.StringUtils;
@@ -472,14 +473,16 @@ public class MapSportService extends Service {
         // 历史轨迹回调
         @Override
         public void onHistoryTrackCallback(HistoryTrackResponse response) {
+            //此处记录的是运动中的运动距离,所以只有在运动中更新数值
             if (sportFlag) {
                 distance = (float) response.getDistance();
+                PreferenceUtils.getInstance().putStringValue(Constant.PreferenceKeys.DISTANCE, String.valueOf(distance));
             }
 
             if (response.getTotal() > 0) {
                 LogUtils.e("鹰眼服务距离测算", "距离:" + distance + "#" + "用户:" + response.getEntityName());
                 LogUtils.e("鹰眼服务历史位置点", "距离:" + distance + "#" + response.trackPoints.size() + "#" + response.getTotal());
-                //添加位置点
+                //添加位置点,把鹰眼位置信息转换为地图能画线的位置信息
                 for (TrackPoint point : response.getTrackPoints()) {
                     points.add(new LatLng(point.getLocation().latitude, point.getLocation().longitude));
                 }

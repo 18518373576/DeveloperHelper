@@ -24,6 +24,7 @@
                 android:layout_height="@dimen/dp80"
                 android:layout_marginTop="@dimen/dp5"
                 android:layout_marginEnd="@dimen/dp10"
+                android:layout_marginBottom="@dimen/dp5"
                 android:padding="@dimen/dp20"
                 android:src="@{sportHistory.iconId}" />
 
@@ -43,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:text="@{sportHistory.dateStr}"
                         android:textColor="@color/textColor"
-                        android:textSize="@dimen/sp16"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -61,7 +62,7 @@
                     android:paddingTop="@dimen/dp5"
                     android:paddingBottom="@dimen/dp5"
                     android:text="@{sportHistory.distanceOrSteps}"
-                    android:textSize="22sp"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

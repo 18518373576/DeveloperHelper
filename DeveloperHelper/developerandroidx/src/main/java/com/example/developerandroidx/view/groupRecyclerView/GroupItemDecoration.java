@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -221,7 +222,7 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
         }
     }
 
-    public void setChildItemOffset(int childItemOffset){
+    public void setChildItemOffset(int childItemOffset) {
         this.mChildItemOffset = childItemOffset;
     }
 
@@ -235,6 +236,7 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
 
     public void setTextSize(float textSize) {
         mTextPaint.setTextSize(textSize);
+        mTextPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         Paint.FontMetrics metrics = mTextPaint.getFontMetrics();
         mTextBaseLine = mGroupHeight / 2 - metrics.descent + (metrics.bottom - metrics.top) / 2;
     }
@@ -272,6 +274,7 @@ public class GroupItemDecoration<Group, Child> extends RecyclerView.ItemDecorati
 
     /**
      * 获取文本的长度像素
+     *
      * @param str 文本
      * @return px
      */

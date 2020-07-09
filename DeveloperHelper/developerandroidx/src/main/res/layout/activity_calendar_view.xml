@@ -139,13 +139,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:overScrollMode="never"
             app:group_background="@color/bg_interface"
             app:group_center="false"
             app:group_has_header="false"
             app:group_height="42dp"
             app:group_padding_left="16dp"
             app:group_padding_right="16dp"
-            app:group_text_color="#555555"
+            app:group_text_color="@color/textColor"
             app:group_text_size="@dimen/sp16" />
     </com.haibin.calendarview.CalendarLayout>
 

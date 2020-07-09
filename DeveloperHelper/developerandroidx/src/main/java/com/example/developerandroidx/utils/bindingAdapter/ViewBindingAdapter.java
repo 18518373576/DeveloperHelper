@@ -1,11 +1,13 @@
 package com.example.developerandroidx.utils.bindingAdapter;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,26 @@ import java.util.List;
  * 描述：ViewBindingAdapter
  */
 public class ViewBindingAdapter {
+
+    /**
+     * ----------------TextView-----------------
+     */
+    /**
+     * gps信号强度
+     *
+     * @param textView 展示信号说明的view
+     * @param isStrong true表示信号强
+     */
+    @BindingAdapter("gpsStrength")
+    public static void setGpsStrength(TextView textView, boolean isStrong) {
+        if (isStrong) {
+            textView.setTextColor(Color.rgb(23, 171, 227));
+            textView.setText("GPS信号较强");
+        } else {
+            textView.setTextColor(Color.rgb(110, 110, 110));
+            textView.setText("GPS信号较弱");
+        }
+    }
 
     /**
      * ------------------View---------------------

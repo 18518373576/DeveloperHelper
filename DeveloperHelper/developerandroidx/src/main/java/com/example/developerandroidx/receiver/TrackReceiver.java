@@ -8,6 +8,8 @@ import android.os.PowerManager.WakeLock;
 import com.baidu.trace.model.StatusCodes;
 import com.example.developerandroidx.utils.LogUtils;
 
+//百度鹰眼服务广播接收器,主要是启动wakeLock.acquire();
+//后来把wakeLock.acquire();写在了服务中,此广播没有使用
 public class TrackReceiver extends BroadcastReceiver {
 
     private WakeLock wakeLock = null;

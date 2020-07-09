@@ -86,6 +86,8 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
     public MutableLiveData<String> sportTitle = new MutableLiveData<>("运动距离");
     //运动的距离或步数
     public MutableLiveData<String> stepOrDistance = new MutableLiveData<>("0000");
+    //信号强度,精度<20米为强
+    public MutableLiveData<Boolean> gpsStrength = new MutableLiveData<>(false);
 
     /**
      * 初始化数据
@@ -229,6 +231,12 @@ public class BaiDuMapViewModel extends BaseViewModel<String> {
      * @param mCurrentDirection
      */
     public void setMyLocation(double mCurrentLat, double mCurrentLon, float mCurrentAccracy, float mCurrentDirection) {
+
+        if (mCurrentAccracy < 20) {
+            gpsStrength.setValue(true);
+        } else {
+            gpsStrength.setValue(false);
+        }
         MyLocationData myLocationData = new MyLocationData.Builder()
                 .accuracy(mCurrentAccracy)// 设置定位数据的精度信息，单位：米
                 .direction(mCurrentDirection)// 此处设置开发者获取到的方向信息，顺时针0-360

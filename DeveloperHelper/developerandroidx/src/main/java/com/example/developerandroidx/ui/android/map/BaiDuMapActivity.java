@@ -23,7 +23,7 @@ import com.example.developerandroidx.db.entity.SportHistory;
 import com.example.developerandroidx.model.GpsEnentBusMsg;
 import com.example.developerandroidx.model.SportDescEventBusMsg;
 import com.example.developerandroidx.service.MapSportService;
-import com.example.developerandroidx.ui.widget.calendarView.CalendarActivity;
+import com.example.developerandroidx.ui.android.map.dialog.HistoryDialog;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
@@ -71,6 +71,7 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
     protected void initView() {
         super.initView();
         EventBus.getDefault().register(this);
+        //设置顶栏透明
         setNativeStatusBar(StateBarType.TRAN);
     }
 
@@ -94,6 +95,11 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
     }
 
+    /**
+     * 定位信息
+     *
+     * @param msg
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveLocationMsg(GpsEnentBusMsg msg) {
         viewModel.setMyLocation(msg.currentLat, msg.currentLon, msg.currentAccracy, msg.currentDirection);
@@ -106,6 +112,11 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         }
     }
 
+    /**
+     * 运动距离和步数
+     *
+     * @param msg
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveSportMsg(SportDescEventBusMsg msg) {
         viewModel.setTimer(msg.time);
@@ -119,6 +130,11 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
         }
     }
 
+    /**
+     * 历史位置点记录
+     *
+     * @param points
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceivePoints(List<LatLng> points) {
         if (!isSporting) {
@@ -212,9 +228,10 @@ public class BaiDuMapActivity extends BaseActivityWithDataBinding<ActivityBaiDuM
             case R.id.iv_history:
                 if (!isSporting) {
                     //查看运动历史记录
-                    Intent intent = new Intent(context, CalendarActivity.class);
-                    intent.putExtra(Constant.IntentParams.INTENT_PARAM, "BaiDuMapActivity");
-                    startActivityForResult(intent, 100);
+                    new HistoryDialog().show(context, sportService);
+//                    Intent intent = new Intent(context, CalendarActivity.class);
+//                    intent.putExtra(Constant.IntentParams.INTENT_PARAM, "BaiDuMapActivity");
+//                    startActivityForResult(intent, 100);
                 }
                 break;
         }

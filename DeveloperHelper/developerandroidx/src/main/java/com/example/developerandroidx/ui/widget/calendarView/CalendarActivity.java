@@ -1,36 +1,28 @@
 package com.example.developerandroidx.ui.widget.calendarView;
 
-import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.groupAdapter.SportHistoryGroupAdapter;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.db.DB_utils;
+import com.example.developerandroidx.db.DaoUtils;
 import com.example.developerandroidx.db.entity.SportHistory;
-import com.example.developerandroidx.ui.android.map.BaiDuMapActivity;
-import com.example.developerandroidx.utils.Constant;
+import com.example.developerandroidx.projectInterface.CallBack;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.view.groupRecyclerView.GroupItemDecoration;
 import com.example.developerandroidx.view.groupRecyclerView.GroupRecyclerView;
-import com.google.gson.Gson;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,40 +129,27 @@ public class CalendarActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        DB_utils.getInstance().getSportHistoryDB().getSportHistoryDao().getAll()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<SportHistory>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        DaoUtils.getAllSportData(new CallBack<List<SportHistory>>() {
+            @Override
+            public void onFail(String msg) {
+                LogUtils.e(getPackageName(), msg);
+            }
 
-                    }
-
-                    @Override
-                    public void onNext(List<SportHistory> sportHistoryList) {
-                        if (sportHistoryList == null || sportHistoryList.size() == 0) {
-                            App.showNotify("无运动记录");
-                            return;
-                        }
-                        try {
-                            initCalendar(sportHistoryList);
-                            //默认收缩日历
-                            calendarLayout.shrink();
-                        } catch (Exception e) {
-                            DialogUtils.getInstance().showMessageDialog(context, e.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtils.e(getPackageName(), e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+            @Override
+            public void onSuc(List<SportHistory> sportHistoryList) {
+                if (sportHistoryList == null || sportHistoryList.size() == 0) {
+                    App.showNotify("无运动记录");
+                    return;
+                }
+                try {
+                    initCalendar(sportHistoryList);
+                    //默认收缩日历
+                    calendarLayout.shrink();
+                } catch (Exception e) {
+                    DialogUtils.getInstance().showMessageDialog(context, e.getMessage());
+                }
+            }
+        });
     }
 
     //初始化日历,把运动数据拿出来,进行日历初始化
@@ -204,20 +183,20 @@ public class CalendarActivity extends BaseActivity {
         adapter.resetGroups(titles);
         rcvSportHistory.setAdapter(adapter);
         rcvSportHistory.notifyDataSetChanged();
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                //跳转到地图界面展示数据
-                if (TextUtils.isEmpty(getIntent().getStringExtra(Constant.IntentParams.INTENT_PARAM))) {
-                    return;
-                }
-                String param = new Gson().toJson(sportHistoryList.get(position));
-                Intent intent = new Intent(context, BaiDuMapActivity.class);
-                intent.putExtra(Constant.IntentParams.INTENT_PARAM, param);
-                setResult(RESULT_OK, intent);
-                CalendarActivity.this.finish();
-            }
-        });
+//        adapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+//                //跳转到地图界面展示数据
+//                if (TextUtils.isEmpty(getIntent().getStringExtra(Constant.IntentParams.INTENT_PARAM))) {
+//                    return;
+//                }
+//                String param = new Gson().toJson(sportHistoryList.get(position));
+//                Intent intent = new Intent(context, BaiDuMapActivity.class);
+//                intent.putExtra(Constant.IntentParams.INTENT_PARAM, param);
+//                setResult(RESULT_OK, intent);
+//                CalendarActivity.this.finish();
+//            }
+//        });
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {

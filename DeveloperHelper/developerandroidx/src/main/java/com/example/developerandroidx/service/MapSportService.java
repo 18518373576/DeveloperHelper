@@ -113,9 +113,9 @@ public class MapSportService extends Service {
     // 若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
     private boolean isNeedObjectStorage = false;
     // 定位周期(单位:秒)
-    int gatherInterval = 2;
+    int gatherInterval = 5;
     // 打包回传周期(单位:秒)
-    int packInterval = 6;
+    int packInterval = 10;
 
     //百度地图鹰眼服务
     private Trace mTrace;
@@ -306,9 +306,9 @@ public class MapSportService extends Service {
         // 设置需要抽稀
         processOption.setNeedVacuate(true);
         // 设置需要绑路
-        processOption.setNeedMapMatch(true);
+//        processOption.setNeedMapMatch(true);
         // 设置精度过滤值(定位精度大于100米的过滤掉)
-        processOption.setRadiusThreshold(20);
+        processOption.setRadiusThreshold(30);
         // 设置交通方式为驾车
         switch (sportType) {
             case STEP:
@@ -571,16 +571,21 @@ public class MapSportService extends Service {
 
                         //更新通知和查询鹰眼轨迹记录,每隔5秒更新一次
                         if ((timeSpace % 5) == 0) {
-                            //查询轨迹
-                            points.clear();
-                            queryHistoryTrace(oldTime - (lastTimeSpace * 1000), currentTime, pageIndex);
                             //更新通知
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MapSportService.this);
+                            //通知内容
                             content = currentSportType == SportType.STEP ?
                                     "运动步数:" + StringUtils.getInstance().getSteps(steps) + "步" :
                                     "骑行距离:" + StringUtils.getInstance().getDistance(distance) + "KM";
                             initNotificationBuilder();
                             notificationManager.notify(102, builder.build());
+                        }
+
+                        //每隔10秒获取一次轨迹记录
+                        if ((timeSpace % 10 == 0)) {
+                            //查询轨迹
+                            points.clear();
+                            queryHistoryTrace(oldTime - (lastTimeSpace * 1000), currentTime, pageIndex);
                         }
                     }
 

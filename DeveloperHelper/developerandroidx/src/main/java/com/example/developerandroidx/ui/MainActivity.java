@@ -197,6 +197,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        //回到主界面,而不结束应用,直到系统回收进程
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
+    @Override
     public void onDestroy() {
         nv_view.release();
         EventBus.getDefault().unregister(this);

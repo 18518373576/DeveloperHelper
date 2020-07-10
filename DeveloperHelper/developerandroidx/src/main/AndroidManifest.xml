@@ -39,7 +39,10 @@
         android:theme="@style/AppThemeNoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".ui.widget.canvas.CanvasActivity"></activity>
+        <activity
+            android:name=".ui.widget.canvas.CanvasActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
@@ -304,9 +307,15 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.WelcomeActivity"
             android:alwaysRetainTaskState="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWelcomeActivity"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

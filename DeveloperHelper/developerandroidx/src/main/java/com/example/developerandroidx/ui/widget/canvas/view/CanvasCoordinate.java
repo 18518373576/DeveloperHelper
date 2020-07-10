@@ -49,9 +49,9 @@ public class CanvasCoordinate extends View {
 
 
         canvas.save();
-        canvas.drawLine(0, 0, width, 0, paint);
+        canvas.drawLine(5, 5, width, 5, paint);
         paint.setColor(Color.rgb(0, 0, 255));
-        canvas.drawLine(0, 0, 0, height, paint);
+        canvas.drawLine(5, 5, 5, height, paint);
         paint.setColor(Color.rgb(110, 110, 110));
         canvas.drawText("1.原始坐标,执行 canvas.save()", 20, 40, paint);
 

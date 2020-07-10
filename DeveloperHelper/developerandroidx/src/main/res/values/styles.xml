@@ -20,6 +20,15 @@
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowBackground">@color/bg_interface</item>
     </style>
+
+    <style name="AppThemeWelcomeActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/colorMain</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@mipmap/welcome_page</item>
+    </style>
     <!--    dialogActivity通用主题-->
     <style name="DialogActivityTheme" parent="Theme.AppCompat.Light.Dialog">
 

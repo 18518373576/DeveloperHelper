@@ -2,7 +2,6 @@ package com.example.developerandroidx.view.ExtensibleScrollView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
@@ -28,6 +27,8 @@ public class ExtensibleScrollView extends ScrollView {
     private OnScrollChangedListener listener;
     private final int DEFAULT_COLOR = 0;
     private final int ALERT_COLOR = 1;
+    public final String tab = "\n        ";
+    public final String tabDouble = "\n        " + "        ";
 
     /**
      * 可添加的文类型
@@ -36,7 +37,7 @@ public class ExtensibleScrollView extends ScrollView {
      * BODY正文
      */
     public enum InsertTextType {
-        TITLE_1, TITLE_2, BODY
+        TITLE_1, TITLE_2, BODY, BOLD_BODY
     }
 
     public ExtensibleScrollView(Context context) {
@@ -103,6 +104,29 @@ public class ExtensibleScrollView extends ScrollView {
         contentLayout.addView(body);
     }
 
+    public interface OnBodyClickListener {
+        void onclick(View view);
+    }
+
+    public void addBodyWithClick(String text, int colorId, OnBodyClickListener clickListener) {
+        TextView body = new TextView(context);
+        body.setText("        " + text);
+        body.setTextSize(14);
+        body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        int padding = PixelTransformUtil.dip2px(context, 5);
+        body.setPadding(0, padding, 0, padding);
+        //add增加的间距，mult增加的间距倍数
+        body.setLineSpacing(0, 1.5f);
+        body.setTextColor(context.getResources().getColor(colorId));
+        body.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickListener.onclick(view);
+            }
+        });
+        contentLayout.addView(body);
+    }
+
     /**
      * 添加body使用默认颜色
      *
@@ -112,6 +136,11 @@ public class ExtensibleScrollView extends ScrollView {
         addText(body, InsertTextType.BODY, DEFAULT_COLOR);
     }
 
+    public void addBoldBody(String body) {
+        addText(body, InsertTextType.BOLD_BODY, DEFAULT_COLOR);
+    }
+
+    //添加提示语句,颜色比较醒目
     public void addAlertBody(String body) {
         addText(body, InsertTextType.BODY, ALERT_COLOR);
     }
@@ -148,6 +177,27 @@ public class ExtensibleScrollView extends ScrollView {
      */
     public void addText(String text, InsertTextType textType, int colorId) {
         switch (textType) {
+            case BOLD_BODY: {
+                TextView body = new TextView(context);
+                body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                body.setTextIsSelectable(true);
+                body.setText("        " + text);
+                body.setTextSize(14);
+                int padding = PixelTransformUtil.dip2px(context, 5);
+                body.setPadding(0, padding, 0, padding);
+                //add增加的间距，mult增加的间距倍数
+                body.setLineSpacing(0, 1.5f);
+                if (colorId == DEFAULT_COLOR) {
+                    body.setTextColor(Color.rgb(110, 110, 110));
+                } else if (colorId == ALERT_COLOR) {
+                    body.setTextColor(Color.rgb(205, 85, 85));
+                } else {
+                    body.setTextColor(context.getResources().getColor(colorId));
+                }
+
+                contentLayout.addView(body);
+            }
+            break;
             case BODY: {
                 TextView body = new TextView(context);
                 body.setTextIsSelectable(true);

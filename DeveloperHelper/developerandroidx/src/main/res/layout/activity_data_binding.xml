@@ -158,7 +158,7 @@
         <com.example.developerandroidx.view.loadingView.LoadingPage
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/titleBarHeigt"
+            android:layout_marginTop="@dimen/titleBarHeight"
             app:layout_constraintTop_toBottomOf="@id/include13"
             app:loadingFailImage="@{dataModel.failImageId}"
             app:loadingState="@{dataModel.loadingState}"

@@ -15,7 +15,7 @@
         android:id="@+id/ll_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt"
+        android:layout_marginTop="@dimen/titleBarHeight"
         android:gravity="center"
         android:orientation="vertical">
 

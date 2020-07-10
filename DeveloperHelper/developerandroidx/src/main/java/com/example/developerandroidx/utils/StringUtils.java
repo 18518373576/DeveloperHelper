@@ -1,6 +1,7 @@
 package com.example.developerandroidx.utils;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -182,6 +183,21 @@ public class StringUtils {
      */
     public String getSteps(int steps) {
         return String.format("%05d", steps);
+    }
+
+    /**
+     * 获取app版本名称
+     */
+    public String getVersionName() {
+        String verName = "";
+        try {
+            verName = App.context.getPackageManager().
+                    getPackageInfo(App.context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return verName;
     }
 
 }

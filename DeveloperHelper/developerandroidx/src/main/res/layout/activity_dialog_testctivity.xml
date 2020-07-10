@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/titleBarHeigt"
+            android:layout_marginTop="@dimen/titleBarHeight"
             android:gravity="center"
             android:text="这是一个dialog样式的activity" />
     </androidx.cardview.widget.CardView>

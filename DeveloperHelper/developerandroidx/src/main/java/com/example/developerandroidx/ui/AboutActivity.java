@@ -2,12 +2,14 @@ package com.example.developerandroidx.ui;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
+import com.example.developerandroidx.utils.StringUtils;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.UpgradeInfo;
@@ -21,6 +23,8 @@ public class AboutActivity extends BaseActivity {
     View cv_image;
     @BindView(R.id.tv_new_version)
     View tv_new_version;
+    @BindView(R.id.tv_version)
+    TextView tv_version;
 
     @Override
     protected int bindLayout() {
@@ -32,6 +36,7 @@ public class AboutActivity extends BaseActivity {
         super.initView();
         setTitle("About");
         cv_image.setOnClickListener(v -> Beta.checkAppUpgrade());
+        tv_version.setText("<D/H> " + StringUtils.getInstance().getVersionName());
     }
 
     @Override

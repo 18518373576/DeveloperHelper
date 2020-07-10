@@ -16,7 +16,7 @@
         android:id="@+id/wv_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt" />
+        android:layout_marginTop="@dimen/titleBarHeight" />
 
     <ProgressBar
         android:id="@+id/pb_progress"
@@ -30,6 +30,6 @@
         android:id="@+id/lv_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt"
+        android:layout_marginTop="@dimen/titleBarHeight"
         app:layout_constraintTop_toBottomOf="@+id/include7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

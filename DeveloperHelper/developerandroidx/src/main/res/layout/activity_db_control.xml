@@ -15,7 +15,7 @@
         android:id="@+id/rcv_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt"
+        android:layout_marginTop="@dimen/titleBarHeight"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/include11" />
 
@@ -23,7 +23,7 @@
         android:id="@+id/lp_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt" />
+        android:layout_marginTop="@dimen/titleBarHeight" />
 
     <ImageView
         android:id="@+id/iv_add"

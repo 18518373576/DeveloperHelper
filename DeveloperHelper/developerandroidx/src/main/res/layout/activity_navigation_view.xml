@@ -13,6 +13,6 @@
         android:id="@+id/nv_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt"
+        android:layout_marginTop="@dimen/titleBarHeight"
         app:layout_constraintLeft_toLeftOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

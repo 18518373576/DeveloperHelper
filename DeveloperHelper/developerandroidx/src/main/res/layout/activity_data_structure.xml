@@ -15,5 +15,5 @@
         style="@style/CommonRcvStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/titleBarHeigt" />
+        android:layout_marginTop="@dimen/titleBarHeight" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/titleBarHeigt"
+    android:layout_height="@dimen/titleBarHeight"
     android:background="@color/bg_interface"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="@dimen/titleBarHeigt"
-        android:layout_height="@dimen/titleBarHeigt"
+        android:layout_width="@dimen/titleBarHeight"
+        android:layout_height="@dimen/titleBarHeight"
         android:background="@drawable/selector_circular_gray"
         android:clickable="true"
         android:padding="@dimen/dp15"
@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/iv_right"
-        android:layout_width="@dimen/titleBarHeigt"
-        android:layout_height="@dimen/titleBarHeigt"
+        android:layout_width="@dimen/titleBarHeight"
+        android:layout_height="@dimen/titleBarHeight"
         android:layout_marginRight="@dimen/dp5"
         android:background="@drawable/selector_circular_gray"
         android:clickable="true"

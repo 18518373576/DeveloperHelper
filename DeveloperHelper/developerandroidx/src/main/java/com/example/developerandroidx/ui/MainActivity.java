@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView nv_view;
 
     private ArrayList<NavigationBean> list;
-    private AppBroadcastReceiver mReceiver;
 
     /**
      * 绑定layout
@@ -87,13 +86,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void initData() {
         super.initData();
-        // 注册 SDK 广播监听者
-        IntentFilter iFilter = new IntentFilter();
-        iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_OK);
-        iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
-        mReceiver = new AppBroadcastReceiver();
-        registerReceiver(mReceiver, iFilter);
-
         getPermission();
     }
 
@@ -210,7 +202,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onDestroy() {
         nv_view.release();
         EventBus.getDefault().unregister(this);
-        unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 

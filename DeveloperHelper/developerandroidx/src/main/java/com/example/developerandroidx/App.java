@@ -15,7 +15,6 @@ import com.example.developerandroidx.utils.Constant;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
 import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 
 public class App extends Application {
     public static Context context;
@@ -57,7 +56,7 @@ public class App extends Application {
         try {
             Bundle bunlde = new Bundle();
             bunlde.putString("package", "com.example.developerandroidx"); // com.test.badge is your package name
-            bunlde.putString("class", "com.example.developerandroidx.ui.MainActivity"); // com.test. badge.MainActivity is your apk main activity
+            bunlde.putString("class", "com.example.developerandroidx.ui.WelcomeActivity"); // com.test. badge.MainActivity is your apk main activity
             bunlde.putInt("badgenumber", num);
             this.getContentResolver().call(Uri.parse("content://com.huawei.android.launcher.settings/badge/"), "change_badge", null, bunlde);
         } catch (Exception e) {

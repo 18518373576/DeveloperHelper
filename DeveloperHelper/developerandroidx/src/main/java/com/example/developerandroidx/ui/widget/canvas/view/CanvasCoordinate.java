@@ -29,7 +29,6 @@ public class CanvasCoordinate extends View {
 
     private void initView() {
         paint = new Paint();
-        paint.setColor(Color.rgb(255, 0, 0));
         paint.setStrokeWidth(10);
         paint.setTextSize(25);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -49,11 +48,12 @@ public class CanvasCoordinate extends View {
 
 
         canvas.save();
-        canvas.drawLine(5, 5, width, 5, paint);
+        paint.setColor(Color.rgb(255, 0, 0));
+        canvas.drawLine(15, 5, width, 5, paint);
         paint.setColor(Color.rgb(0, 0, 255));
-        canvas.drawLine(5, 5, 5, height, paint);
+        canvas.drawLine(15, 5, 15, height, paint);
         paint.setColor(Color.rgb(110, 110, 110));
-        canvas.drawText("1.原始坐标,执行 canvas.save()", 20, 40, paint);
+        canvas.drawText("1.原始坐标,之前执行 canvas.save()", 20, 40, paint);
 
         canvas.rotate(30);
         canvas.translate(100, 0);

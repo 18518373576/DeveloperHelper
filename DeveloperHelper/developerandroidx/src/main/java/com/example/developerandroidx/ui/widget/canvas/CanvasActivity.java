@@ -7,6 +7,7 @@ import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.widget.canvas.dialog.CanvasDialog;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasCoordinate;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawARGB;
+import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawCircle;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawPoint;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawRect;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawText;
@@ -20,7 +21,7 @@ public class CanvasActivity extends BaseActivity {
         return R.layout.activity_canvas;
     }
 
-    @OnClick({R.id.tv_01, R.id.tv_02, R.id.tv_03, R.id.tv_04, R.id.tv_05})
+    @OnClick({R.id.tv_01, R.id.tv_02, R.id.tv_03, R.id.tv_04, R.id.tv_05, R.id.tv_06})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_01://画布坐标系
@@ -37,6 +38,9 @@ public class CanvasActivity extends BaseActivity {
                 break;
             case R.id.tv_05://drawRect
                 new CanvasDialog().show(context, new CanvasDrawRect(context));
+                break;
+            case R.id.tv_06://drawCircle
+                new CanvasDialog().show(context, new CanvasDrawCircle(context));
                 break;
         }
     }

@@ -176,6 +176,16 @@ public class StringUtils {
     }
 
     /**
+     * 获取保留两位小数的float
+     *
+     * @param data
+     * @return
+     */
+    public String getFloat_2(float data) {
+        return String.format("%.2f", data);
+    }
+
+    /**
      * 获取步数,前面补0
      *
      * @param steps

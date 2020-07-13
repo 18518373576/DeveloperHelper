@@ -81,12 +81,6 @@ public class CanvasDrawCircle extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-//        LogUtils.e("onTouchEvent", width + "#" + height);
-//        LogUtils.e("onTouchEvent", event.getX() + "#" + event.getY());
-//
-//        LogUtils.e("onTouchEvent", width + "#" + height);
-//        LogUtils.e("onTouchEvent", event.getX() + "#" + event.getY());
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (event.getY() > height || event.getY() < height - 100) {

@@ -66,6 +66,7 @@ public class ScrollBarView extends View {
         paint.setStyle(Paint.Style.STROKE);
 
         //使用贝塞尔曲线画圆弧,都是计算开始点确定弧线的点
+        //这里使用了两条贝塞尔曲线进行绘制
         path.moveTo(margin - radius * 3, width / 2f);
         path.lineTo(margin + (width - margin * 2) * progress - radius * 3, width / 2f);
         path.moveTo(margin + (width - margin * 2) * progress - radius * 3, width / 2f);
@@ -81,12 +82,12 @@ public class ScrollBarView extends View {
                 margin + (width - margin * 2) * progress, width / 2f - radius);
         canvas.drawPath(path, paint);
 
-        //画滑块
+        //画滑块,一个圆点¬
         paint.setStrokeWidth(radius * 2 - 20);
         paint.setColor(0xAA0000FF);
         canvas.drawPoint(margin + (width - margin * 2) * progress, width / 2f, paint);
 
-        //画进度描述
+        //画进度描述text文字
         paint.setColor(0xAAAAAAAA);
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(PixelTransformForAppUtil.dip2px(20));
@@ -100,7 +101,7 @@ public class ScrollBarView extends View {
                 (width - margin * 2) * progress < radius * 3) {
             textOffsetY = (width - margin * 2) * progress / 3f;
         }
-        //当滑块的左端接触到文字的右端时文字的y轴偏移
+        //当滑块的左端接触到文字的右端时文字的y轴偏移,所以需要加上文字宽度的x轴偏移
         if (margin + (width - margin * 2) * progress > margin + radius * 3 + textWidth &&
                 margin + (width - margin * 2) * progress - radius * 3 < margin + radius * 3 + textWidth) {
             textOffsetY = (radius * 6 + textWidth - (width - margin * 2) * progress) / 3f;

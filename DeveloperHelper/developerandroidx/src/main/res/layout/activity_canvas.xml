@@ -131,11 +131,56 @@
                 android:background="@color/bg_interface" />
 
             <TextView
+                android:id="@+id/tv_09"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp20"
+                android:text="Bézier curve(二阶)"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp20"
+                android:text="Bézier curve(三阶)"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/bg_interface" />
+
+            <TextView
                 android:id="@+id/tv_08"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="loadingView"
+                android:text="示例:loadingView"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp20"
+                android:text="示例:滑块"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />

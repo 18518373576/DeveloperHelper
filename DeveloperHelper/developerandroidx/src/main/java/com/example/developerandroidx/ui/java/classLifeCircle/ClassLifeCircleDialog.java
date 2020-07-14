@@ -70,8 +70,19 @@ public class ClassLifeCircleDialog implements FunctionDialogInterface {
                         "(6)Java虚拟机启动时被标明为启动类的类.");
                 esv_content.addTitle_2("类的加载器ClassLoader");
                 esv_content.addBody("类加载器负责把类加载到Java虚拟机中,类的加载过程采用父亲委托机制,这种机制能更好的的保证Java平台的安全." +
-                        esv_content.tab + "Java虚拟机自带以下几种加载器:");
+                        esv_content.tab + "Java虚拟机自带以下几种加载器:" + esv_content.tab +
+                        "(1)根(Bootstrap)类加载器:该加载器没有父加载器,它负责加载虚拟机的核心类库.java.lang.Object就是由根类加载器加载的." +
+                        "根类加载器从系统属性sun.boot.class.path所指定的目录中加载类库.根类加载器的实现" +
+                        "依赖于底层操作系统,属于虚拟机实现的一部分,它并没有继承java.lang.ClassLoader类" + esv_content.tab +
+                        "(2)扩展(Extension)类加载器:它的父加载器为根类加载器,它从java.ext.dirs系统属性所指定的目录中加载类库,或者从JDK的" +
+                        "安装目录的jre/lib/ext子目录下加载类库.如果把用户创建的jar文件放到这个目录下,也会自动由扩展类加载器加载.扩展类加载器是纯Java类," +
+                        "是java.lang.ClassLoader的子类." + esv_content.tab +
+                        "(2)系统类(System)加载器:也称为应用类加载器,它的父加载器为扩展类加载器,他从classpath环境变量或者系统属性java.class.path所指定的目录中" +
+                        "加载类.它是用户自定义的类加载器的默认父加载器,是纯Java类,是java.lang.ClassLoader的子类.");
                 esv_content.addTitle_2("类的卸载");
+                esv_content.addBody("当Java类被加载,连接和初始化后,它的生命周期就开始了.当代表类的Class对象不再被引用," +
+                        "那么Class对象就会结束生命周期,类在方法区内的数据也会被卸载,从而结束类的生命周期.");
+                esv_content.addBody("由Java虚拟机自带的类加载器所加载的类,在虚拟机的生命周期中,始终不会被卸载.");
             }
         });
     }

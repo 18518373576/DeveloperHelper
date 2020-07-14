@@ -81,4 +81,13 @@ public class TechnologyWebviewActivity extends BaseActivity {
         });
         wv_web.loadUrl(url);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (wv_web.canGoBack()) {
+            wv_web.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

@@ -15,6 +15,7 @@ import com.example.developerandroidx.ui.android.dialog.indexDialog.IndexDialog;
 import com.example.developerandroidx.ui.android.httpRequest.dialog.HttpRequestLibraryDialog;
 import com.example.developerandroidx.ui.android.notification.NotificationDialog;
 import com.example.developerandroidx.ui.android.sqlite.dialog.SelectDbLibraryDialog;
+import com.example.developerandroidx.ui.java.classLifeCircle.ClassLifeCircleDialog;
 import com.example.developerandroidx.ui.java.exception.ExceptionDialog;
 import com.example.developerandroidx.ui.java.extend.ExtendDialog;
 import com.example.developerandroidx.ui.java.interfaceDesc.InterfaceDialog;
@@ -83,6 +84,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "异常处理":
                             new ExceptionDialog().show(v.getContext());
+                            break;
+                        case "类的生命周期":
+                            new ClassLifeCircleDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

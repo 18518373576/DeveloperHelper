@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -135,6 +136,36 @@ public class ExtensibleScrollView extends ScrollView {
     public void addBody(String body) {
         addText(body, InsertTextType.BODY, DEFAULT_COLOR);
     }
+
+    /**
+     * 添加带有着重标记的内容
+     *
+     * @param spanned
+     */
+    public void addLabelBody(Spanned spanned) {
+        TextView body = new TextView(context);
+        body.setTextIsSelectable(true);
+        body.append("        ");
+        body.append(spanned);
+        body.setTextSize(14);
+        int padding = PixelTransformUtil.dip2px(context, 5);
+        body.setPadding(0, padding, 0, padding);
+        //add增加的间距，mult增加的间距倍数
+        body.setLineSpacing(0, 1.5f);
+        body.setTextColor(Color.rgb(110, 110, 110));
+        contentLayout.addView(body);
+    }
+
+    /**
+     * 获取着重显示的内容字符串
+     *
+     * @param content
+     * @return
+     */
+    public String getBoldLabel(String content) {
+        return "<b><font color=#17abe3>" + content + "<font/></b>";
+    }
+
 
     public void addBoldBody(String body) {
         addText(body, InsertTextType.BOLD_BODY, DEFAULT_COLOR);

@@ -20,6 +20,7 @@ import com.example.developerandroidx.ui.java.exception.ExceptionDialog;
 import com.example.developerandroidx.ui.java.extend.ExtendDialog;
 import com.example.developerandroidx.ui.java.interfaceDesc.InterfaceDialog;
 import com.example.developerandroidx.ui.java.modifier.ModifierDialog;
+import com.example.developerandroidx.ui.java.objectLifeCircle.ObjectLifeCircleDialog;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -87,6 +88,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "类的生命周期":
                             new ClassLifeCircleDialog().show(v.getContext());
+                            break;
+                        case "对象的生命周期":
+                            new ObjectLifeCircleDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

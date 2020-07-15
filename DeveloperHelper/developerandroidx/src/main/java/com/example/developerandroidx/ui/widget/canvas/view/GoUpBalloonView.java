@@ -34,6 +34,7 @@ public class GoUpBalloonView extends RelativeLayout {
     private PointF pointFFirst;
     private PointF pointFSecond;
     private PointF pointFEnd;
+    private ValueAnimator animator;
 
     public GoUpBalloonView(Context context) {
         super(context);
@@ -43,7 +44,7 @@ public class GoUpBalloonView extends RelativeLayout {
 
     private void initView() {
         Observable
-                .interval(0, 1, TimeUnit.SECONDS)
+                .interval(0, 500, TimeUnit.MILLISECONDS)
                 .takeUntil((Predicate<Long>) aLong -> isDetachedFromWindow)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -118,7 +119,7 @@ public class GoUpBalloonView extends RelativeLayout {
 //            }
 //        });
 
-        ValueAnimator animator = ValueAnimator.ofObject(new TypeE(pointFFirst, pointFSecond, (int) view.getViewWidth()), pointFStart, pointFEnd);
+        animator = ValueAnimator.ofObject(new TypeE(pointFFirst, pointFSecond, (int) view.getViewWidth()), pointFStart, pointFEnd);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -136,7 +137,7 @@ public class GoUpBalloonView extends RelativeLayout {
             }
         });
 
-        animator.setDuration(10000);
+        animator.setDuration((long) (10000 - 5000 * Math.random()));
         animator.start();
     }
 
@@ -144,7 +145,7 @@ public class GoUpBalloonView extends RelativeLayout {
     /**
      * 绘制一个估值器,计算view的移动轨迹
      */
-    class TypeE implements TypeEvaluator<PointF> {
+    private static class TypeE implements TypeEvaluator<PointF> {
 
         //三阶贝塞尔曲线,出去开始的点和结束的点,另外两个点
         private PointF pointFFirst, pointFSecond;

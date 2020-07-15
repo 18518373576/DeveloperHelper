@@ -100,11 +100,15 @@ public class ScrollBarView extends View {
         if (progress > 0 &&
                 (width - margin * 2) * progress < radius * 3) {
             textOffsetY = (width - margin * 2) * progress / 3f;
-        }
-        //当滑块的左端接触到文字的右端时文字的y轴偏移,所以需要加上文字宽度的x轴偏移
-        if (margin + (width - margin * 2) * progress > margin + radius * 3 + textWidth &&
+        } else if (margin + (width - margin * 2) * progress > margin + radius * 3 + textWidth &&
                 margin + (width - margin * 2) * progress - radius * 3 < margin + radius * 3 + textWidth) {
+            //当滑块的左端接触到文字的右端时文字的y轴偏移,所以需要加上文字宽度的x轴偏移
             textOffsetY = (radius * 6 + textWidth - (width - margin * 2) * progress) / 3f;
+        } else if (margin + (width - margin * 2) * progress > textX && margin + (width - margin * 2) * progress < textX + textWidth) {
+            //当滑块位于文字中间时
+            textOffsetY = radius;
+        } else {
+            textOffsetY = 0;
         }
         canvas.drawText(progressStr,
                 textX, width / 2f - radius / 2f - textOffsetY, paint);

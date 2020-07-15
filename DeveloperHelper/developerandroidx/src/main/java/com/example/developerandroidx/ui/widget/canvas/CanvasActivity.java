@@ -9,11 +9,13 @@ import com.example.developerandroidx.ui.widget.canvas.view.CanvasCoordinate;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawARGB;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawBezierCurve2;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawBezierCurve3;
+import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawBitmap;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawCircle;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawPath;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawPoint;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawRect;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawText;
+import com.example.developerandroidx.ui.widget.canvas.view.GoUpBalloonView;
 import com.example.developerandroidx.ui.widget.canvas.view.ScrollBarView;
 import com.example.developerandroidx.view.loadingView.LoadingView;
 
@@ -27,7 +29,8 @@ public class CanvasActivity extends BaseActivity {
     }
 
     @OnClick({R.id.tv_01, R.id.tv_02, R.id.tv_03, R.id.tv_04, R.id.tv_05, R.id.tv_06
-            , R.id.tv_07, R.id.tv_08, R.id.tv_09, R.id.tv_10, R.id.tv_11})
+            , R.id.tv_07, R.id.tv_08, R.id.tv_09, R.id.tv_10, R.id.tv_11, R.id.tv_12,
+            R.id.tv_13})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_01://画布坐标系
@@ -62,6 +65,12 @@ public class CanvasActivity extends BaseActivity {
                 break;
             case R.id.tv_11:
                 new CanvasDialog().show(context, new ScrollBarView(context));
+                break;
+            case R.id.tv_12:
+                new CanvasDialog().show(context, new CanvasDrawBitmap(context));
+                break;
+            case R.id.tv_13:
+                new CanvasDialog().show(context, new GoUpBalloonView(context));
                 break;
         }
     }

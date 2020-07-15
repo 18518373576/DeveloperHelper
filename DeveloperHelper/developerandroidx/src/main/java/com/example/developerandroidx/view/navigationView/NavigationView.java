@@ -131,10 +131,10 @@ public class NavigationView extends LinearLayout implements View.OnClickListener
      * @param checkedColorId
      * @param unCheckedColorId
      */
-    public void setNavitionSelector(int checkedColorId, int unCheckedColorId) {
+    public void setNavigationSelector(int checkedColorId, int unCheckedColorId) {
         this.checkedColorId = checkedColorId;
         this.unCheckedColorId = unCheckedColorId;
-        setCheckedDefult(currentIndex);//默认选中左边第一个
+        setCheckedDefault(currentIndex);//默认选中左边第一个
     }
 
     /**
@@ -209,7 +209,7 @@ public class NavigationView extends LinearLayout implements View.OnClickListener
      *
      * @param index
      */
-    private void setCheckedDefult(int index) {
+    private void setCheckedDefault(int index) {
         for (int i = 0; i < items.size(); i++) {
             if (i == index) {
                 items.get(i).setCheckedDefult(true, checkedColorId, unCheckedColorId);

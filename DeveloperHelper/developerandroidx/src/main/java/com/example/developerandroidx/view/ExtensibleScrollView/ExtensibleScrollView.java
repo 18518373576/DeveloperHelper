@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.text.Spanned;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -140,13 +140,12 @@ public class ExtensibleScrollView extends ScrollView {
     /**
      * 添加带有着重标记的内容
      *
-     * @param spanned
      */
-    public void addLabelBody(Spanned spanned) {
+    public void addLabelBody(String content) {
         TextView body = new TextView(context);
         body.setTextIsSelectable(true);
         body.append("        ");
-        body.append(spanned);
+        body.append(Html.fromHtml(content));
         body.setTextSize(14);
         int padding = PixelTransformUtil.dip2px(context, 5);
         body.setPadding(0, padding, 0, padding);

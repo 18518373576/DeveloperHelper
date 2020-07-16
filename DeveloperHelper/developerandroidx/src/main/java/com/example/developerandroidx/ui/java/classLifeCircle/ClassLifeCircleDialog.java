@@ -59,9 +59,9 @@ public class ClassLifeCircleDialog implements FunctionDialogInterface {
                         "(2)如果类存在直接的父类,并且这个父类还没被初始化,那就先初始化直接的父类." + esv_content.tab +
                         "(3)如果类中存在初始化语句,那么就依次执行这些初始化语句.");
                 esv_content.addTitle_2("类的初始化的时机");
-                esv_content.addLabelBody(Html.fromHtml("Java虚拟机只有在程序首次" +
+                esv_content.addLabelBody("Java虚拟机只有在程序首次" +
                         esv_content.getBoldLabel("主动") + "使用一个类或接口时才会初始化它." +
-                        "只有6种活动被看作是程序对类或接口的主动使用:"));
+                        "只有6种活动被看作是程序对类或接口的主动使用:");
                 esv_content.addBody("(1)创建类的实例." + esv_content.tab +
                         "(2)调用类的静态方法." + esv_content.tab +
                         "(3)访问某个类或接口的静态变量,或者对该静态变量赋值." + esv_content.tab +

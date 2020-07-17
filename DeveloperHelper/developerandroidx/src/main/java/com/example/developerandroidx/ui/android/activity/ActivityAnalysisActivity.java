@@ -18,6 +18,7 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.android.activity.activityforResult.ForResultActivity;
+import com.example.developerandroidx.ui.android.activity.dialog.ActivityAnalysisDescDialog;
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleInstanceActivity;
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleTaskActivity;
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleTopActivity;

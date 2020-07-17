@@ -40,7 +40,7 @@ public abstract class BaseFragment extends Fragment {
      * @param modelClass 自己定义的viewModel类
      * @return
      */
-    public ViewModel getViewModel(ViewModelStoreOwner owner, Class modelClass) {
+    public <VM extends ViewModel> VM getViewModel(ViewModelStoreOwner owner, Class<VM> modelClass) {
         return new ViewModelProvider(owner).get(modelClass);
     }
 

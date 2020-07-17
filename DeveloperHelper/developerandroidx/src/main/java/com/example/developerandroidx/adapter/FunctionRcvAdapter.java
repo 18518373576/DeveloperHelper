@@ -71,7 +71,7 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                         case "架构":
                             new ArchitectureIndexDialog().show(v.getContext());
                             break;
-                        case "Sqlite":
+                        case "SQLite":
                             new SelectDbLibraryDialog().show(v.getContext());
                             break;
                         case "继承":

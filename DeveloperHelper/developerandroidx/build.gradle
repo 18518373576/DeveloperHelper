@@ -6,10 +6,13 @@ android {
     buildToolsVersion rootProject.buildToolsVersion
     ndkVersion '21.3.6528147'
     dataBinding {
-        //noinspection DataBindingWithoutKapt
+        //noinspection DataBindingWithoutKapt,使用dataBinding
         enabled = true
     }
-
+    buildFeatures {
+        // Enables Jetpack Compose for this module,使用compose
+        compose true
+    }
     defaultConfig {
         applicationId "com.example.developerandroidx"
         minSdkVersion rootProject.minSdkVersion
@@ -58,6 +61,14 @@ android {
         sourceCompatibility = 1.8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+//    composeOptions {
+//        kotlinCompilerExtensionVersion "0.1.0-dev09"
+//    }
+
     sourceSets {
         main {
             jniLibs.srcDir 'libs'
@@ -83,6 +94,15 @@ dependencies {
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
     implementation 'com.android.volley:volley:1.1.1'
 
+    //compose依赖包
+    implementation 'androidx.ui:ui-tooling:0.1.0-dev02'
+    implementation 'androidx.ui:ui-layout:0.1.0-dev02'
+    implementation 'androidx.ui:ui-material:0.1.0-dev02'
+
+//    implementation 'androidx.ui:ui-framework:0.1.0-dev10'
+//    implementation 'androidx.ui:ui-tooling:0.1.0-dev10'
+//    implementation 'androidx.ui:ui-layout:0.1.0-dev10'
+//    implementation 'androidx.ui:ui-material:0.1.0-dev10'
     //腾讯bugly
     implementation 'com.tencent.bugly:nativecrashreport:3.7.3'
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.5'

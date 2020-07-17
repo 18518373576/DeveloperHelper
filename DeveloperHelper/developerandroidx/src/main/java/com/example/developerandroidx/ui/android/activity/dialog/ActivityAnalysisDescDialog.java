@@ -1,4 +1,4 @@
-package com.example.developerandroidx.ui.android.activity;
+package com.example.developerandroidx.ui.android.activity.dialog;
 
 import android.content.Context;
 import android.content.Intent;

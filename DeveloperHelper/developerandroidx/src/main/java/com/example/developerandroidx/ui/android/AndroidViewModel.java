@@ -10,6 +10,7 @@ import com.example.developerandroidx.ui.android.activity.ActivityAnalysisActivit
 import com.example.developerandroidx.ui.android.animation.AnimationActivity;
 import com.example.developerandroidx.ui.android.broadcastReceiver.BroadcastReceiverActivity;
 import com.example.developerandroidx.ui.android.camera.CameraActivity;
+import com.example.developerandroidx.ui.android.compose.ComposeTestActivity;
 import com.example.developerandroidx.ui.android.contentProvider.ContentProviderActivity;
 import com.example.developerandroidx.ui.android.dataBinding.DataBindingActivity;
 import com.example.developerandroidx.ui.android.fragment.FragmentActivity;
@@ -50,8 +51,8 @@ public class AndroidViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("Bluetooth", R.mipmap.icon_bluetooth, ""));
         functionList.add(new FunctionItemBean("NFC", R.mipmap.icon_nfc, ""));
         functionList.add(new FunctionItemBean("Camera", R.mipmap.icon_camera, RouteUtil.getDestination(CameraActivity.class)));
-        functionList.add(new FunctionItemBean("Layout", R.mipmap.icon_constrain_layout, ""));
-        functionList.add(new FunctionItemBean("Sqlite", R.mipmap.icon_sqlite, ""));
+        functionList.add(new FunctionItemBean("Layout(Compose)", R.mipmap.icon_constrain_layout, RouteUtil.getDestination(ComposeTestActivity.class)));
+        functionList.add(new FunctionItemBean("SQLite", R.mipmap.icon_sqlite, ""));
         functionList.add(new FunctionItemBean("HttpRequest", R.mipmap.icon_internet, ""));
         functionList.add(new FunctionItemBean("RxJava", R.mipmap.icon_rxjava, RouteUtil.getDestination(RxJavaSampleActivity.class)));
         functionList.add(new FunctionItemBean("Animation", R.mipmap.icon_animation, RouteUtil.getDestination(AnimationActivity.class)));

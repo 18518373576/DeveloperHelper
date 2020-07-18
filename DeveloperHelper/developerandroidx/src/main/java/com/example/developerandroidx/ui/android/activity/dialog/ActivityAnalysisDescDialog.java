@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.projectInterface.FunctionDialogInterface;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
@@ -60,19 +60,19 @@ public class ActivityAnalysisDescDialog implements FunctionDialogInterface {
                 esv_content.addText("系统会在销毁 Activity 之前调用此回调。此回调是 Activity 接收的最后一个回调。通常，实现 onDestroy() 是为了确保在销毁 Activity 或包含该 Activity 的进程时释放该 Activity 的所有资源。", ExtensibleScrollView.InsertTextType.BODY, R.color.textColor);
                 esv_content.addText("任务和返回栈", ExtensibleScrollView.InsertTextType.TITLE_2, R.color.textColorBlack);
                 esv_content.addBodyWithIntent("了解任务和返回堆栈", R.color.colorMain,
-                        new Intent(context, TechnologyWebviewActivity.class).
+                        new Intent(context, TechnologyWebViewActivity.class).
                                 putExtra(Constant.IntentParams.INTENT_PARAM, "https://developer.android.google.cn/guide/components/activities/tasks-and-back-stack"));
                 esv_content.addText("进程和应用生命周期", ExtensibleScrollView.InsertTextType.TITLE_2, R.color.textColorBlack);
                 esv_content.addBodyWithIntent("了解进程和应用生命周期", R.color.colorMain,
-                        new Intent(context, TechnologyWebviewActivity.class).
+                        new Intent(context, TechnologyWebViewActivity.class).
                                 putExtra(Constant.IntentParams.INTENT_PARAM, "https://developer.android.google.cn/guide/components/activities/process-lifecycle"));
                 esv_content.addTitle_2("将用户转到其他应用");
                 esv_content.addBodyWithIntent("使用隐式Intent启动activity", R.color.colorMain,
-                        new Intent(context, TechnologyWebviewActivity.class).
+                        new Intent(context, TechnologyWebViewActivity.class).
                                 putExtra(Constant.IntentParams.INTENT_PARAM, "https://developer.android.google.cn/training/basics/intents/sending"));
                 esv_content.addTitle_2("多窗口支持");
                 esv_content.addBodyWithIntent("针对多窗口模式配置应用", R.color.colorMain,
-                        new Intent(context, TechnologyWebviewActivity.class).
+                        new Intent(context, TechnologyWebViewActivity.class).
                                 putExtra(Constant.IntentParams.INTENT_PARAM, "https://developer.android.google.cn/guide/topics/ui/multi-window"));
 
 

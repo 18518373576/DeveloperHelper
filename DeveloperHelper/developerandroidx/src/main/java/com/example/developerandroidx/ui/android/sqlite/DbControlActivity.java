@@ -65,7 +65,7 @@ public class DbControlActivity extends BaseActivityWithButterKnife {
         MessageRcvAdapter adapter = new MessageRcvAdapter();
         adapter.setAnimationEnable(true);
         rcvMessage.setAdapter(adapter);
-        viewModel = (DbControlViewModel) getViewModel(this, DbControlViewModel.class);
+        viewModel = getViewModel( DbControlViewModel.class);
 
 
         //添加测试数据

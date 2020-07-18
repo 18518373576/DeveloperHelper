@@ -18,7 +18,7 @@ import com.example.developerandroidx.view.loadingView.LoadingPage;
 
 import butterknife.BindView;
 
-public class TechnologyWebviewActivity extends BaseActivityWithButterKnife {
+public class TechnologyWebViewActivity extends BaseActivityWithButterKnife {
 
 
     @BindView(R.id.wv_web)

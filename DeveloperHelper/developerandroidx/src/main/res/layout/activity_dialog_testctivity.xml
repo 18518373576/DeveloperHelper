@@ -5,7 +5,7 @@
     android:layout_width="@dimen/dp300"
     android:layout_height="@dimen/dp300"
     android:background="@color/tran"
-    tools:context=".ui.android.activity.lifeCycle.DialogTestctivity">
+    tools:context=".ui.android.activity.lifeCycle.DialogTestActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

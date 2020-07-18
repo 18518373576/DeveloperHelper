@@ -79,7 +79,7 @@ public class TransitionAnimationActivity extends BaseActivityWithButterKnife imp
     @Override
     protected void initData() {
         super.initData();
-        TransitionAnimationViewModel viewModel = (TransitionAnimationViewModel) getViewModel(this, TransitionAnimationViewModel.class);
+        TransitionAnimationViewModel viewModel = getViewModel( TransitionAnimationViewModel.class);
 
         viewModel.getAdapterList().observe(this, new Observer<List<TransitionAnimationItemBean>>() {
             @Override

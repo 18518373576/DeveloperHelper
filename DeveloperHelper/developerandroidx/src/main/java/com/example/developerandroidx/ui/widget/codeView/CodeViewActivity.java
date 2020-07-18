@@ -126,7 +126,7 @@ public class CodeViewActivity extends BaseActivityWithButterKnife {
         cv_code_view.setTheme(CodeViewTheme.ANDROIDSTUDIO);
         cv_code_view.fillColor();
         tltle.setBackgroundResource(R.color.codeViewBackground);
-        setTopBarTextLight();
+        setTitleTextLight();
         setTitle("Code");
         iv_right.setImageResource(R.mipmap.icon_blow_up);
         iv_right.setVisibility(View.VISIBLE);

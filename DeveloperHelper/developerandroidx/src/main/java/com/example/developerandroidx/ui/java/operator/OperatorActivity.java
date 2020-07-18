@@ -76,7 +76,7 @@ public class OperatorActivity extends BaseActivityWithButterKnife {
     @Override
     protected void initData() {
 
-        OperatorViewModel viewModel = (OperatorViewModel) getViewModel(this, OperatorViewModel.class);
+        OperatorViewModel viewModel = getViewModel(OperatorViewModel.class);
 //        viewModel.bindLifeCircle(this);
         viewModel.getAdapterList().observe(this, new Observer<List<OperatorItemBean>>() {
             @Override

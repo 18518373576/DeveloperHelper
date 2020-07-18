@@ -61,7 +61,7 @@ public class HttpRequestActivity extends BaseActivityWithButterKnife implements 
          *  请求使用的库 "OkHttp", "Volley", "Retrofit"
          */
         requestLibrary = PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.HTTP_REQUEST_LIBRARY);
-        viewModel = (HttpRequestViewModel) getViewModel(this, HttpRequestViewModel.class);
+        viewModel = getViewModel( HttpRequestViewModel.class);
         viewModel.getData(requestLibrary).observe(this, new Observer<BaseModel>() {
             @Override
             public void onChanged(BaseModel baseModel) {

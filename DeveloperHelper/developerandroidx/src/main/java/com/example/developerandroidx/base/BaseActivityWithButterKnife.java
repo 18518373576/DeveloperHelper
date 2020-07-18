@@ -1,6 +1,5 @@
 package com.example.developerandroidx.base;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.developerandroidx.R;
 
@@ -24,9 +19,8 @@ import butterknife.Unbinder;
 /**
  * 所有activity的基类,使用ButterKnife
  */
-public abstract class BaseActivityWithButterKnife extends AppCompatActivity {
+public abstract class BaseActivityWithButterKnife extends BaseActivity {
 
-    protected Context context;
     private Unbinder unbinder;
 
     @BindView(R.id.tv_title)
@@ -35,16 +29,18 @@ public abstract class BaseActivityWithButterKnife extends AppCompatActivity {
     protected ImageView iv_back;
     @BindView(R.id.iv_right)
     protected ImageView iv_right;
-    protected View decor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
-        setNativeStatusBar(true);
+
         setContentView(bindLayout());
 
         unbinder = ButterKnife.bind(this);
+
+        if (iv_back == null) {
+            throw new RuntimeException("布局文件必须 <include layout=\"@layout/title_bar\"/>,如无需使用titleBar请直接继承BaseActivity");
+        }
 
         initView();
 
@@ -54,14 +50,15 @@ public abstract class BaseActivityWithButterKnife extends AppCompatActivity {
     /**
      * 设置顶栏文字为浅色，页面背景为深色时使用
      */
-    protected void setTopBarTextLight() {
+    protected void setTitleTextLight() {
         //设置返回按钮的颜色
         iv_back.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
         iv_back.setBackgroundResource(R.drawable.selector_circuler_black);
         iv_right.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)));
         iv_right.setBackgroundResource(R.drawable.selector_circuler_black);
         //设置顶部信号栏字体颜色
-        setNativeStatusBar(false);
+        //设置顶部信号栏字体颜色
+        setNativeStatusBar(StateBarType.LIGHT);
         //设置title文字颜色
         tv_title.setTextColor(getResources().getColor(R.color.white));
     }
@@ -82,34 +79,6 @@ public abstract class BaseActivityWithButterKnife extends AppCompatActivity {
                 finish();
                 break;
         }
-    }
-
-    /**
-     * 设置顶栏文字颜色
-     *
-     * @param isDark
-     */
-    protected void setNativeStatusBar(boolean isDark) {
-        decor = this.getWindow().getDecorView();
-        if (isDark) {
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        } else {
-            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            //View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN设置全屏，顶栏展示图片的时候会用到
-            //decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-        }
-    }
-
-
-    /**
-     * 获取ViewModel
-     *
-     * @param owner      ViewModel库拥有者，可是是fragment或者activity
-     * @param modelClass 自己定义的viewModel类
-     * @return
-     */
-    public <VM extends ViewModel> VM getViewModel(ViewModelStoreOwner owner, Class<VM> modelClass) {
-        return new ViewModelProvider(owner).get(modelClass);
     }
 
     /**

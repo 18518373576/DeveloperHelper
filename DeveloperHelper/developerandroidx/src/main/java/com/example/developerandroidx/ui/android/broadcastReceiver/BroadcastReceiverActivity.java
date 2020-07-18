@@ -7,7 +7,7 @@ import android.view.View;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.receiver.AppBroadcastReceiver;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
@@ -102,7 +102,7 @@ public class BroadcastReceiverActivity extends BaseActivityWithButterKnife {
         esv_content.addText("2.sendBroadcast(Intent) 方法会按随机的顺序向所有接收器发送广播。这称为常规广播。这种方法效率更高，但也意味着接收器无法从其他接收器读取结果，无法传递从广播中收到的数据，也无法中止广播。", ExtensibleScrollView.InsertTextType.BODY, R.color.textColor);
         esv_content.addText("3.LocalBroadcastManager.sendBroadcast 方法会将广播发送给与发送器位于同一应用中的接收器。如果您不需要跨应用发送广播，请使用本地广播。这种实现方法的效率更高（无需进行进程间通信），而且您无需担心其他应用在收发您的广播时带来的任何安全问题。", ExtensibleScrollView.InsertTextType.BODY, R.color.textColor);
         esv_content.addText("隐式广播例外情况", ExtensibleScrollView.InsertTextType.TITLE_2, R.color.textColorBlack);
-        Intent intent = new Intent(context, TechnologyWebviewActivity.class);
+        Intent intent = new Intent(context, TechnologyWebViewActivity.class);
         intent.putExtra(Constant.IntentParams.INTENT_PARAM, "https://developer.android.google.cn/guide/components/broadcast-exceptions");
         esv_content.addBodyWithIntent("了解更多", R.color.colorMain, intent);
 

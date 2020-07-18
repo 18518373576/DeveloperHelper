@@ -23,7 +23,7 @@ import com.example.developerandroidx.ui.android.activity.launchMode.SingleInstan
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleTaskActivity;
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleTopActivity;
 import com.example.developerandroidx.ui.android.activity.launchMode.StandardActivity;
-import com.example.developerandroidx.ui.android.activity.lifeCycle.DialogTestctivity;
+import com.example.developerandroidx.ui.android.activity.lifeCycle.DialogTestActivity;
 import com.example.developerandroidx.ui.android.activity.transitionAnimation.TransitionAnimationActivity;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.DialogUtils;
@@ -71,7 +71,7 @@ public class ActivityAnalysisActivity extends BaseActivityWithButterKnife {
     protected void initData() {
         super.initData();
         //因为切换横竖屏，activity会销毁重建，为了保存记录生命周期数据，使用不会随着activity生命周期销毁的LiveData来保存数据
-        viewModel = (ActivityAnalysisViewModel) getViewModel(this, ActivityAnalysisViewModel.class);
+        viewModel = getViewModel( ActivityAnalysisViewModel.class);
         //观察LiveData数据变化，并把变化打印
         viewModel.getLifecycleBuffer().observe(this, new Observer<StringBuffer>() {
             @Override
@@ -89,7 +89,7 @@ public class ActivityAnalysisActivity extends BaseActivityWithButterKnife {
     public void click(View v) {
         switch (v.getId()) {
             case R.id.btn_lifecyle://生命周期
-                RouteUtil.goTo(context, RouteUtil.getDestination(DialogTestctivity.class));
+                RouteUtil.goTo(context, RouteUtil.getDestination(DialogTestActivity.class));
                 break;
             case R.id.btn_start_up_mode://启动模式
                 showLaunchModeDialog();

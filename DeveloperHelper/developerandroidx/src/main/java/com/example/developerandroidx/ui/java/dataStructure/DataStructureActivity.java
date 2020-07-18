@@ -41,7 +41,7 @@ public class DataStructureActivity extends BaseActivityWithButterKnife implement
 
     @Override
     protected void initData() {
-        DataStructureViewModel viewModel = (DataStructureViewModel) getViewModel(this, DataStructureViewModel.class);
+        DataStructureViewModel viewModel = getViewModel(DataStructureViewModel.class);
         viewModel.getData().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {

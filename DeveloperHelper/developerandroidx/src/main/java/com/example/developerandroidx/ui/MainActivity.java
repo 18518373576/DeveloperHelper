@@ -16,7 +16,7 @@ import com.example.developerandroidx.model.EventBusMessageBean;
 import com.example.developerandroidx.ui.android.AndroidFragment;
 import com.example.developerandroidx.ui.java.JavaFragment;
 import com.example.developerandroidx.ui.widget.WidgetFragment;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
                         RouteUtil.goToCodeViewActivity(context, CodeVariate.getInstance().getIssueNotes());
                         break;
                     case "安卓平台架构":
-                        RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebviewActivity.class), "https://developer.android.google.cn/guide/platform");
+                        RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebViewActivity.class), "https://developer.android.google.cn/guide/platform");
                         break;
                 }
             }

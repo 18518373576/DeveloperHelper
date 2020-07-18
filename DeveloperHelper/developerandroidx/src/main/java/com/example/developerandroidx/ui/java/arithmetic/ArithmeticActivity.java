@@ -44,7 +44,7 @@ public class ArithmeticActivity extends BaseActivityWithButterKnife implements B
     @Override
     protected void initData() {
         super.initData();
-        ArithmeticViewModel viewModel = (ArithmeticViewModel) getViewModel(this, ArithmeticViewModel.class);
+        ArithmeticViewModel viewModel = getViewModel(ArithmeticViewModel.class);
         viewModel.getData().observe(this, new Observer<List<ArithMeticModel>>() {
             @Override
             public void onChanged(List<ArithMeticModel> meticModels) {

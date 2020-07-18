@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.Constant;
@@ -72,7 +72,7 @@ public class NotificationActivity extends BaseActivityWithButterKnife {
         esv_content.addText("4.通知优先级，通过 setPriority() 设置。优先级确定通知在 Android 7.1 和更低版本上的干扰程度。（对于 Android 8.0 和更高版本，必须设置渠道重要性。", ExtensibleScrollView.InsertTextType.BODY, R.color.textColor);
         esv_content.addText("请注意，NotificationChannel 构造函数需要一个 importance，它使用 NotificationManager 类中的其中一个常量。该参数确定出现任何属于该渠道的通知时如何打断用户，但您还必须使用 setPriority() 设置优先级以支持 Android 7.1 和更低版本（如上所示）。", ExtensibleScrollView.InsertTextType.BODY, R.color.textColor);
         esv_content.addText("虽然必须按本文所示来设置通知重要性/优先级，但系统不能保证您会收到提醒行为。在某些情况下，系统可能会根据其他因素更改重要性级别，并且用户始终可以重新定义给定渠道适用的重要性级别。", ExtensibleScrollView.InsertTextType.BODY, R.color.textColor);
-        Intent intent = new Intent(context, TechnologyWebviewActivity.class);
+        Intent intent = new Intent(context, TechnologyWebViewActivity.class);
         intent.putExtra(Constant.IntentParams.INTENT_PARAM, "https://developer.android.google.cn/training/notify-user/build-notification");
         esv_content.addBodyWithIntent("了解更多", R.color.colorRed, intent);
     }

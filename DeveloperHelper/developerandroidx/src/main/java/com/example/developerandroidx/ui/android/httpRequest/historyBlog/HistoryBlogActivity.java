@@ -15,7 +15,7 @@ import com.example.developerandroidx.adapter.quickAdapter.BlogHistoryRcvAdapter;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseModel;
 import com.example.developerandroidx.model.HistoryBlogBean;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.PreferenceUtils;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -60,7 +60,7 @@ public class HistoryBlogActivity extends BaseActivityWithButterKnife implements 
         super.initData();
         id = getIntent().getStringExtra(Constant.IntentParams.INTENT_PARAM);
         requestLibrary = PreferenceUtils.getInstance().getStringValue(Constant.PreferenceKeys.HTTP_REQUEST_LIBRARY);
-        viewModel = (HistoryBlogViewModel) getViewModel(this, HistoryBlogViewModel.class);
+        viewModel = getViewModel(HistoryBlogViewModel.class);
 
         lv_loading.onLoading(rcv_blog_history);
         loadData(Constant.Internet.FIRST_LOAD);
@@ -84,7 +84,7 @@ public class HistoryBlogActivity extends BaseActivityWithButterKnife implements 
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
         HistoryBlogBean.Model model = (HistoryBlogBean.Model) adapter.getData().get(position);
-        RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebviewActivity.class), model.link);
+        RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebViewActivity.class), model.link);
     }
 
     /**

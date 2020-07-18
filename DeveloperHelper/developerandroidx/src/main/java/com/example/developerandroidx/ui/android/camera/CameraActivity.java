@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.service.TestIntentService;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.LogUtils;
@@ -141,7 +141,7 @@ public class CameraActivity extends BaseActivityWithButterKnife implements View.
                 });
                 break;
             case R.id.iv_right:
-                RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebviewActivity.class), "https://developer.android.google.cn/guide/topics/media/camera");
+                RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebViewActivity.class), "https://developer.android.google.cn/guide/topics/media/camera");
                 break;
         }
     }

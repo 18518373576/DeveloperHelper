@@ -67,7 +67,7 @@ public class RxJavaSampleActivity extends BaseActivityWithButterKnife implements
     @Override
     protected void initData() {
         super.initData();
-        viewModel = (RxJavaSampleViewModel) getViewModel(this, RxJavaSampleViewModel.class);
+        viewModel = getViewModel( RxJavaSampleViewModel.class);
         viewModel.getData("操作符").observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {

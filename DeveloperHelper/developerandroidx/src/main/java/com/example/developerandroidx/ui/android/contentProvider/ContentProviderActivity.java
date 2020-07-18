@@ -17,7 +17,7 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.android.contentProvider.dialog.MediaListDialog;
 import com.example.developerandroidx.ui.android.contentProvider.provider.Media;
-import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
 
@@ -54,7 +54,7 @@ public class ContentProviderActivity extends BaseActivityWithButterKnife {
         iv_right.setVisibility(View.VISIBLE);
         //内容提供者官方文档
         iv_right.setOnClickListener(v ->
-                RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebviewActivity.class), "https://developer.android.google.cn/guide/topics/providers/content-providers"));
+                RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebViewActivity.class), "https://developer.android.google.cn/guide/topics/providers/content-providers"));
     }
 
     @Override

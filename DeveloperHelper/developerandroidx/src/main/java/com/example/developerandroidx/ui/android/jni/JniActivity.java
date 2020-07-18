@@ -3,11 +3,11 @@ package com.example.developerandroidx.ui.android.jni;
 import android.widget.TextView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 
 import butterknife.BindView;
 
-public class JniActivity extends BaseActivity {
+public class JniActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.tv_hello)
     TextView tvHello;

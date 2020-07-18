@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.core.content.FileProvider;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.android.contentProvider.dialog.MediaListDialog;
 import com.example.developerandroidx.ui.android.contentProvider.provider.Media;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ContentProviderActivity extends BaseActivity {
+public class ContentProviderActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.tv_desc)
     TextView tv_desc;

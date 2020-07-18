@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.OperatorRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 import com.example.developerandroidx.model.OperatorItemBean;
 import com.example.developerandroidx.utils.AnimUtil;
@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OperatorActivity extends BaseActivity {
+public class OperatorActivity extends BaseActivityWithButterKnife {
 
     private String TAG = "com.example.developerandroidx.ui.java.operator.OperatorActivity";
     @BindView(R.id.rcv_operator)

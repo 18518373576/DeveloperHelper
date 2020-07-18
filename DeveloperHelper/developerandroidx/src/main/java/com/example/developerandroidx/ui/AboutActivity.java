@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
@@ -16,7 +16,7 @@ import com.tencent.bugly.beta.UpgradeInfo;
 
 import butterknife.BindView;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends BaseActivityWithButterKnife {
     @BindView(R.id.esv_content)
     ExtensibleScrollView esv_content;
     @BindView(R.id.cv_image)

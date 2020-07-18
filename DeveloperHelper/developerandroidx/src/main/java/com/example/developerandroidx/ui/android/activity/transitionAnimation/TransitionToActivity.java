@@ -8,10 +8,10 @@ import android.view.Window;
 import androidx.annotation.Nullable;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.Constant;
 
-public class TransitionToActivity extends BaseActivity {
+public class TransitionToActivity extends BaseActivityWithButterKnife {
 
     private String transitionType;
     private Transition transition;

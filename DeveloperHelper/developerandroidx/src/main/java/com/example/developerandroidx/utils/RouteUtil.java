@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.developerandroidx.base.BaseActivity;
 import com.example.developerandroidx.ui.widget.codeView.CodeViewActivity;
 
 import java.util.Map;

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.ArithmeticRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 import com.example.developerandroidx.model.ArithMeticModel;
 import com.example.developerandroidx.ui.java.arithmetic.dialog.BubbleSortDialog;
@@ -21,7 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ArithmeticActivity extends BaseActivity implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class ArithmeticActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
 
     @BindView(R.id.rcv_arithmetic)
     RecyclerView rcv_arithmetic;

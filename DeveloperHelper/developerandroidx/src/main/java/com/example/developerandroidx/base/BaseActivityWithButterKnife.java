@@ -24,7 +24,7 @@ import butterknife.Unbinder;
 /**
  * 所有activity的基类,使用ButterKnife
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivityWithButterKnife extends AppCompatActivity {
 
     protected Context context;
     private Unbinder unbinder;

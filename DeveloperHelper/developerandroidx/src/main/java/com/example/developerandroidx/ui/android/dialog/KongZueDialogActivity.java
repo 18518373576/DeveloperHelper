@@ -1,14 +1,12 @@
 package com.example.developerandroidx.ui.android.dialog;
 
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.kongzue.dialog.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialog.interfaces.OnDismissListener;
 import com.kongzue.dialog.interfaces.OnInputDialogButtonClickListener;
@@ -33,7 +31,7 @@ import butterknife.OnClick;
 /**
  * KongZueDialog功能展示
  */
-public class KongZueDialogActivity extends BaseActivity {
+public class KongZueDialogActivity extends BaseActivityWithButterKnife {
 
     private String[] bottomMenus;
     private String[] messageDialogs;

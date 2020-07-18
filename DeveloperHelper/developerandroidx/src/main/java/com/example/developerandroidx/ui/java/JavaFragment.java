@@ -5,12 +5,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.FunctionRcvAdapter;
-import com.example.developerandroidx.base.BaseFragment;
+import com.example.developerandroidx.base.BaseFragmentWithButterKnife;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 
 import butterknife.BindView;
 
-public class JavaFragment extends BaseFragment {
+public class JavaFragment extends BaseFragmentWithButterKnife {
 
     @BindView(R.id.rcv_java)
     RecyclerView rcv_java;

@@ -11,15 +11,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.quickAdapter.RxJavaSampleRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
-import com.example.developerandroidx.model.BlogListBean;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.android.rxJava.smaple.RxJavaSmaple;
 import com.example.developerandroidx.utils.DialogUtils;
-import com.example.developerandroidx.utils.LogUtils;
-import com.example.developerandroidx.utils.api.Api;
-import com.example.developerandroidx.utils.api.RxJavaApi;
-import com.example.developerandroidx.utils.enumPkg.TipType;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +22,16 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 作者： zjf 2020/6/8 2:13 PM
  * 参考：
  * 描述：rxJava使用
  */
-public class RxJavaSampleActivity extends BaseActivity implements OnItemClickListener {
+public class RxJavaSampleActivity extends BaseActivityWithButterKnife implements OnItemClickListener {
 
     @BindView(R.id.rcv_rxjava_sample)
     RecyclerView rcv_rxjava_sample;

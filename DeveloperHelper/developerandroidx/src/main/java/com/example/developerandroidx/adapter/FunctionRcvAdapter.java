@@ -18,6 +18,7 @@ import com.example.developerandroidx.ui.android.sqlite.dialog.SelectDbLibraryDia
 import com.example.developerandroidx.ui.java.classLifeCircle.ClassLifeCircleDialog;
 import com.example.developerandroidx.ui.java.exception.ExceptionDialog;
 import com.example.developerandroidx.ui.java.extend.ExtendDialog;
+import com.example.developerandroidx.ui.java.innerClass.InnerClassDialog;
 import com.example.developerandroidx.ui.java.interfaceDesc.InterfaceDialog;
 import com.example.developerandroidx.ui.java.modifier.ModifierDialog;
 import com.example.developerandroidx.ui.java.objectLifeCircle.ObjectLifeCircleDialog;
@@ -91,6 +92,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "对象的生命周期":
                             new ObjectLifeCircleDialog().show(v.getContext());
+                            break;
+                        case "内部类":
+                            new InnerClassDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.quickAdapter.MessageRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.db.entity.Message;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.DialogUtils;
@@ -37,7 +37,7 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 
-public class DbControlActivity extends BaseActivity {
+public class DbControlActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.rcv_message)
     RecyclerView rcvMessage;

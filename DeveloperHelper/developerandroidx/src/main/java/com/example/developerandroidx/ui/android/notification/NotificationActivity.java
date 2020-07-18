@@ -1,26 +1,22 @@
 package com.example.developerandroidx.ui.android.notification;
 
 import android.content.Intent;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
-import com.example.developerandroidx.ui.widget.webView.WebViewActivity;
 import com.example.developerandroidx.utils.AnimUtil;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.Constant;
-import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class NotificationActivity extends BaseActivity {
+public class NotificationActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.esv_content)
     ExtensibleScrollView esv_content;

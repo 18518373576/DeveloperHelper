@@ -16,7 +16,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.App;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.android.activity.activityforResult.ForResultActivity;
 import com.example.developerandroidx.ui.android.activity.dialog.ActivityAnalysisDescDialog;
 import com.example.developerandroidx.ui.android.activity.launchMode.SingleInstanceActivity;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
 /**
  * activity相关
  */
-public class ActivityAnalysisActivity extends BaseActivity {
+public class ActivityAnalysisActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.tv_print)
     TextView tv_print;

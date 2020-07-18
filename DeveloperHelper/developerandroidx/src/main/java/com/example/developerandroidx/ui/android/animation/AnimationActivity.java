@@ -9,10 +9,8 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.widget.Button;
 
-import androidx.dynamicanimation.animation.FlingAnimation;
-
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.realize.MyAnimationListener;
 import com.example.developerandroidx.ui.android.animation.dialog.AnimatedStateListDrawableDialog;
 import com.example.developerandroidx.ui.android.animation.dialog.CircularRevealDialog;
@@ -36,7 +34,7 @@ import butterknife.OnClick;
 /**
  * 参考：https://www.jianshu.com/p/16e0d4e92bb2
  */
-public class AnimationActivity extends BaseActivity {
+public class AnimationActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.btn_translate)
     Button btn_translate;

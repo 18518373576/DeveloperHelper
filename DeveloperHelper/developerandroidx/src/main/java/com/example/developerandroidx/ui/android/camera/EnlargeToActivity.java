@@ -14,14 +14,14 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.PixelTransformForAppUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class EnlargeToActivity extends BaseActivity {
+public class EnlargeToActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.iv_enlarge)
     ImageView iv_enlarge;

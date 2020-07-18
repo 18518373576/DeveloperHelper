@@ -3,13 +3,13 @@ package com.example.developerandroidx.ui.widget.mathematicalCurve;
 import android.view.View;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.view.curve.CurveView;
 
 import butterknife.BindView;
 
-public class MathematicalCurveActivity extends BaseActivity {
+public class MathematicalCurveActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.cv_curve)
     CurveView cv_curve;

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.TransitionAnimationRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 import com.example.developerandroidx.model.TransitionAnimationItemBean;
 import com.example.developerandroidx.utils.Constant;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TransitionAnimationActivity extends BaseActivity implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class TransitionAnimationActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
 
     @BindView(R.id.rcv_transition)
     RecyclerView rcv_transition;

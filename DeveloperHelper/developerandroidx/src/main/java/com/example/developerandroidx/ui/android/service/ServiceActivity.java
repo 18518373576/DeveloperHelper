@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.App;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.model.EventBusMessageBean;
 import com.example.developerandroidx.service.TestIntentService;
 import com.example.developerandroidx.service.TestService;
@@ -27,7 +27,7 @@ import butterknife.OnClick;
 /**
  * service(服务)知识点整理
  */
-public class ServiceActivity extends BaseActivity {
+public class ServiceActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.tv_task)
     TextView tv_task;

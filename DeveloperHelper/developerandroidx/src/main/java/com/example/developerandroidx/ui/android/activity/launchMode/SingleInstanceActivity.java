@@ -5,13 +5,13 @@ import android.view.View;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.App;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.RouteUtil;
 
 import butterknife.OnClick;
 
-public class SingleInstanceActivity extends BaseActivity {
+public class SingleInstanceActivity extends BaseActivityWithButterKnife {
 
     private String param;
 

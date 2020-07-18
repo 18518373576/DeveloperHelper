@@ -12,13 +12,13 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.view.loadingView.LoadingPage;
 
 import butterknife.BindView;
 
-public class TechnologyWebviewActivity extends BaseActivity {
+public class TechnologyWebviewActivity extends BaseActivityWithButterKnife {
 
 
     @BindView(R.id.wv_web)

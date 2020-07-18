@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 
 import butterknife.OnClick;
 
-public class ForResultActivity extends BaseActivity {
+public class ForResultActivity extends BaseActivityWithButterKnife {
 
     @Override
     protected int bindLayout() {

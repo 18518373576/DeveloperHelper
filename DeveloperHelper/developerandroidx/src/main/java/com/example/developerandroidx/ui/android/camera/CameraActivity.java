@@ -21,7 +21,7 @@ import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.service.TestIntentService;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
 import com.example.developerandroidx.utils.Constant;
@@ -43,7 +43,7 @@ import butterknife.BindView;
  * 文档：https://developer.android.google.cn/training/camera/photobasics
  */
 
-public class CameraActivity extends BaseActivity implements View.OnClickListener {
+public class CameraActivity extends BaseActivityWithButterKnife implements View.OnClickListener {
 
     @BindView(R.id.ll_image)
     LinearLayout ll_image;

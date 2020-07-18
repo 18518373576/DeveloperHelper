@@ -6,14 +6,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.android.fragment.dialog.FragmentDescDialog;
 import com.example.developerandroidx.ui.android.fragment.testFragment.TestOneFragment;
 import com.example.developerandroidx.ui.android.fragment.testFragment.TestTwoFragment;
 
 import butterknife.OnClick;
 
-public class FragmentActivity extends BaseActivity implements TestTwoFragment.OnBtnClickListener {
+public class FragmentActivity extends BaseActivityWithButterKnife implements TestTwoFragment.OnBtnClickListener {
 
     private TestOneFragment oneFragment;
     private TestTwoFragment twoFragment;

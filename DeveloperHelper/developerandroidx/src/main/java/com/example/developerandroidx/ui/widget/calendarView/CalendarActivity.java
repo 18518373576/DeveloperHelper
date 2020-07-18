@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.developerandroidx.App;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.groupAdapter.SportHistoryGroupAdapter;
-import com.example.developerandroidx.base.BaseActivity;
-import com.example.developerandroidx.db.DB_utils;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.db.DaoUtils;
 import com.example.developerandroidx.db.entity.SportHistory;
 import com.example.developerandroidx.projectInterface.CallBack;
@@ -31,17 +30,13 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作者： zjf 2020/7/6 3:44 PM
  * 参考：
  * 描述：展示运动历史记录,与地图界面联动
  */
-public class CalendarActivity extends BaseActivity {
+public class CalendarActivity extends BaseActivityWithButterKnife {
     @BindView(R.id.tv_month_day)
     TextView tvMonthDay;
     @BindView(R.id.tv_year)

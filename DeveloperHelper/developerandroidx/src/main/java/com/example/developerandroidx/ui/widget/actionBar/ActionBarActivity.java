@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.App;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.RouteUtil;
 
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 /**
  * 参考：https://www.jianshu.com/p/81d0bcb282cb
  */
-public class ActionBarActivity extends BaseActivity {
+public class ActionBarActivity extends BaseActivityWithButterKnife {
 
     private ActionBar actionBar;
 

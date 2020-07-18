@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.DataStructureRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 import com.example.developerandroidx.ui.java.dataStructure.dialog.SignleLinkedListDialog;
 
@@ -18,7 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class DataStructureActivity extends BaseActivity implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class DataStructureActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
 
     @BindView(R.id.rcv_data_structure)
     RecyclerView rcv_data_structure;

@@ -3,14 +3,14 @@ package com.example.developerandroidx.ui.widget.gesturePassword;
 import android.widget.TextView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.view.gesturePassword.GesturePasswordView;
 import com.example.developerandroidx.view.gesturePassword.OnPasswordCallBack;
 
 import butterknife.BindView;
 
-public class GesturePasswordActivity extends BaseActivity {
+public class GesturePasswordActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.tv_password)
     TextView tvPassword;

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.BlogListRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseModel;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 import com.example.developerandroidx.model.BlogListBean;
@@ -26,7 +26,7 @@ import butterknife.BindView;
 /**
  * 数据请求示例
  */
-public class HttpRequestActivity extends BaseActivity implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class HttpRequestActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
 
     @BindView(R.id.rcv_blog)
     RecyclerView rcv_blog;

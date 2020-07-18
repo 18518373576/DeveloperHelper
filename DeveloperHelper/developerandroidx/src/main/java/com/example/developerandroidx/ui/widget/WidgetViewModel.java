@@ -1,7 +1,5 @@
 package com.example.developerandroidx.ui.widget;
 
-import android.graphics.Canvas;
-
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
@@ -41,11 +39,12 @@ public class WidgetViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("WebView", R.mipmap.icon_web_view, RouteUtil.getDestination(WebViewActivity.class)));
         functionList.add(new FunctionItemBean("CalendarView", R.mipmap.icon_calendar, RouteUtil.getDestination(CalendarActivity.class)));
         functionList.add(new FunctionItemBean("Custom Toast", R.mipmap.icon_toast, ""));
-        functionList.add(new FunctionItemBean("Jsoup", R.mipmap.icon_html, ""));
+        functionList.add(new FunctionItemBean("JSoup", R.mipmap.icon_html, ""));
         functionList.add(new FunctionItemBean("Canvas", R.mipmap.icon_canvas, RouteUtil.getDestination(CanvasActivity.class)));
         functionList.add(new FunctionItemBean("Mathematical Curve", R.mipmap.icon_curve, RouteUtil.getDestination(MathematicalCurveActivity.class)));
         functionList.add(new FunctionItemBean("Navigation", R.mipmap.icon_navigation, RouteUtil.getDestination(NavigationViewActivity.class)));
         functionList.add(new FunctionItemBean("手势密码", R.mipmap.icon_gesture, RouteUtil.getDestination(GesturePasswordActivity.class)));
+        functionList.add(new FunctionItemBean("CoordinatorLayout", R.mipmap.icon_coordinator, ""));
 
         return functionList;
     }

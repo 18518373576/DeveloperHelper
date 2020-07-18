@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.adapter.quickAdapter.BlogHistoryRcvAdapter;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.base.BaseModel;
 import com.example.developerandroidx.model.HistoryBlogBean;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
@@ -23,7 +23,7 @@ import com.example.developerandroidx.view.loadingView.LoadingPage;
 
 import butterknife.BindView;
 
-public class HistoryBlogActivity extends BaseActivity implements OnItemClickListener, OnLoadMoreListener, Observer<BaseModel> {
+public class HistoryBlogActivity extends BaseActivityWithButterKnife implements OnItemClickListener, OnLoadMoreListener, Observer<BaseModel> {
 
     @BindView(R.id.rcv_blog_history)
     RecyclerView rcv_blog_history;

@@ -3,7 +3,7 @@ package com.example.developerandroidx.ui.widget.canvas;
 import android.view.View;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.widget.canvas.dialog.CanvasDialog;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasCoordinate;
 import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawARGB;
@@ -21,7 +21,7 @@ import com.example.developerandroidx.view.loadingView.LoadingView;
 
 import butterknife.OnClick;
 
-public class CanvasActivity extends BaseActivity {
+public class CanvasActivity extends BaseActivityWithButterKnife {
 
     @Override
     protected int bindLayout() {

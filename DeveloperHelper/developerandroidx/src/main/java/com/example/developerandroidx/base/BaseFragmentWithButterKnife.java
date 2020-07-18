@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragmentWithButterKnife extends Fragment {
 
     private Unbinder unbinder;
     protected Context context;

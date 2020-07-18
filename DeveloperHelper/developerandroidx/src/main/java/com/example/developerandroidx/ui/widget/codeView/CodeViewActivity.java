@@ -3,7 +3,6 @@ package com.example.developerandroidx.ui.widget.codeView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.res.ColorStateList;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,17 +10,11 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.ImageView;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.Constant;
-import com.example.developerandroidx.utils.DialogUtils;
-import com.example.developerandroidx.utils.LogUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +25,7 @@ import thereisnospon.codeview.CodeViewTheme;
  * 描述：代码展示界面
  * 引用：https://github.com/Thereisnospon/CodeView
  */
-public class CodeViewActivity extends BaseActivity {
+public class CodeViewActivity extends BaseActivityWithButterKnife {
 
     private String code;
 

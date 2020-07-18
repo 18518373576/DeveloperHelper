@@ -6,7 +6,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.view.touchEventView.TouchEventView;
 import com.kongzue.dialog.v3.FullScreenDialog;
@@ -17,7 +17,7 @@ import butterknife.OnClick;
 /**
  * 触摸事件的处理与拦截
  */
-public class TouchEventActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
+public class TouchEventActivity extends BaseActivityWithButterKnife implements CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.tev_content)
     TouchEventView tev_content;

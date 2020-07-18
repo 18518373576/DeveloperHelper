@@ -11,11 +11,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.model.EventBusMessageBean;
 import com.example.developerandroidx.ui.android.AndroidFragment;
 import com.example.developerandroidx.ui.java.JavaFragment;
 import com.example.developerandroidx.ui.widget.WidgetFragment;
+import com.example.developerandroidx.ui.widget.webView.TechnologyWebviewActivity;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
@@ -37,7 +38,7 @@ import butterknife.OnClick;
  * 关于对lifecircle的理解
  * 参考：https://www.jianshu.com/p/b1208012b268
  */
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationChangedListener {
+public class MainActivity extends BaseActivityWithButterKnife implements NavigationView.OnNavigationChangedListener {
 
     //权限请求code
     private static final int REQUEST_CODE = 100;
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @OnClick({R.id.iv_right})
     public void click(View v) {
-        String[] mainMenus = new String[]{"About", "Issues"};
+        String[] mainMenus = new String[]{"About", "Issues", "安卓平台架构"};
         DialogUtils.getInstance().showBottomMenu(context, mainMenus, new DialogUtils.OnItemClickListener() {
             @Override
             public void onClick(String text, int index) {
@@ -179,6 +180,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         break;
                     case "Issues":
                         RouteUtil.goToCodeViewActivity(context, CodeVariate.getInstance().getIssueNotes());
+                        break;
+                    case "安卓平台架构":
+                        RouteUtil.goTo(context, RouteUtil.getDestination(TechnologyWebviewActivity.class), "https://developer.android.google.cn/guide/platform");
                         break;
                 }
             }

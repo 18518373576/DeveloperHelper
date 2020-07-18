@@ -3,13 +3,13 @@ package com.example.developerandroidx.ui.android.activity.launchMode;
 import android.view.View;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.RouteUtil;
 
 import butterknife.OnClick;
 
-public class StandardActivity extends BaseActivity {
+public class StandardActivity extends BaseActivityWithButterKnife {
 
     private String param;
     @Override

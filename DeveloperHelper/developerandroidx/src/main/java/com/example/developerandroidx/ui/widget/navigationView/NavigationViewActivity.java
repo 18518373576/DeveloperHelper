@@ -1,7 +1,7 @@
 package com.example.developerandroidx.ui.widget.navigationView;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseActivity;
+import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.android.AndroidFragment;
 import com.example.developerandroidx.ui.java.JavaFragment;
 import com.example.developerandroidx.ui.widget.WidgetFragment;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class NavigationViewActivity extends BaseActivity {
+public class NavigationViewActivity extends BaseActivityWithButterKnife {
 
     @BindView(R.id.nv_view)
     NavigationView nv_view;

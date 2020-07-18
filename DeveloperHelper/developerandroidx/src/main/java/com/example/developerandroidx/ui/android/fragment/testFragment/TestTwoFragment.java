@@ -3,7 +3,7 @@ package com.example.developerandroidx.ui.android.fragment.testFragment;
 import android.view.View;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseFragment;
+import com.example.developerandroidx.base.BaseFragmentWithButterKnife;
 import com.example.developerandroidx.ui.android.fragment.FragmentActivityViewModel;
 
 import butterknife.OnClick;
@@ -13,7 +13,7 @@ import butterknife.OnClick;
  * 参考:
  * 描述:
  */
-public class TestTwoFragment extends BaseFragment {
+public class TestTwoFragment extends BaseFragmentWithButterKnife {
 
     private FragmentActivityViewModel viewModel;
 

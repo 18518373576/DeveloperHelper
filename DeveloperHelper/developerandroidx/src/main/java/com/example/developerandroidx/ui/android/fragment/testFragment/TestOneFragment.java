@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 
 import com.example.developerandroidx.R;
-import com.example.developerandroidx.base.BaseFragment;
+import com.example.developerandroidx.base.BaseFragmentWithButterKnife;
 import com.example.developerandroidx.ui.android.fragment.FragmentActivityViewModel;
 import com.example.developerandroidx.utils.AnimUtil;
 
@@ -18,7 +18,7 @@ import butterknife.BindView;
  * 参考:
  * 描述:
  */
-public class TestOneFragment extends BaseFragment {
+public class TestOneFragment extends BaseFragmentWithButterKnife {
 
     @BindView(R.id.iv_basketball)
     ImageView iv_basketball;

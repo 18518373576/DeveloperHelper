@@ -8,9 +8,9 @@ import android.view.WindowManager;
 import com.example.developerandroidx.App;
 
 /**
- * @作者： zjf 2020/5/11 11:04
- * @参考：
- * @描述： dp与px互相转换
+ * 作者： zjf 2020/5/11 11:04
+ * 参考：
+ * 描述： dp与px互相转换
  */
 public class PixelTransformForAppUtil {
 
@@ -47,8 +47,12 @@ public class PixelTransformForAppUtil {
         Point point = new Point();
         defaultDisplay.getSize(point);
         int width = point.x;
-        int height = point.y;
 
-        return height;
+        return point.y;
+    }
+
+    public static int getStatusBarHeight() {
+        int resourceId = App.context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return App.context.getResources().getDimensionPixelSize(resourceId);
     }
 }

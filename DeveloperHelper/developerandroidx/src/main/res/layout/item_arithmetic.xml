@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp5"
-    android:background="@drawable/bg_round_corner_light_gray">
+    android:background="@drawable/bg_round_corner_light_gray"
+    android:stateListAnimator="@drawable/selector_btn_animator">
 
     <TextView
         android:id="@+id/tv_title"
@@ -25,7 +26,6 @@
         android:paddingLeft="@dimen/dp10"
         android:paddingRight="@dimen/dp10"
         android:paddingBottom="@dimen/dp10"
-        android:stateListAnimator="@drawable/selector_btn_animator"
         android:text="算法"
         android:textColor="@color/textColorBlack"
         android:textSize="@dimen/sp14"

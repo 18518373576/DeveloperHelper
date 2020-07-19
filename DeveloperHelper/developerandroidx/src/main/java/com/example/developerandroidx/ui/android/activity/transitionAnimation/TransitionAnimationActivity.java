@@ -25,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TransitionAnimationActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class TransitionAnimationActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListener {
 
     @BindView(R.id.rcv_transition)
     RecyclerView rcv_transition;

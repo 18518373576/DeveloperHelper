@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_interface"
+    tools:context=".ui.widget.coordinatorLayout.CoordinatorLayoutOneActivity">
+
+
+    <!--    <include layout="@layout/title_bar"/>-->
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titleBarHeight"
+            android:background="@color/bg_interface"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/titleBarHeight"
+                android:layout_height="@dimen/titleBarHeight"
+                android:background="@drawable/selector_circular_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/dp15"
+                android:src="@mipmap/icon_back"
+                android:stateListAnimator="@drawable/selector_btn_animator"
+                android:tint="@color/textColor" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp15"
+                android:layout_marginRight="@dimen/dp15"
+                android:layout_weight="1000"
+                android:text="标题"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp16"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="@dimen/titleBarHeight"
+                android:layout_height="@dimen/titleBarHeight"
+                android:layout_marginEnd="@dimen/dp5"
+                android:background="@drawable/selector_circular_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/dp15"
+                android:src="@mipmap/icon_more"
+                android:stateListAnimator="@drawable/selector_btn_animator"
+                android:tint="@color/textColor"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -21,7 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ArithmeticActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class ArithmeticActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListener {
 
     @BindView(R.id.rcv_arithmetic)
     RecyclerView rcv_arithmetic;

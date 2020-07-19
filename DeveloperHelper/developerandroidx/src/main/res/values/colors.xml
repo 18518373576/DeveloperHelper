@@ -13,6 +13,7 @@
     <color name="lightGrayColor">#E5E5E5</color>
     <color name="bg_dark_white">#EDEDED</color>
     <color name="bg_interface">#F5F5F5</color>
+    <color name="bg_interface_tran">#88F5F5F5</color>
     <color name="colorGrayCancel">#D3D3D3</color>
     <color name="white">#FFFFFF</color>
     <color name="codeViewBackground">#282b2e</color>

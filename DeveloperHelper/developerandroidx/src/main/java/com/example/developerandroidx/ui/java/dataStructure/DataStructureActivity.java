@@ -18,7 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class DataStructureActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class DataStructureActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListener {
 
     @BindView(R.id.rcv_data_structure)
     RecyclerView rcv_data_structure;

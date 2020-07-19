@@ -41,7 +41,11 @@
         tools:targetApi="n">
 
         <activity
-            android:name=".ui.widget.coordinatorLayout.CoordinatorLayoutActivity"
+            android:name=".ui.widget.coordinatorLayout.CoordinatorLayoutTwoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.widget.coordinatorLayout.CoordinatorLayoutOneActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 

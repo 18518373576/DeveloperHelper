@@ -126,4 +126,16 @@
         <item name="android:padding">@dimen/dp10</item>
         <item name="android:spacing">@dimen/dp3</item>
     </style>
+
+    <style name="TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item><!--toolbar标题字体大小-->
+        <item name="android:textColor">@color/textColor</item><!--toolbar标题字体颜色-->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TitleText_big" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">22sp</item><!--toolbar标题字体大小-->
+        <item name="android:textColor">@color/black</item><!--toolbar标题字体颜色-->
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

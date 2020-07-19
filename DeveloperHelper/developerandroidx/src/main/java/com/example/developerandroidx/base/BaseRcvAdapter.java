@@ -18,7 +18,7 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<BaseRcvHold
 
     protected List<T> mList;
 
-    protected OnRecyclerViewItemClickListner itemClickListner;
+    protected OnRecyclerViewItemClickListener<T> itemClickListener;
 
     /**
      * 通知数据变化
@@ -72,8 +72,8 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<BaseRcvHold
         BaseRcvHolder<T> holder = bindHolder(view, viewType);
 
         holder.setOnItemClickListener((v, position) -> {
-            if (itemClickListner != null && mList.size() > 0) {
-                itemClickListner.onItemClick(v, viewType, mList.get(position), position);
+            if (itemClickListener != null && mList.size() > 0) {
+                itemClickListener.onItemClick(v, viewType, mList.get(position), position);
             }
         });
         return holder;
@@ -142,8 +142,8 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<BaseRcvHold
      *
      * @param listener
      */
-    public void setOnItemClickListener(OnRecyclerViewItemClickListner listener) {
-        this.itemClickListner = listener;
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener<T> listener) {
+        this.itemClickListener = listener;
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class BaseRcvAdapter<T> extends RecyclerView.Adapter<BaseRcvHold
      *
      * @param <T>
      */
-    public interface OnRecyclerViewItemClickListner<T> {
+    public interface OnRecyclerViewItemClickListener<T> {
 
         /**
          * item被点击

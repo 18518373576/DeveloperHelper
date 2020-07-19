@@ -26,7 +26,7 @@ import butterknife.BindView;
 /**
  * 数据请求示例
  */
-public class HttpRequestActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListner {
+public class HttpRequestActivity extends BaseActivityWithButterKnife implements BaseRcvAdapter.OnRecyclerViewItemClickListener {
 
     @BindView(R.id.rcv_blog)
     RecyclerView rcv_blog;

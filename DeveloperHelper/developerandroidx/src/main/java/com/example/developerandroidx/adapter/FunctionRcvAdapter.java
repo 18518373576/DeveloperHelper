@@ -22,6 +22,7 @@ import com.example.developerandroidx.ui.java.innerClass.InnerClassDialog;
 import com.example.developerandroidx.ui.java.interfaceDesc.InterfaceDialog;
 import com.example.developerandroidx.ui.java.modifier.ModifierDialog;
 import com.example.developerandroidx.ui.java.objectLifeCircle.ObjectLifeCircleDialog;
+import com.example.developerandroidx.ui.widget.coordinatorLayout.CoordinatorLayoutTypeDialog;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -40,10 +41,10 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
         super(mList);
 
         //设置点击事件，三个界面比较统一，所以在这里进行了一次性设置
-        setOnItemClickListener(new OnRecyclerViewItemClickListner() {
+        setOnItemClickListener(new OnRecyclerViewItemClickListener<FunctionItemBean>() {
             @Override
-            public void onItemClick(@NonNull View v, int viewType, @NonNull Object data, int position) {
-                FunctionItemBean itemBean = (FunctionItemBean) data;
+            public void onItemClick(@NonNull View v, int viewType, @NonNull FunctionItemBean itemBean, int position) {
+//                FunctionItemBean itemBean = (FunctionItemBean) data;
                 if (!TextUtils.isEmpty(itemBean.goTo)) {
                     RouteUtil.goTo(v.getContext(), itemBean.goTo, itemBean.paramsMap, itemBean.paramStr);//路由到指定界面
                 } else {
@@ -95,6 +96,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "内部类":
                             new InnerClassDialog().show(v.getContext());
+                            break;
+                        case "CoordinatorLayout":
+                            new CoordinatorLayoutTypeDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

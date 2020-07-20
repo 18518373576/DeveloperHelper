@@ -26,6 +26,7 @@ import com.example.developerandroidx.ui.widget.coordinatorLayout.CoordinatorLayo
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
+import com.example.developerandroidx.view.customToast.CustomToast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -99,6 +100,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "CoordinatorLayout":
                             new CoordinatorLayoutTypeDialog().show(v.getContext());
+                            break;
+                        case "Custom Toast":
+                            CustomToast.INSTANCE.show(v.getContext(), "通知标题", "这是一个自定义的Toast", R.mipmap.icon_notification);
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.utils.Constant;
+import com.example.developerandroidx.view.customToast.CustomToast;
 import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
 import com.tencent.bugly.Bugly;
@@ -148,12 +149,7 @@ public class App extends Application {
      * @param showMsg
      */
     public static void showNotify(String title, String showMsg, int mipmapId) {
-//        Notification.show(context, title, showMsg, mipmapId);
-        Notification.build(context, showMsg)
-                .setIconResId(mipmapId)
-                .setTitle(title)
-                .setStyle(DialogSettings.STYLE.STYLE_IOS)
-                .showNotification();
+        CustomToast.INSTANCE.show(context, title, showMsg, mipmapId);
     }
 
     /**

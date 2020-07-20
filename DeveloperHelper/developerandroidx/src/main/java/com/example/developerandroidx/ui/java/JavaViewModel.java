@@ -9,6 +9,7 @@ import com.example.developerandroidx.model.FunctionItemBean;
 import com.example.developerandroidx.ui.java.arithmetic.ArithmeticActivity;
 import com.example.developerandroidx.ui.java.dataStructure.DataStructureActivity;
 import com.example.developerandroidx.ui.java.operator.OperatorActivity;
+import com.example.developerandroidx.ui.java.thread.ThreadActivity;
 import com.example.developerandroidx.ui.widget.codeView.CodeViewActivity;
 import com.example.developerandroidx.utils.CodeVariate;
 import com.example.developerandroidx.utils.RouteUtil;
@@ -41,7 +42,7 @@ public class JavaViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("类的生命周期", R.mipmap.icon_class, ""));
         functionList.add(new FunctionItemBean("对象的生命周期", R.mipmap.icon_object, ""));
         functionList.add(new FunctionItemBean("内部类", R.mipmap.icon_inner_class, ""));
-        functionList.add(new FunctionItemBean("多线程", R.mipmap.icon_thread, ""));
+        functionList.add(new FunctionItemBean("多线程", R.mipmap.icon_thread, RouteUtil.getDestination(ThreadActivity.class)));
         functionList.add(new FunctionItemBean("数组", R.mipmap.icon_array, ""));
         functionList.add(new FunctionItemBean("集合", R.mipmap.icon_collection, ""));
         functionList.add(new FunctionItemBean("泛型", R.mipmap.icon_genericity, ""));

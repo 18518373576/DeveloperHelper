@@ -39,7 +39,7 @@
         android:theme="@style/AppThemeNoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-
+        <activity android:name=".ui.java.thread.ThreadActivity"></activity>
         <activity
             android:name=".ui.widget.coordinatorLayout.CoordinatorLayoutTwoActivity"
             android:screenOrientation="portrait"
@@ -48,7 +48,6 @@
             android:name=".ui.widget.coordinatorLayout.CoordinatorLayoutOneActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.android.compose.ComposeTestActivity"
             android:screenOrientation="portrait"

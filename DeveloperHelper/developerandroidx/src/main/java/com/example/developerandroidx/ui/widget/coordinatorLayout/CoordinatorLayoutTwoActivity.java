@@ -65,7 +65,8 @@ public class CoordinatorLayoutTwoActivity extends BaseActivity {
 
     private void setViewOffset() {
         //设置toolbar的margin值,为系统状态栏的高度
-        CollapsingToolbarLayout.LayoutParams params = new CollapsingToolbarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.titleBarHeight));
+        CollapsingToolbarLayout.LayoutParams params = new CollapsingToolbarLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.titleBarHeight));
         params.topMargin = PixelTransformForAppUtil.getStatusBarHeight();
         toolbar.setLayoutParams(params);
         //返回按钮下移状态栏的高度

@@ -6,6 +6,7 @@ import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_01;
 import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_02;
+import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_03;
 
 import butterknife.OnClick;
 
@@ -22,7 +23,7 @@ public class ThreadActivity extends BaseActivityWithButterKnife {
         setTitle("线程");
     }
 
-    @OnClick({R.id.tv_thread_01, R.id.tv_thread_02})
+    @OnClick({R.id.tv_thread_01, R.id.tv_thread_02, R.id.tv_thread_03})
     public void click(View v) {
         switch (v.getId()) {
             case R.id.tv_thread_01:
@@ -30,6 +31,9 @@ public class ThreadActivity extends BaseActivityWithButterKnife {
                 break;
             case R.id.tv_thread_02:
                 new ThreadDialog_02().show(context);
+                break;
+            case R.id.tv_thread_03:
+                new ThreadDialog_03().show(context);
                 break;
         }
     }

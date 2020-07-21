@@ -41,23 +41,23 @@ import static android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_M
  * CreateTime: 2019/3/22 16:24
  */
 public class DialogHelper extends DialogFragment {
-    
+
     private Dialog rootDialog;
-    
+
     private PreviewOnShowListener onShowListener;
     private AlertDialog materialDialog;
-    
+
     private WeakReference<BaseDialog> parent;
-    
+
     private int layoutId;
     private View rootView;
     private String parentId;
     private int styleId;
     private int animResId;
-    
+
     public DialogHelper() {
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (layoutId == -1) {
@@ -71,7 +71,7 @@ public class DialogHelper extends DialogFragment {
         findMyParentAndBindView(rootView);
         return rootView;
     }
-    
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class DialogHelper extends DialogFragment {
                     .setTitle("")
                     .setMessage("")
                     .setPositiveButton("", new DialogInterface.OnClickListener() {
-                        
+
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dismiss();
@@ -93,7 +93,7 @@ public class DialogHelper extends DialogFragment {
         refreshDialogPosition(dialog);
         return dialog;
     }
-    
+
     private void refreshDialogPosition(Dialog dialog) {
         if (dialog != null && parent != null) {
             if (parent.get() instanceof BottomMenu || parent.get() instanceof ShareDialog) {
@@ -124,7 +124,7 @@ public class DialogHelper extends DialogFragment {
             }
             if (parent.get() instanceof CustomDialog) {
                 CustomDialog customDialog = (CustomDialog) parent.get();
-                
+
                 if (customDialog.isFullScreen()) {
                     dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     Window window = dialog.getWindow();
@@ -176,7 +176,7 @@ public class DialogHelper extends DialogFragment {
             }
         }
     }
-    
+
     @Override
     public void show(FragmentManager manager, String tag) {
         try {
@@ -187,7 +187,7 @@ public class DialogHelper extends DialogFragment {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         if (getDialog() == null) {
@@ -195,25 +195,25 @@ public class DialogHelper extends DialogFragment {
         }
         super.onActivityCreated(savedInstanceState);
     }
-    
+
     //parentId：因不可抗力，诸如横竖屏切换、分屏、折叠屏切换等可能造成DialogFragment重启，为保证重启后功能正常运行，因此需要保存自己爹（BaseDialog）的id，方便重新绑定到BaseDialog
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             layoutId = savedInstanceState.getInt("layoutId");
             parentId = savedInstanceState.getString("parentId");
-            
+
         }
         super.onCreate(savedInstanceState);
     }
-    
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt("layoutId", layoutId);
         outState.putString("parentId", parentId);
         super.onSaveInstanceState(outState);
     }
-    
+
     //找爸爸行动
     private void findMyParentAndBindView(View rootView) {
         List<BaseDialog> cache = new ArrayList<>();
@@ -230,7 +230,7 @@ public class DialogHelper extends DialogFragment {
             }
         }
     }
-    
+
     private boolean findMyParent() {
         boolean flag = false;
         List<BaseDialog> cache = new ArrayList<>();
@@ -247,7 +247,7 @@ public class DialogHelper extends DialogFragment {
         }
         return flag;
     }
-    
+
     @Override
     public void onDismiss(DialogInterface dialog) {
         if (parent == null || parent.get() == null) {
@@ -262,26 +262,26 @@ public class DialogHelper extends DialogFragment {
         parent.clear();
         parent = null;
     }
-    
+
     public int getLayoutId() {
         return layoutId;
     }
-    
+
     public DialogHelper setLayoutId(BaseDialog baseDialog, int layoutId) {
         this.layoutId = layoutId;
         this.parent = new WeakReference<>(baseDialog);
         this.parentId = baseDialog.toString();
         return this;
     }
-    
+
     public PreviewOnShowListener getOnShowListener() {
         return onShowListener;
     }
-    
+
     public void setOnShowListener(PreviewOnShowListener onShowListener) {
         this.onShowListener = onShowListener;
     }
-    
+
     @Override
     public void dismiss() {
         try {
@@ -289,22 +289,22 @@ public class DialogHelper extends DialogFragment {
         } catch (Exception e) {
         }
     }
-    
+
     @Override
     public void setStyle(int style, int theme) {
         styleId = theme;
         super.setStyle(style, theme);
     }
-    
+
     public void setAnim(int animResId) {
         this.animResId = animResId;
     }
-    
+
     @Override
     public void onPause() {
         super.onPause();
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
@@ -326,12 +326,12 @@ public class DialogHelper extends DialogFragment {
             }
         }
     }
-    
+
     @Override
     public void onStart() {
         super.onStart();
     }
-    
+
     public interface PreviewOnShowListener {
         void onShow(Dialog dialog);
     }

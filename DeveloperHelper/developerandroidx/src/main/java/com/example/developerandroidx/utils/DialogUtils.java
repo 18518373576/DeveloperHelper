@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.ViewDataBinding;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.utils.enumPkg.TipType;
@@ -56,7 +56,7 @@ public class DialogUtils {
     }
 
     public interface OnEsvDialogBindView {
-        void onBind(FullScreenDialog dialog, TextView title, ExtensibleScrollView esv_content);
+        void onBind(@NonNull FullScreenDialog dialog, @NonNull TextView title, @NonNull ExtensibleScrollView esv_content);
     }
 
     /**

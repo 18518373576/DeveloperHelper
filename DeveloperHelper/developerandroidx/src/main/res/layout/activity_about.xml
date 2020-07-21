@@ -62,4 +62,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp10"
         app:layout_constraintTop_toBottomOf="@+id/tv_version" />
+
+    <TextView
+        android:id="@+id/tv_check_update"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp40"
+        android:background="@drawable/selector_gray_btn"
+        android:gravity="center"
+        android:stateListAnimator="@drawable/selector_btn_animator"
+        android:text="检查更新"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/sp14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/esv_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

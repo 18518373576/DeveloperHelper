@@ -36,6 +36,17 @@ public class ThreadDialog_03 implements FunctionDialogInterface {
                     "(3)让处于运行状态的线程执行Thread.yield()方法." + esv_content.tab +
                     "(3)让处于运行状态的线程调用另一个线程的join()方法.");
             esv_content.addTitle_2("调整各个线程的优先级");
+            esv_content.addBody("所有处于就绪状态的线程根据优先级存放在可运行池中,优先级低的线程获得较少的运行机会,优先级高德线程获得较多的运行机会." +
+                    "Thread类的setPriority(int)和getPriority()方法分别用来设置和读取优先级.优先级用整数表示,取值范围是1~10.");
+            esv_content.addBody("值得注意的是,尽管Java提供了10个优先级,但它与多数操作系统都不能很好的进行线程优先级的映射.如果希望程序能移植到各个操作系统中,应该确保在设置" +
+                    "优先级时,只使用MAX_PRIORITY,NORM_PRIORITY,MIN_PRIORITY这三个优先级,这样才能保证在不同的操作系统中,对同样优先级的线程采用同样的调度方式.");
+            esv_content.addBoldBody("线程睡眠:Thread.sleep()方法");
+            esv_content.addBody("当一个线程在运行中执行了sleep()方法,他就会放弃CPU.转到阻塞状态.值得注意的是,当线程结束睡眠时,首先转到就绪状态,在可运行池中等待获得CPU.");
+            esv_content.addBoldBody("线程让步:Thread.yield()方法");
+            esv_content.addBody("当线程执行了Thread.yield()方法时,如果此时具有相同或更高优先级的线程处于就绪状态,yield()方法将把当前运行的线程方法可运行池中," +
+                    "并使另一个线程运行.如果没有相同或更高优先级的可运行线程,yield()方法什么都不做.");
+            esv_content.addBoldBody("等待其他线程结束:join()");
+            esv_content.addBody("当前的运行线程可以调用另一个线程的join()方法,当前线程的运行状态将转到阻塞状态,直到另一个线程运行结束,他才会恢复.");
         });
     }
 }

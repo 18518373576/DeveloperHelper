@@ -48,19 +48,19 @@ import static com.kongzue.dialog.util.DialogSettings.menuTitleInfo;
  * CreateTime: 2019/4/12 18:33
  */
 public class BottomMenu extends BaseDialog {
-    
+
     private BaseAdapter customAdapter;      //允许用户自定义 Menu 的 Adapter
-    
+
     private List<String> menuTextList;
     private String title;
     private String cancelButtonText = DialogSettings.defaultCancelButtonText;
     private boolean showCancelButton = true;
     protected OnMenuItemClickListener onMenuItemClickListener;
     protected OnDialogButtonClickListener onCancelButtonClickListener;
-    
+
     private TextInfo menuTitleTextInfo;
     private TextInfo cancelButtonTextInfo;
-    
+
     private LinearLayout boxRoot;
     private LinearLayout boxBody;
     private RelativeLayout boxList;
@@ -73,16 +73,16 @@ public class BottomMenu extends BaseDialog {
     private TextInfo menuTextInfo;
     private ImageView imgTab;
     private ImageView imgSplit;
-    
+
     private BottomMenu() {
     }
-    
+
     public static BottomMenu build(@NonNull AppCompatActivity context) {
         synchronized (BottomMenu.class) {
             BottomMenu bottomMenu = new BottomMenu();
             bottomMenu.log("装载底部菜单: " + bottomMenu.toString());
             bottomMenu.context = new WeakReference<>(context);
-            
+
             switch (bottomMenu.style) {
                 case STYLE_IOS:
                     bottomMenu.build(bottomMenu, R.layout.bottom_menu_ios);
@@ -97,7 +97,7 @@ public class BottomMenu extends BaseDialog {
             return bottomMenu;
         }
     }
-    
+
     public static BottomMenu show(@NonNull AppCompatActivity context, List<String> menuTextList, OnMenuItemClickListener onMenuItemClickListener) {
         BottomMenu bottomMenu = build(context);
         bottomMenu.menuTextList = menuTextList;
@@ -105,7 +105,7 @@ public class BottomMenu extends BaseDialog {
         bottomMenu.showDialog();
         return bottomMenu;
     }
-    
+
     public static BottomMenu show(@NonNull AppCompatActivity context, BaseAdapter customAdapter, OnMenuItemClickListener onMenuItemClickListener) {
         BottomMenu bottomMenu = build(context);
         bottomMenu.customAdapter = customAdapter;
@@ -113,7 +113,7 @@ public class BottomMenu extends BaseDialog {
         bottomMenu.showDialog();
         return bottomMenu;
     }
-    
+
     public static BottomMenu show(@NonNull AppCompatActivity context, String title, List<String> menuTextList, OnMenuItemClickListener onMenuItemClickListener) {
         BottomMenu bottomMenu = build(context);
         bottomMenu.menuTextList = menuTextList;
@@ -122,7 +122,7 @@ public class BottomMenu extends BaseDialog {
         bottomMenu.showDialog();
         return bottomMenu;
     }
-    
+
     public static BottomMenu show(@NonNull AppCompatActivity context, String title, BaseAdapter customAdapter, OnMenuItemClickListener onMenuItemClickListener) {
         BottomMenu bottomMenu = build(context);
         bottomMenu.customAdapter = customAdapter;
@@ -131,7 +131,7 @@ public class BottomMenu extends BaseDialog {
         bottomMenu.showDialog();
         return bottomMenu;
     }
-    
+
     public static BottomMenu show(@NonNull AppCompatActivity context, String[] menuTexts, OnMenuItemClickListener onMenuItemClickListener) {
         BottomMenu bottomMenu = build(context);
         List<String> list = new ArrayList<>();
@@ -143,7 +143,7 @@ public class BottomMenu extends BaseDialog {
         bottomMenu.showDialog();
         return bottomMenu;
     }
-    
+
     public static BottomMenu show(@NonNull AppCompatActivity context, String title, String[] menuTexts, OnMenuItemClickListener onMenuItemClickListener) {
         BottomMenu bottomMenu = build(context);
         List<String> list = new ArrayList<>();
@@ -156,9 +156,9 @@ public class BottomMenu extends BaseDialog {
         bottomMenu.showDialog();
         return bottomMenu;
     }
-    
+
     private View rootView;
-    
+
     @Override
     public void bindView(View rootView) {
         log("启动底部菜单 -> " + toString());
@@ -175,7 +175,7 @@ public class BottomMenu extends BaseDialog {
         boxCancel = rootView.findViewById(R.id.box_cancel);
         btnCancel = rootView.findViewById(R.id.btn_cancel);
         imgSplit = rootView.findViewById(R.id.img_split);
-        
+
         switch (style) {
             case STYLE_MATERIAL:
                 boxCancel.setVisibility(View.GONE);
@@ -186,15 +186,15 @@ public class BottomMenu extends BaseDialog {
                     public void run() {
                         if (boxBody.getHeight() > getRootHeight() * 2 / 3) {
                             boxBody.setY(boxBody.getHeight());
-                            boxBody.animate().setDuration(300).translationY(boxBody.getHeight() / 2);
+                            boxBody.animate().setDuration(200).translationY(boxBody.getHeight() / 2);
                         } else {
-                            boxBody.animate().setDuration(300).translationY(0);
+                            boxBody.animate().setDuration(200).translationY(0);
                         }
                     }
                 });
                 listMenu.setOnTouchListener(listViewTouchListener);
                 boxBody.setOnTouchListener(listViewTouchListener);
-                
+
                 if (theme == DialogSettings.THEME.LIGHT) {
                     boxBody.setBackgroundResource(R.drawable.rect_bottom_dialog);
                     imgTab.setBackgroundResource(R.drawable.rect_share_material_tab);
@@ -204,7 +204,7 @@ public class BottomMenu extends BaseDialog {
                     imgTab.setBackgroundResource(R.drawable.rect_share_material_tab_dark);
                     txtTitle.setTextColor(context.get().getResources().getColor(R.color.materialDarkTitleColor));
                 }
-                
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Window window = dialog.get().getDialog().getWindow();
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -221,7 +221,7 @@ public class BottomMenu extends BaseDialog {
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setNavigationBarColor(Color.WHITE);
                     boxBody.setPadding(0, 0, 0, getNavigationBarHeight());
-                    
+
                     if (theme == DialogSettings.THEME.LIGHT) {
                         boxRoot.setBackgroundColor(context.get().getResources().getColor(R.color.menuSplitSpaceKongzue));
                         txtTitle.setBackgroundColor(context.get().getResources().getColor(R.color.white));
@@ -243,7 +243,7 @@ public class BottomMenu extends BaseDialog {
                         btnCancel.setBackgroundResource(R.drawable.button_menu_kongzue_dark);
                         txtTitle.setTextColor(context.get().getResources().getColor(R.color.materialDarkTitleColor));
                     }
-                    
+
                     //设置底部导航栏按钮暗色，无效，悬赏解决————
                     View decorView = window.getDecorView();
                     int vis = decorView.getSystemUiVisibility();
@@ -297,31 +297,31 @@ public class BottomMenu extends BaseDialog {
                 }
                 break;
         }
-        
+
         refreshView();
         if (onShowListener != null) onShowListener.onShow(this);
     }
-    
+
     private BlurView blurList;
     private BlurView blurCancel;
-    
+
     @Override
     public void refreshView() {
         if (cancelButtonTextInfo == null) cancelButtonTextInfo = menuTextInfo;
         if (menuTitleTextInfo == null) menuTitleTextInfo = menuTitleInfo;
         if (menuTextInfo == null) menuTextInfo = DialogSettings.menuTextInfo;
         if (cancelButtonText == null) cancelButtonText = "取消";
-        
+
         if (rootView != null) {
             btnCancel.setText(cancelButtonText);
-            
+
             ((ViewGroup) boxBody.getParent()).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     doDismiss();
                 }
             });
-            
+
             switch (style) {
                 case STYLE_MATERIAL:
                     if (customAdapter != null) {
@@ -356,7 +356,7 @@ public class BottomMenu extends BaseDialog {
                         menuArrayAdapter = new IOSMenuArrayAdapter(context.get(), R.layout.item_bottom_menu_ios, menuTextList);
                     }
                     listMenu.setAdapter(menuArrayAdapter);
-                    
+
                     break;
             }
             if (customView != null) {
@@ -368,13 +368,13 @@ public class BottomMenu extends BaseDialog {
             } else {
                 boxCustom.setVisibility(View.GONE);
             }
-            
+
             if (!isNull(title)) {
                 txtTitle.setText(title);
                 txtTitle.setVisibility(View.VISIBLE);
                 if (titleSplitLine != null) titleSplitLine.setVisibility(View.VISIBLE);
             }
-            
+
             listMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -388,7 +388,7 @@ public class BottomMenu extends BaseDialog {
                     doDismiss();
                 }
             });
-            
+
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -402,24 +402,24 @@ public class BottomMenu extends BaseDialog {
                 }
             });
         }
-        
+
         useTextInfo(txtTitle, menuTitleTextInfo);
         useTextInfo(btnCancel, cancelButtonTextInfo);
     }
-    
+
     @Override
     public void show() {
         showDialog();
     }
-    
+
     private BaseAdapter menuArrayAdapter;
-    
+
     public class IOSMenuArrayAdapter extends NormalMenuArrayAdapter {
-        
+
         public IOSMenuArrayAdapter(Context context, int resourceId, List<String> objects) {
             super(context, resourceId, objects);
         }
-        
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
@@ -435,9 +435,9 @@ public class BottomMenu extends BaseDialog {
             String text = objects.get(position);
             if (null != text) {
                 viewHolder.textView.setText(text);
-                
+
                 useTextInfo(viewHolder.textView, menuTextInfo);
-                
+
                 if (objects.size() == 1) {
                     if (theme == DialogSettings.THEME.LIGHT) {
                         if (title != null && !title.trim().isEmpty()) {
@@ -496,42 +496,42 @@ public class BottomMenu extends BaseDialog {
                     }
                 }
             }
-            
+
             return convertView;
         }
     }
-    
+
     public class NormalMenuArrayAdapter extends ArrayAdapter {
         public int resoureId;
         public List<String> objects;
         public Context context;
-        
+
         public NormalMenuArrayAdapter(Context context, int resourceId, List<String> objects) {
             super(context, resourceId, objects);
             this.objects = objects;
             this.resoureId = resourceId;
             this.context = context;
         }
-        
+
         public class ViewHolder {
             TextView textView;
         }
-        
+
         @Override
         public int getCount() {
             return objects.size();
         }
-        
+
         @Override
         public String getItem(int position) {
             return objects.get(position);
         }
-        
+
         @Override
         public long getItemId(int position) {
             return position;
         }
-        
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
@@ -547,7 +547,7 @@ public class BottomMenu extends BaseDialog {
             String text = objects.get(position);
             if (null != text) {
                 viewHolder.textView.setText(text);
-                
+
                 if (style == DialogSettings.STYLE.STYLE_KONGZUE) {
                     if (theme == DialogSettings.THEME.LIGHT) {
                         viewHolder.textView.setTextColor(context.getResources().getColor(R.color.dark));
@@ -562,25 +562,25 @@ public class BottomMenu extends BaseDialog {
                         viewHolder.textView.setTextColor(context.getResources().getColor(R.color.materialDarkTextColor));
                     }
                 }
-                
+
                 useTextInfo(viewHolder.textView, menuTextInfo);
             }
-            
+
             return convertView;
         }
     }
-    
+
     //其他设置
     public List<String> getMenuTextList() {
         return menuTextList;
     }
-    
+
     public BottomMenu setMenuTextList(List<String> menuTextList) {
         this.menuTextList = menuTextList;
         refreshView();
         return this;
     }
-    
+
     public BottomMenu setMenuTextList(String[] menuTexts) {
         List<String> list = new ArrayList<>();
         for (String s : menuTexts) {
@@ -590,159 +590,159 @@ public class BottomMenu extends BaseDialog {
         refreshView();
         return this;
     }
-    
+
     public String getTitle() {
         return title;
     }
-    
+
     public BottomMenu setTitle(String title) {
         this.title = title;
         refreshView();
         return this;
     }
-    
+
     public BottomMenu setTitle(int titleResId) {
         this.title = context.get().getString(titleResId);
         refreshView();
         return this;
     }
-    
+
     public String getCancelButtonText() {
         return cancelButtonText;
     }
-    
+
     public BottomMenu setCancelButtonText(String cancelButtonText) {
         this.cancelButtonText = cancelButtonText;
         refreshView();
         return this;
     }
-    
+
     public BottomMenu setCancelButtonText(int cancelButtonTextResId) {
         this.cancelButtonText = context.get().getString(cancelButtonTextResId);
         refreshView();
         return this;
     }
-    
+
     public boolean isShowCancelButton() {
         return showCancelButton;
     }
-    
+
     public BottomMenu setShowCancelButton(boolean showCancelButton) {
         this.showCancelButton = showCancelButton;
         refreshView();
         return this;
     }
-    
+
     public OnMenuItemClickListener getOnMenuItemClickListener() {
         return onMenuItemClickListener;
     }
-    
+
     public BottomMenu setOnMenuItemClickListener(OnMenuItemClickListener onMenuItemClickListener) {
         this.onMenuItemClickListener = onMenuItemClickListener;
         refreshView();
         return this;
     }
-    
+
     public TextInfo getMenuTitleTextInfo() {
         return menuTitleTextInfo;
     }
-    
+
     public BottomMenu setMenuTitleTextInfo(TextInfo menuTitleTextInfo) {
         this.menuTitleTextInfo = menuTitleTextInfo;
         refreshView();
         return this;
     }
-    
+
     public TextInfo getMenuTextInfo() {
         return menuTextInfo;
     }
-    
+
     public BottomMenu setMenuTextInfo(TextInfo menuTextInfo) {
         this.menuTextInfo = menuTextInfo;
         refreshView();
         return this;
     }
-    
+
     public TextInfo getCancelButtonTextInfo() {
         return cancelButtonTextInfo;
     }
-    
+
     public BottomMenu setCancelButtonTextInfo(TextInfo cancelButtonTextInfo) {
         this.cancelButtonTextInfo = cancelButtonTextInfo;
         refreshView();
         return this;
     }
-    
+
     public OnDismissListener getOnDismissListener() {
         return onDismissListener == null ? new OnDismissListener() {
             @Override
             public void onDismiss() {
-            
+
             }
         } : onDismissListener;
     }
-    
+
     public BottomMenu setOnDismissListener(OnDismissListener onDismissListener) {
         this.onDismissListener = onDismissListener;
         return this;
     }
-    
+
     public OnShowListener getOnShowListener() {
         return onShowListener == null ? new OnShowListener() {
             @Override
             public void onShow(BaseDialog dialog) {
-            
+
             }
         } : onShowListener;
     }
-    
+
     public BottomMenu setOnShowListener(OnShowListener onShowListener) {
         this.onShowListener = onShowListener;
         return this;
     }
-    
+
     public View getCustomView() {
         return customView;
     }
-    
+
     public BottomMenu setCustomView(View customView) {
         this.customView = customView;
         refreshView();
         return this;
     }
-    
+
     private OnBindView onBindView;
-    
+
     public BottomMenu setCustomView(int customViewLayoutId, OnBindView onBindView) {
         customView = LayoutInflater.from(context.get()).inflate(customViewLayoutId, null);
         this.onBindView = onBindView;
         refreshView();
         return this;
     }
-    
+
     public interface OnBindView {
         void onBind(BottomMenu bottomMenu, View v);
     }
-    
+
     public DialogSettings.STYLE getStyle() {
         return style;
     }
-    
+
     public OnDialogButtonClickListener getOnCancelButtonClickListener() {
         return onCancelButtonClickListener;
     }
-    
+
     public BottomMenu setOnCancelButtonClickListener(OnDialogButtonClickListener onCancelButtonClickListener) {
         this.onCancelButtonClickListener = onCancelButtonClickListener;
         return this;
     }
-    
+
     public BottomMenu setStyle(DialogSettings.STYLE style) {
         if (isAlreadyShown) {
             error("必须使用 build(...) 方法创建时，才可以使用 setStyle(...) 来修改对话框主题或风格。");
             return this;
         }
-        
+
         this.style = style;
         switch (this.style) {
             case STYLE_IOS:
@@ -755,40 +755,40 @@ public class BottomMenu extends BaseDialog {
                 build(this, R.layout.bottom_menu_material);
                 break;
         }
-        
+
         return this;
     }
-    
+
     public DialogSettings.THEME getTheme() {
         return theme;
     }
-    
+
     public BottomMenu setTheme(DialogSettings.THEME theme) {
-        
+
         if (isAlreadyShown) {
             error("必须使用 build(...) 方法创建时，才可以使用 setTheme(...) 来修改对话框主题或风格。");
             return this;
         }
-        
+
         this.theme = theme;
         refreshView();
         return this;
     }
-    
+
     public BaseAdapter getCustomAdapter() {
         return customAdapter;
     }
-    
+
     public BottomMenu setCustomAdapter(BaseAdapter customAdapter) {
         this.customAdapter = customAdapter;
         return this;
     }
-    
+
     private float boxBodyOldY;
     private int step;
     private boolean isTouchDown;
     private float touchDownY;
-    
+
     private View.OnTouchListener listViewTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -818,15 +818,15 @@ public class BottomMenu extends BaseDialog {
                 case MotionEvent.ACTION_CANCEL:
                     if (isTouchDown) {
                         float deltaY = boxBody.getY() - boxBodyOldY;
-                        
+
                         if (deltaY >= -dip2px(50) && deltaY <= dip2px(50)) {
                             //几乎没动，回到原来位置
-                            boxBody.animate().setDuration(300).translationY(boxBodyOldY);
+                            boxBody.animate().setDuration(200).translationY(boxBodyOldY);
                             step = 0;
                         } else {
                             if (deltaY > dip2px(150)) {
                                 //向下(重)
-                                boxBody.animate().setDuration(300).translationY(boxBody.getHeight()).withEndAction(new Runnable() {
+                                boxBody.animate().setDuration(200).translationY(boxBody.getHeight()).withEndAction(new Runnable() {
                                     @Override
                                     public void run() {
                                         doDismiss();
@@ -838,7 +838,7 @@ public class BottomMenu extends BaseDialog {
                                 //向下(轻)
                                 switch (step) {
                                     case 0:
-                                        boxBody.animate().setDuration(300).translationY(boxBody.getHeight()).withEndAction(new Runnable() {
+                                        boxBody.animate().setDuration(200).translationY(boxBody.getHeight()).withEndAction(new Runnable() {
                                             @Override
                                             public void run() {
                                                 doDismiss();
@@ -846,7 +846,7 @@ public class BottomMenu extends BaseDialog {
                                         });
                                         break;
                                     case 1:
-                                        boxBody.animate().setDuration(300).translationY(boxBody.getHeight() / 2);
+                                        boxBody.animate().setDuration(200).translationY(boxBody.getHeight() / 2);
                                         step = 0;
                                         break;
                                 }
@@ -854,7 +854,7 @@ public class BottomMenu extends BaseDialog {
                                 return true;
                             } else {
                                 //向上
-                                boxBody.animate().setDuration(300).translationY(0);
+                                boxBody.animate().setDuration(200).translationY(0);
                                 step = 1;
                                 v.onTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_CANCEL, 0, 0, 0));       //释放点击事件
                                 return true;
@@ -871,7 +871,7 @@ public class BottomMenu extends BaseDialog {
             }
         }
     };
-    
+
     private boolean isListViewOnTop() {
         View c = listMenu.getChildAt(0);
         if (c == null) {
@@ -884,7 +884,7 @@ public class BottomMenu extends BaseDialog {
         int top = c.getTop();
         return top == 0;
     }
-    
+
     public BottomMenu setCustomDialogStyleId(int customDialogStyleId) {
         if (isAlreadyShown) {
             error("必须使用 build(...) 方法创建时，才可以使用 setTheme(...) 来修改对话框主题或风格。");
@@ -893,24 +893,24 @@ public class BottomMenu extends BaseDialog {
         this.customDialogStyleId = customDialogStyleId;
         return this;
     }
-    
+
     public String toString() {
         return getClass().getSimpleName() + "@" + Integer.toHexString(hashCode());
     }
-    
+
     public OnBackClickListener getOnBackClickListener() {
         return onBackClickListener;
     }
-    
+
     public BottomMenu setOnBackClickListener(OnBackClickListener onBackClickListener) {
         this.onBackClickListener = onBackClickListener;
         return this;
     }
-    
+
     public boolean getCancelable() {
         return cancelable == BOOLEAN.TRUE;
     }
-    
+
     public BottomMenu setCancelable(boolean enable) {
         this.cancelable = enable ? BOOLEAN.TRUE : BOOLEAN.FALSE;
         if (dialog != null) dialog.get().setCancelable(cancelable == BOOLEAN.TRUE);

@@ -25,6 +25,8 @@ public class AboutActivity extends BaseActivityWithButterKnife {
     View tv_new_version;
     @BindView(R.id.tv_version)
     TextView tv_version;
+    @BindView(R.id.tv_check_update)
+    TextView tv_check_update;
 
     @Override
     protected int bindLayout() {
@@ -36,6 +38,7 @@ public class AboutActivity extends BaseActivityWithButterKnife {
         super.initView();
         setTitle("About");
         cv_image.setOnClickListener(v -> Beta.checkAppUpgrade());
+        tv_check_update.setOnClickListener(v -> Beta.checkAppUpgrade());
         tv_version.setText("<D/H> " + StringUtils.getInstance().getVersionName());
     }
 
@@ -44,29 +47,29 @@ public class AboutActivity extends BaseActivityWithButterKnife {
         super.initData();
         //查看有无本地更新策略
         loadUpgradeInfo();
-        esv_content.addBodyWithIntent("DevelopHelper(github)", R.color.colorMain,
+        esv_content.addBodyWithIntent("github", R.color.colorMain,
                 new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/18518373576/DeveloperHelper"));
         esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("DevelopHelper(gitee)", R.color.colorMain,
+        esv_content.addBodyWithIntent("gitee", R.color.colorMain,
                 new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://gitee.com/ZhangQQ_123/DeveloperHelper"));
         esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("图标库：https://www.iconfont.cn", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://www.iconfont.cn"));
-        esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("butterknife", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/JakeWharton/butterknife"));
-        esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("CodeView", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/Thereisnospon/CodeView"));
-        esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("kongzue.dialog", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/kongzue/DialogV3"));
-        esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("eventbus", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/greenrobot/EventBus"));
-        esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("BaseRecyclerViewAdapterHelper", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/CymChad/BaseRecyclerViewAdapterHelper"));
+//        esv_content.addBodyWithIntent("图标库：https://www.iconfont.cn", R.color.colorMain,
+//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://www.iconfont.cn"));
+//        esv_content.addLine(R.color.lightGrayColor);
+//        esv_content.addBodyWithIntent("butterknife", R.color.colorMain,
+//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/JakeWharton/butterknife"));
+//        esv_content.addLine(R.color.lightGrayColor);
+//        esv_content.addBodyWithIntent("CodeView", R.color.colorMain,
+//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/Thereisnospon/CodeView"));
+//        esv_content.addLine(R.color.lightGrayColor);
+//        esv_content.addBodyWithIntent("kongzue.dialog", R.color.colorMain,
+//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/kongzue/DialogV3"));
+//        esv_content.addLine(R.color.lightGrayColor);
+//        esv_content.addBodyWithIntent("eventbus", R.color.colorMain,
+//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/greenrobot/EventBus"));
+//        esv_content.addLine(R.color.lightGrayColor);
+//        esv_content.addBodyWithIntent("BaseRecyclerViewAdapterHelper", R.color.colorMain,
+//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/CymChad/BaseRecyclerViewAdapterHelper"));
     }
 
     private void loadUpgradeInfo() {

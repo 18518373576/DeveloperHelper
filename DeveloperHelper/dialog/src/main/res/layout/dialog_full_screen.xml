@@ -23,13 +23,14 @@
         android:id="@+id/box_body_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#33000000">
+        android:background="#00000000">
 
         <com.kongzue.dialog.util.view.InterceptYLinearLayout
             android:id="@+id/box_body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rect_bottom_dialog"
+            android:elevation="10dp"
             android:orientation="vertical">
 
             <ImageView

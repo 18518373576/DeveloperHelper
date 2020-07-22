@@ -146,13 +146,13 @@ public class FullScreenDialog extends BaseDialog {
         window.setGravity(Gravity.BOTTOM);
         window.setAttributes(lp);
 
-        boxBody.setY(getRootHeight());
-        boxBody.post(new Runnable() {
-            @Override
-            public void run() {
-                boxBody.animY(0);
-            }
-        });
+//        boxBody.setY(getRootHeight());
+//        boxBody.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                boxBody.animY(0);
+//            }
+//        });
         //此项为背景activity缩放
 //        boxZoomActivity.getViewTreeObserver().addOnGlobalLayoutListener(onActivityLayoutChangeListener);
 
@@ -177,7 +177,12 @@ public class FullScreenDialog extends BaseDialog {
             }
         });
 
-        boxBodyParent.setPadding(0, (int) (getStatusBarHeight() * 1.5), 0, 0);
+        //修改
+//        boxBodyParent.setPadding(0, (int) (getStatusBarHeight() * 1.5), 0, 0);
+        //添加
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.topMargin = (int) (getStatusBarHeight() * 1.5);
+        boxBody.setLayoutParams(params);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -343,7 +348,7 @@ public class FullScreenDialog extends BaseDialog {
 
     @Override
     public void show() {
-        showDialog();
+        showDialog(R.style.TipDialog);
     }
 
     @Override

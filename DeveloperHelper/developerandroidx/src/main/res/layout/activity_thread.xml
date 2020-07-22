@@ -32,7 +32,7 @@
                 android:padding="@dimen/dp15"
                 android:text="java线程的运行机制"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/sp16"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <View
@@ -51,7 +51,7 @@
                 android:padding="@dimen/dp15"
                 android:text="线程的状态转换"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/sp16"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <View
@@ -71,7 +71,7 @@
                 android:padding="@dimen/dp15"
                 android:text="线程调度"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/sp16"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <View
@@ -91,7 +91,7 @@
                 android:padding="@dimen/dp15"
                 android:text="线程的同步"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/sp16"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <View
@@ -110,7 +110,7 @@
                 android:padding="@dimen/dp15"
                 android:text="线程的通信"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/sp16"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <View
@@ -129,7 +129,58 @@
                 android:padding="@dimen/dp15"
                 android:text="线程控制"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/sp16"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_thread_07"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:paddingLeft="@dimen/dp15"
+                android:paddingTop="@dimen/dp15"
+                android:paddingRight="@dimen/dp15"
+                android:text="异步运算Callable和Future接口"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_thread_07_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp15"
+                android:paddingRight="@dimen/dp15"
+                android:paddingBottom="@dimen/dp15"
+                android:text="可以实现线程间的通信,但是会造成等待计算结果的线程阻塞,直到运算线程计算出结果"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_thread_08"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:padding="@dimen/dp15"
+                android:text="线程池"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <View

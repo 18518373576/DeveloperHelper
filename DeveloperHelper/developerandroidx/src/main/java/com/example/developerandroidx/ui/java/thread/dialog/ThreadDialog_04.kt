@@ -12,7 +12,7 @@ import com.example.developerandroidx.utils.DialogUtils
 class ThreadDialog_04 : FunctionDialogInterface {
 
     override fun show(context: Context) {
-        DialogUtils.getInstance().showEsvDialog(context) { _, title, esv_content ->
+        DialogUtils.getInstance().showEsvDialog(context) { dialog, title, esv_content ->
             title.text = "线程的同步"
             esv_content.addBody("线程的职责就是执行一些操作,而多数操作涉及处理数据." + esv_content.tab +
                     "原子操作由业务逻辑上相关的一组操作完成.这些操作可能会操作与其他线程共享的资源.为了保证得到正确的结果,一个线程在执行原子操作期间,应采取措施使其他线程不能操作共享" +

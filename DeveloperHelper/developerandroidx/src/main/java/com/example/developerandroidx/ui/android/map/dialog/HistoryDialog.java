@@ -83,7 +83,7 @@ public class HistoryDialog implements FunctionDialogInterface {
                 DaoUtils.getAllSportData(new CallBack<List<SportHistory>>() {
                     @Override
                     public void onFail(String msg) {
-                        DialogUtils.getInstance().showMessageDialog(context, msg);
+                        App.showNotify(msg);
                     }
 
                     @Override

@@ -12,11 +12,11 @@ import com.example.developerandroidx.utils.DialogUtils
  */
 class ThreadDialog_05 : FunctionDialogInterface {
     override fun show(context: Context) {
-        DialogUtils.getInstance().showEsvDialog(context) { _, title, esv_content ->
+        DialogUtils.getInstance().showEsvDialog(context) { dialog, title, esv_content ->
             title.text = "线程的通信"
             esv_content.addBody("不同的线程执行不同的任务,如果这些任务有某种联系,线程之间必须能够通信,协调完成工作.")
             esv_content.addBody("java.lang.Object类提供了两个用于线程通信的方法:" + esv_content.tab +
-                    "(1)wait():执行该方法的线程释放对象的锁,,Java虚拟机把该线程放到该对象的等待池中,该线程等待其他线程将它唤醒." + esv_content.tab +
+                    "(1)wait():执行该方法的线程释放对象的锁,Java虚拟机把该线程放到该对象的等待池中,该线程等待其他线程将它唤醒." + esv_content.tab +
                     "(2)notify():执行该方法的线程唤醒在对象等待池中等待的一个线程.Java虚拟机从对象的等待池中随机地选择一个线程,把它转到对象的锁池中.")
             esv_content.addBoldBody("假定线程1和线程2共同操作一个对象s,这两个线程可以通过对象s的wait()和notify()方法来进行通信,流程如下:")
             esv_content.addBoldBody("(1)当线程1执行对象s的一个同步代码块时,线程1持有对象的锁,线程2在对象s的锁池中等待." + esv_content.tab +

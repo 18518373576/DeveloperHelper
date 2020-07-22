@@ -72,32 +72,29 @@ public class HistoryDialog implements FunctionDialogInterface {
 
     @Override
     public void show(Context context) {
-        DialogUtils.getInstance().showFullScreenDialog(context, R.layout.dialog_sport_history, new DialogUtils.OnFullScreenDialogBindView() {
-            @Override
-            public void onBind(FullScreenDialog dialog, View rootView) {
-                //绑定butterKnife
-                ButterKnife.bind(HistoryDialog.this, rootView);
-                //对view进行一些初始化设置
-                initView();
-                //获取数据库数据
-                DaoUtils.getAllSportData(new CallBack<List<SportHistory>>() {
-                    @Override
-                    public void onFail(String msg) {
-                        App.showNotify(msg);
-                    }
+        DialogUtils.getInstance().showFullScreenDialog(context, R.layout.dialog_sport_history, (dialog, rootView) -> {
+            //绑定butterKnife
+            ButterKnife.bind(HistoryDialog.this, rootView);
+            //对view进行一些初始化设置
+            initView();
+            //获取数据库数据
+            DaoUtils.getAllSportData(new CallBack<List<SportHistory>>() {
+                @Override
+                public void onFail(String msg) {
+                    App.showNotify(msg);
+                }
 
-                    @Override
-                    public void onSuc(List<SportHistory> sportHistoryList) {
-                        if (sportHistoryList == null || sportHistoryList.size() == 0) {
-                            App.showNotify("无运动记录");
-                            return;
-                        }
-                        initCalendar(sportHistoryList, dialog);
-                        //默认收缩日历
-                        calendarLayout.shrink();
+                @Override
+                public void onSuc(List<SportHistory> sportHistoryList) {
+                    if (sportHistoryList == null || sportHistoryList.size() == 0) {
+                        App.showNotify("无运动记录");
+                        return;
                     }
-                });
-            }
+                    initCalendar(sportHistoryList, dialog);
+                    //默认收缩日历
+//                        calendarLayout.shrink();
+                }
+            });
         });
     }
 
@@ -135,9 +132,9 @@ public class HistoryDialog implements FunctionDialogInterface {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                //清空上次查询数据
+                //清空上次查询的位置记录点的数据
                 sportService.points.clear();
-                // 初始化纠偏选项
+                // 初始化鹰眼的纠偏选项
                 sportService.initProcessOption(
                         sportHistoryList.get(position).sportType == Constant.Common.RIDING ? SportType.RIDING : SportType.STEP);
                 sportService.queryHistoryTrace(sportHistoryList.get(position).startTime, sportHistoryList.get(position).endTime, 1);

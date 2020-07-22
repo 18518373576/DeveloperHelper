@@ -46,7 +46,7 @@ public class InterceptYLinearLayout extends LinearLayout {
         startAnimValue = getY();
         endAnimValue = aimValue;
         Log.i(">>>", "animY: from=" + startAnimValue + "  to=" + aimValue);
-        return animate().setDuration(200).translationY(aimValue).setInterpolator(new DecelerateInterpolator());
+        return animate().setDuration(300).translationY(aimValue);
     }
 
     private void init() {

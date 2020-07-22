@@ -183,6 +183,7 @@ public class FullScreenDialog extends BaseDialog {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         params.topMargin = (int) (getStatusBarHeight() * 1.5);
         boxBody.setLayoutParams(params);
+        //------------
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

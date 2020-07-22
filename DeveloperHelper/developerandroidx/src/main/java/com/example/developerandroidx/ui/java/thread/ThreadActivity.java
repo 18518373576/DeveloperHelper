@@ -11,6 +11,7 @@ import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_03;
 import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_04;
 import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_05;
 import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_06;
+import com.example.developerandroidx.ui.java.thread.dialog.ThreadDialog_08;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.StringUtils;
 
@@ -62,7 +63,7 @@ public class ThreadActivity extends BaseActivityWithButterKnife {
                 startOperation();
                 break;
             case R.id.tv_thread_08:
-
+                new ThreadDialog_08().show(context);
                 break;
         }
     }

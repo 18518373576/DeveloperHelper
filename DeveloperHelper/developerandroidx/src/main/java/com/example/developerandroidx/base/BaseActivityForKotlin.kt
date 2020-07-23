@@ -18,15 +18,23 @@ abstract class BaseActivityForKotlin : AppCompatActivity() {
 
     protected var context: Context? = null
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initStatusBar()
         context = this
-        initView()
     }
 
-    abstract fun initView()
+    /**
+     * 子类去实现
+     */
+    protected abstract fun initView()
+
+    /**
+     * 子类实现如果需要的话
+     */
+    protected fun initData() {
+
+    }
 
     /**
      * 初始化顶部状态栏

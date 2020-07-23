@@ -1,5 +1,6 @@
 package com.example.developerandroidx.ui.android.compose
 
+import android.os.Bundle
 import androidx.compose.Composable
 import androidx.compose.unaryPlus
 import androidx.ui.core.Clip
@@ -18,9 +19,13 @@ import com.example.developerandroidx.base.BaseActivityForKotlin
 
 class ComposeTestActivity : BaseActivityForKotlin() {
 
-//    override fun initStatusBar() {
+    //    override fun initStatusBar() {
 //        setNativeStatusBar(StateBarType.TRAN)
 //    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+    }
 
     override fun initView() {
         setContent {

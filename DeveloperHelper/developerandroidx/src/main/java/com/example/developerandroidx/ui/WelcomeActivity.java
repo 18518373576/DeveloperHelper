@@ -33,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         RouteUtil.goTo(this, RouteUtil.getDestination(MainActivity.class));
         this.finish();
     }

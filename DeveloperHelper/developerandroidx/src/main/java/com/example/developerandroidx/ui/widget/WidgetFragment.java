@@ -29,7 +29,7 @@ public class WidgetFragment extends BaseFragmentWithButterKnife {
 
     @Override
     protected void initData() {
-        viewModel = (WidgetViewModel) getViewModel(this, WidgetViewModel.class);
+        viewModel = getViewModel(this, WidgetViewModel.class);
         viewModel.getAdapterList().observe(getViewLifecycleOwner(), functionList ->
                 rcv_widget.setAdapter(new FunctionRcvAdapter(functionList)));
     }

@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
  */
 abstract class BaseActivityForKotlin : AppCompatActivity() {
 
-    protected var context: Context? = null
+    protected lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,6 +8,10 @@ import com.example.developerandroidx.adapter.FunctionRcvAdapter;
 import com.example.developerandroidx.base.BaseFragmentWithButterKnife;
 import com.example.developerandroidx.base.BaseRcvAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 
 public class JavaFragment extends BaseFragmentWithButterKnife {
@@ -30,7 +34,7 @@ public class JavaFragment extends BaseFragmentWithButterKnife {
 
     @Override
     protected void initData() {
-        viewModel = (JavaViewModel) getViewModel(this, JavaViewModel.class);
+        viewModel = getViewModel(this, JavaViewModel.class);
         viewModel.getAdapterList().observe(getViewLifecycleOwner(), functionList ->
                 rcv_java.setAdapter(new FunctionRcvAdapter(functionList)));
     }

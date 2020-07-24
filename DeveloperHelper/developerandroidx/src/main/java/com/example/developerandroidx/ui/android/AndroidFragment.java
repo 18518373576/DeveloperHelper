@@ -32,7 +32,7 @@ public class AndroidFragment extends BaseFragmentWithButterKnife {
     @Override
     protected void initData() {
 
-        viewModel = (AndroidViewModel) getViewModel(this, AndroidViewModel.class);
+        viewModel = getViewModel(this, AndroidViewModel.class);
 
         //观察数据的变化
         //使用lambda表达式，java写法如下作为参考

@@ -43,6 +43,63 @@
                 android:layout_marginStart="@dimen/dp15"
                 android:layout_marginEnd="@dimen/dp15"
                 android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_collection_02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:padding="@dimen/dp15"
+                android:text="Set集合"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_collection_03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:padding="@dimen/dp15"
+                android:text="List列表"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:background="@color/bg_interface" />
+
+            <TextView
+                android:id="@+id/tv_collection_04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:padding="@dimen/dp15"
+                android:text="Queue队列"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/sp14"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:background="@color/bg_interface" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

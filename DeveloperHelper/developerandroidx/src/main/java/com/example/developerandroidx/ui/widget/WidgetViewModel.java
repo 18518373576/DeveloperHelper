@@ -12,6 +12,7 @@ import com.example.developerandroidx.ui.widget.canvas.CanvasActivity;
 import com.example.developerandroidx.ui.widget.gesturePassword.GesturePasswordActivity;
 import com.example.developerandroidx.ui.widget.mathematicalCurve.MathematicalCurveActivity;
 import com.example.developerandroidx.ui.widget.navigationView.NavigationViewActivity;
+import com.example.developerandroidx.ui.widget.waterDrop.WaterDropActivity;
 import com.example.developerandroidx.ui.widget.webView.WebViewActivity;
 import com.example.developerandroidx.utils.RouteUtil;
 
@@ -44,6 +45,11 @@ public class WidgetViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("Navigation", R.mipmap.icon_navigation, RouteUtil.getDestination(NavigationViewActivity.class)));
         functionList.add(new FunctionItemBean("手势密码", R.mipmap.icon_gesture, RouteUtil.getDestination(GesturePasswordActivity.class)));
         functionList.add(new FunctionItemBean("CoordinatorLayout", R.mipmap.icon_coordinator, ""));
+        functionList.add(new FunctionItemBean("水滴", R.mipmap.icon_water_drop, RouteUtil.getDestination(WaterDropActivity.class)));
+        functionList.add(new FunctionItemBean("上升的气球", R.mipmap.icon_balloon, ""));
+        functionList.add(new FunctionItemBean("滑块进度条", R.mipmap.icon_sliding_block, ""));
+        functionList.add(new FunctionItemBean("LoadingView", R.mipmap.icon_loading, ""));
+        functionList.add(new FunctionItemBean("圆形进度条", R.mipmap.icon_progress, ""));
 
         return functionList;
     }

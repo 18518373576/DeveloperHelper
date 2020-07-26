@@ -1,6 +1,7 @@
 package com.example.developerandroidx.ui.java.collection.dialog
 
 import android.content.Context
+import com.example.developerandroidx.R
 import com.example.developerandroidx.projectInterface.FunctionDialogInterface
 import com.example.developerandroidx.utils.DialogUtils
 
@@ -29,6 +30,7 @@ class CollectionDialog_01 : FunctionDialogInterface {
                     "重复对象.双向队列则允许在队列的头部和尾部添加和删除元素.")
             esv_content.addBoldBody("Map(映射):集合中的每个元素包含一对键值对,集合中没有重复的键对象,值对象可以重复.它的有些实现类" +
                     "能对集合中的键对象进行排序.")
+            esv_content.addImage(R.mipmap.image_collection, 500)
         }
     }
 }

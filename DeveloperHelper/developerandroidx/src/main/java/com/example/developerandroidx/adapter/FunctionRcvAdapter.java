@@ -23,11 +23,16 @@ import com.example.developerandroidx.ui.java.innerClass.InnerClassDialog;
 import com.example.developerandroidx.ui.java.interfaceDesc.InterfaceDialog;
 import com.example.developerandroidx.ui.java.modifier.ModifierDialog;
 import com.example.developerandroidx.ui.java.objectLifeCircle.ObjectLifeCircleDialog;
+import com.example.developerandroidx.ui.widget.canvas.dialog.CanvasDialog;
+import com.example.developerandroidx.ui.widget.canvas.view.CanvasDrawCircle;
+import com.example.developerandroidx.ui.widget.canvas.view.GoUpBalloonView;
+import com.example.developerandroidx.ui.widget.canvas.view.ScrollBarView;
 import com.example.developerandroidx.ui.widget.coordinatorLayout.CoordinatorLayoutTypeDialog;
 import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.DialogUtils;
 import com.example.developerandroidx.utils.RouteUtil;
 import com.example.developerandroidx.view.customToast.CustomToast;
+import com.example.developerandroidx.view.loadingView.LoadingView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -107,6 +112,18 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "数组":
                             new ArrayDialog().show(v.getContext());
+                            break;
+                        case "上升的气球":
+                            new CanvasDialog().show(v.getContext(), new GoUpBalloonView(v.getContext()));
+                            break;
+                        case "滑块进度条":
+                            new CanvasDialog().show(v.getContext(), new ScrollBarView(v.getContext()));
+                            break;
+                        case "LoadingView":
+                            new CanvasDialog().show(v.getContext(), new LoadingView(v.getContext()));
+                            break;
+                        case "圆形进度条":
+                            new CanvasDialog().show(v.getContext(), new CanvasDrawCircle(v.getContext()));
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

@@ -29,8 +29,7 @@ public class CanvasActivity extends BaseActivityWithButterKnife {
     }
 
     @OnClick({R.id.tv_01, R.id.tv_02, R.id.tv_03, R.id.tv_04, R.id.tv_05, R.id.tv_06
-            , R.id.tv_07, R.id.tv_08, R.id.tv_09, R.id.tv_10, R.id.tv_11, R.id.tv_12,
-            R.id.tv_13})
+            , R.id.tv_07, R.id.tv_09, R.id.tv_10, R.id.tv_12})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_01://画布坐标系
@@ -51,26 +50,17 @@ public class CanvasActivity extends BaseActivityWithButterKnife {
             case R.id.tv_06://drawCircle
                 new CanvasDialog().show(context, new CanvasDrawCircle(context));
                 break;
-            case R.id.tv_07:
+            case R.id.tv_07://画轨迹
                 new CanvasDialog().show(context, new CanvasDrawPath(context));
                 break;
-            case R.id.tv_08:
-                new CanvasDialog().show(context, new LoadingView(context));
-                break;
-            case R.id.tv_09:
+            case R.id.tv_09://二阶贝塞尔曲线
                 new CanvasDialog().show(context, new CanvasDrawBezierCurve2(context));
                 break;
-            case R.id.tv_10:
+            case R.id.tv_10://三阶贝塞尔曲线
                 new CanvasDialog().show(context, new CanvasDrawBezierCurve3(context));
                 break;
-            case R.id.tv_11:
-                new CanvasDialog().show(context, new ScrollBarView(context));
-                break;
-            case R.id.tv_12:
+            case R.id.tv_12://画图片
                 new CanvasDialog().show(context, new CanvasDrawBitmap(context));
-                break;
-            case R.id.tv_13:
-                new CanvasDialog().show(context, new GoUpBalloonView(context));
                 break;
         }
     }

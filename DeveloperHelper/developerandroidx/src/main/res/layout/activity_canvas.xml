@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="Canvas坐标系"
+                android:text="Canvas坐标系(位移)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawARGB"
+                android:text="drawARGB(画颜色)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawText"
+                android:text="drawText(画文字)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawPoint"
+                android:text="drawPoint(画点)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawRect"
+                android:text="drawRect(画方形)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawCircle"
+                android:text="drawCircle(画圆)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -120,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawPath"
+                android:text="drawPath(画轨迹)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -161,41 +161,11 @@
                 android:background="@color/bg_interface" />
 
             <TextView
-                android:id="@+id/tv_08"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp20"
-                android:text="示例:loadingView"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/sp14"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="@color/bg_interface" />
-
-            <TextView
-                android:id="@+id/tv_11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp20"
-                android:text="示例:滑块"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/sp14"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="@color/bg_interface" />
-
-            <TextView
                 android:id="@+id/tv_12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp20"
-                android:text="drawBitmap"
+                android:text="drawBitmap(画图片)"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
@@ -205,20 +175,6 @@
                 android:layout_height="2px"
                 android:background="@color/bg_interface" />
 
-            <TextView
-                android:id="@+id/tv_13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp20"
-                android:text="示例:上升的气球"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/sp14"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:background="@color/bg_interface" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

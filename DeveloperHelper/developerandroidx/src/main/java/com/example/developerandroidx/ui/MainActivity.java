@@ -15,6 +15,7 @@ import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.model.EventBusMessageBean;
 import com.example.developerandroidx.ui.android.AndroidFragment;
 import com.example.developerandroidx.ui.java.JavaFragment;
+import com.example.developerandroidx.ui.kotlin.KotlinFragment;
 import com.example.developerandroidx.ui.widget.WidgetFragment;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
 import com.example.developerandroidx.utils.CodeVariate;
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
         list.add(new NavigationBean(new AndroidFragment(), "Android", R.mipmap.navigation_android));
         list.add(new NavigationBean(new JavaFragment(), "Java", R.mipmap.navigation_java));
         list.add(new NavigationBean(new WidgetFragment(), "Widget", R.mipmap.navigation_widget));
+        list.add(new NavigationBean(new KotlinFragment(), "Kotlin", R.mipmap.navigation_kotlin));
 
         nv_view.setNavigationBG(R.color.bg_interface);
         nv_view.setNavigationPager(getSupportFragmentManager(), list);

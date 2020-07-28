@@ -24,7 +24,6 @@ public abstract class BaseFragmentWithDataBinding<T extends ViewDataBinding> ext
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(bindLayout(), container, false);
         context = getActivity();
         binding = DataBindingUtil.inflate(inflater, bindLayout(), container, false);
         initView();

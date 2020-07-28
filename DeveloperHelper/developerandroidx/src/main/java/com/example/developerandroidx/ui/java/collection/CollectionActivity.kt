@@ -1,32 +1,20 @@
 package com.example.developerandroidx.ui.java.collection
 
 import android.view.View
-import android.widget.TextView
 import com.example.developerandroidx.R
-import com.example.developerandroidx.base.BaseActivityForKotlinWithKotterKnife
+import com.example.developerandroidx.base.BaseActivityForKotlinWithViewBinding
+import com.example.developerandroidx.databinding.ActivityCollectionBinding
 import com.example.developerandroidx.ui.java.collection.dialog.*
-import kotterknife.bindView
 
-class CollectionActivity : BaseActivityForKotlinWithKotterKnife() {
-    private val tvCollection05: TextView by bindView(R.id.tv_collection_05)
-    private val tvCollection04: TextView by bindView(R.id.tv_collection_04)
-    private val tvCollection03: TextView by bindView(R.id.tv_collection_03)
-    private val tvCollection02: TextView by bindView(R.id.tv_collection_02)
-    private val tvCollection01: TextView by bindView(R.id.tv_collection_01)
-
-
-    override fun bindLayout(): Int {
-        return R.layout.activity_collection
-    }
-
+class CollectionActivity : BaseActivityForKotlinWithViewBinding<ActivityCollectionBinding>() {
 
     override fun initView() {
         setTitle("集合")
-        tvCollection01.setOnClickListener(this)
-        tvCollection02.setOnClickListener(this)
-        tvCollection03.setOnClickListener(this)
-        tvCollection04.setOnClickListener(this)
-        tvCollection05.setOnClickListener(this)
+        binding.tvCollection01.setOnClickListener(this)
+        binding.tvCollection02.setOnClickListener(this)
+        binding.tvCollection03.setOnClickListener(this)
+        binding.tvCollection04.setOnClickListener(this)
+        binding.tvCollection05.setOnClickListener(this)
     }
 
 

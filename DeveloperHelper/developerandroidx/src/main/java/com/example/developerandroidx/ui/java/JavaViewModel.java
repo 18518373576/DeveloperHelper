@@ -9,6 +9,8 @@ import com.example.developerandroidx.model.FunctionItemBean;
 import com.example.developerandroidx.ui.java.arithmetic.ArithmeticActivity;
 import com.example.developerandroidx.ui.java.collection.CollectionActivity;
 import com.example.developerandroidx.ui.java.dataStructure.DataStructureActivity;
+import com.example.developerandroidx.ui.java.designModel.DesignModelActivity;
+import com.example.developerandroidx.ui.java.io.IoActivity;
 import com.example.developerandroidx.ui.java.operator.OperatorActivity;
 import com.example.developerandroidx.ui.java.thread.ThreadActivity;
 import com.example.developerandroidx.ui.widget.codeView.CodeViewActivity;
@@ -47,11 +49,11 @@ public class JavaViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("数组", R.mipmap.icon_array, ""));
         functionList.add(new FunctionItemBean("集合", R.mipmap.icon_collection, RouteUtil.getDestination(CollectionActivity.class)));
         functionList.add(new FunctionItemBean("泛型", R.mipmap.icon_genericity, ""));
-        functionList.add(new FunctionItemBean("I/O", R.mipmap.icon_io, ""));
+        functionList.add(new FunctionItemBean("I/O", R.mipmap.icon_io, RouteUtil.getDestination(IoActivity.class)));
         functionList.add(new FunctionItemBean("java常用类", R.mipmap.icon_common_class, ""));
         functionList.add(new FunctionItemBean("Annotation注解", R.mipmap.icon_annotation, ""));
         functionList.add(new FunctionItemBean("反射", R.mipmap.icon_reflect, ""));
-        functionList.add(new FunctionItemBean("设计模式", R.mipmap.icon_develop_model, ""));
+        functionList.add(new FunctionItemBean("设计模式", R.mipmap.icon_develop_model, RouteUtil.getDestination(DesignModelActivity.class)));
         functionList.add(new FunctionItemBean("数据结构", R.mipmap.icon_data_structure, RouteUtil.getDestination(DataStructureActivity.class)));
         functionList.add(new FunctionItemBean("算法", R.mipmap.icon_algorithm, RouteUtil.getDestination(ArithmeticActivity.class)));
 

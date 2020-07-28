@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.example.developerandroidx.utils.LogUtils;
 
+import thereisnospon.codeview.CodeView;
+import thereisnospon.codeview.CodeViewTheme;
+
 /**
  * @作者： zjf 2020/5/15 11:16
  * @需求： 参考网页的文章展示，想要构建一个可扩展的scrollView可添加图片和文字，按照添加的顺序排列
@@ -30,6 +33,7 @@ public class ExtensibleScrollView extends ScrollView {
     private final int ALERT_COLOR = 1;
     public final String tab = "\n        ";
     public final String tabDouble = "\n        " + "        ";
+    private CodeView codeView;
 
     /**
      * 可添加的文类型
@@ -56,6 +60,11 @@ public class ExtensibleScrollView extends ScrollView {
         initView(context);
     }
 
+    /**
+     * 初始化操作
+     *
+     * @param context
+     */
     private void initView(Context context) {
         this.context = context;
         setOverScrollMode(OVER_SCROLL_NEVER);
@@ -66,6 +75,40 @@ public class ExtensibleScrollView extends ScrollView {
         contentLayout.setPadding(padding, padding, padding, padding);
         contentLayout.setOrientation(LinearLayout.VERTICAL);
         this.addView(contentLayout, contentParam);
+    }
+
+    /**
+     * 添加一个View
+     *
+     * @param view
+     * @param params
+     */
+    public void addMyView(View view, LinearLayout.LayoutParams params) {
+        contentLayout.addView(view, params);
+    }
+
+    /**
+     * 添加view
+     *
+     * @param view
+     */
+    public void addMyView(View view) {
+        contentLayout.addView(view, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+    }
+
+    /**
+     * 添加codeView
+     *
+     * @param code
+     */
+    public void addCode(String code) {
+
+        codeView = new CodeView(context);
+        codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO);
+        codeView.fillColor();
+        codeView.showCode(code);
+
+        contentLayout.addView(codeView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     /**
@@ -109,6 +152,13 @@ public class ExtensibleScrollView extends ScrollView {
         void onclick(View view);
     }
 
+    /**
+     * 添加可以点击的文本
+     *
+     * @param text
+     * @param colorId
+     * @param clickListener
+     */
     public void addBodyWithClick(String text, int colorId, OnBodyClickListener clickListener) {
         TextView body = new TextView(context);
         body.setText("        " + text);
@@ -139,7 +189,6 @@ public class ExtensibleScrollView extends ScrollView {
 
     /**
      * 添加带有着重标记的内容
-     *
      */
     public void addLabelBody(String content) {
         TextView body = new TextView(context);
@@ -166,6 +215,11 @@ public class ExtensibleScrollView extends ScrollView {
     }
 
 
+    /**
+     * 添加加粗的文本
+     *
+     * @param body
+     */
     public void addBoldBody(String body) {
         addText(body, InsertTextType.BOLD_BODY, DEFAULT_COLOR);
     }

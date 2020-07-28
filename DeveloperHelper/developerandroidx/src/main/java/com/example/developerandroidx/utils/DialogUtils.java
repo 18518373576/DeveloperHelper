@@ -1,7 +1,11 @@
 package com.example.developerandroidx.utils;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,8 +74,17 @@ public class DialogUtils {
         FullScreenDialog.show((AppCompatActivity) context, R.layout.dialog_esv, new FullScreenDialog.OnBindView() {
             @Override
             public void onBind(FullScreenDialog dialog, View rootView) {
-                TextView tv_title = rootView.findViewById(R.id.tv_title);
-                ExtensibleScrollView esv_content = rootView.findViewById(R.id.esv_content);
+
+                TextView tv_title = new TextView(context);
+                int padding = PixelTransformForAppUtil.dip2px(10);
+                tv_title.setPadding(padding, 0, padding, padding);
+                tv_title.setGravity(Gravity.CENTER);
+                tv_title.setText("标题");
+                tv_title.setTextColor(context.getResources().getColor(R.color.textColorBlack));
+                tv_title.setTypeface(Typeface.DEFAULT_BOLD);
+                tv_title.setTextSize(22);
+                ExtensibleScrollView esv_content = (ExtensibleScrollView) rootView;
+                esv_content.addMyView(tv_title, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 onEsvDialogBindView.onBind(dialog, tv_title, esv_content);
             }
         });

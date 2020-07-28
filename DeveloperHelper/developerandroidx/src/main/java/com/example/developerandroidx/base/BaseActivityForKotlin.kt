@@ -6,8 +6,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 
 /**
  * 作者： zjf 2020/7/17 9:59 AM
@@ -32,8 +34,19 @@ abstract class BaseActivityForKotlin : AppCompatActivity() {
     /**
      * 子类实现如果需要的话
      */
-    protected fun initData() {
+    protected open fun initData() {
 
+    }
+
+    /**
+     * 获取ViewModel
+     *
+     * @param owner      ViewModel库拥有者，可是是fragment或者activity
+     * @param modelClass 自己定义的viewModel类
+     * @return
+     */
+    open fun <VM : ViewModel> getViewModel(modelClass: Class<VM>): VM {
+        return ViewModelProvider(this).get(modelClass)
     }
 
     /**

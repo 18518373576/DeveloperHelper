@@ -19,6 +19,7 @@ import com.example.developerandroidx.ui.java.array.ArrayDialog;
 import com.example.developerandroidx.ui.java.classLifeCircle.ClassLifeCircleDialog;
 import com.example.developerandroidx.ui.java.exception.ExceptionDialog;
 import com.example.developerandroidx.ui.java.extend.ExtendDialog;
+import com.example.developerandroidx.ui.java.genericity.GenericityDialog;
 import com.example.developerandroidx.ui.java.innerClass.InnerClassDialog;
 import com.example.developerandroidx.ui.java.interfaceDesc.InterfaceDialog;
 import com.example.developerandroidx.ui.java.modifier.ModifierDialog;
@@ -124,6 +125,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "圆形进度条":
                             new CanvasDialog().show(v.getContext(), new CanvasDrawCircle(v.getContext()));
+                            break;
+                        case "泛型":
+                            new GenericityDialog().show(v.getContext());
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

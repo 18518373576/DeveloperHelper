@@ -9,6 +9,9 @@ android {
         //noinspection DataBindingWithoutKapt,使用dataBinding
         enabled = true
     }
+    viewBinding {
+        enabled = true
+    }
     buildFeatures {
         // Enables Jetpack Compose for this module,使用compose
         compose true
@@ -140,7 +143,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //butterknife,控件注解 https://github.com/JakeWharton/butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
-    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     //应用代码展示的library
     // github:https://github.com/Thereisnospon/CodeView

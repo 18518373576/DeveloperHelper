@@ -43,7 +43,7 @@ public class ThreadDialog_03 implements FunctionDialogInterface {
             esv_content.addBoldBody("线程睡眠:Thread.sleep()方法");
             esv_content.addBody("当一个线程在运行中执行了sleep()方法,他就会放弃CPU.转到阻塞状态.值得注意的是,当线程结束睡眠时,首先转到就绪状态,在可运行池中等待获得CPU.");
             esv_content.addBoldBody("线程让步:Thread.yield()方法");
-            esv_content.addBody("当线程执行了Thread.yield()方法时,如果此时具有相同或更高优先级的线程处于就绪状态,yield()方法将把当前运行的线程方法可运行池中," +
+            esv_content.addBody("当线程执行了Thread.yield()方法时,如果此时具有相同或更高优先级的线程处于就绪状态,yield()方法将把当前运行的线程放到可运行池中," +
                     "并使另一个线程运行.如果没有相同或更高优先级的可运行线程,yield()方法什么都不做.");
             esv_content.addBoldBody("等待其他线程结束:join()");
             esv_content.addBody("当前的运行线程可以调用另一个线程的join()方法,当前线程的运行状态将转到阻塞状态,直到另一个线程运行结束,他才会恢复.");

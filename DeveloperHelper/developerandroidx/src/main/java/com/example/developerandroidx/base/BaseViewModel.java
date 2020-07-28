@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModel;
  */
 public abstract class BaseViewModel<T> extends ViewModel {
 
-    private MutableLiveData<T> myData = new MutableLiveData<>();
+    private MutableLiveData<T> myData = new MutableLiveData();
 
     /**
      * 初始化数据

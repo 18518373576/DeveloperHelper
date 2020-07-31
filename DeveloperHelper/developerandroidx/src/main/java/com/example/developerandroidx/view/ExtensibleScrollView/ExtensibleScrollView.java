@@ -9,12 +9,17 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.developerandroidx.R;
 import com.example.developerandroidx.utils.LogUtils;
+import com.example.developerandroidx.utils.RouteUtil;
 
 import thereisnospon.codeview.CodeView;
 import thereisnospon.codeview.CodeViewTheme;
@@ -31,9 +36,15 @@ public class ExtensibleScrollView extends ScrollView {
     private OnScrollChangedListener listener;
     private final int DEFAULT_COLOR = 0;
     private final int ALERT_COLOR = 1;
+    private int defaultPadding;
+    /**
+     * 换行并带一个缩进
+     */
     public final String tab = "\n        ";
+    /**
+     * 换行并带另个缩进
+     */
     public final String tabDouble = "\n        " + "        ";
-    private CodeView codeView;
 
     /**
      * 可添加的文类型
@@ -67,6 +78,7 @@ public class ExtensibleScrollView extends ScrollView {
      */
     private void initView(Context context) {
         this.context = context;
+        defaultPadding = PixelTransformUtil.dip2px(context, 10);
         setOverScrollMode(OVER_SCROLL_NEVER);
         setVerticalScrollBarEnabled(false);
         ViewGroup.LayoutParams contentParam = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -97,18 +109,25 @@ public class ExtensibleScrollView extends ScrollView {
     }
 
     /**
-     * 添加codeView
+     * 添加code
      *
      * @param code
      */
     public void addCode(String code) {
-
-        codeView = new CodeView(context);
-        codeView.setTheme(CodeViewTheme.ANDROIDSTUDIO);
-        codeView.fillColor();
-        codeView.showCode(code);
-
-        contentLayout.addView(codeView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        HorizontalScrollView horizontalScrollView = new HorizontalScrollView(context);
+        horizontalScrollView.setOverScrollMode(OVER_SCROLL_NEVER);
+        horizontalScrollView.setHorizontalScrollBarEnabled(false);
+        horizontalScrollView.setBackgroundResource(R.drawable.bg_dark_gray);
+        horizontalScrollView.setPadding(defaultPadding, defaultPadding, defaultPadding, defaultPadding);
+        TextView body = new TextView(context);
+        body.setText(code);
+        body.setTextSize(14);
+        body.setTypeface(Typeface.DEFAULT_BOLD);
+        //add增加的间距，mult增加的间距倍数
+        body.setLineSpacing(0, 1.5f);
+        body.setTextColor(Color.rgb(150, 150, 150));
+        horizontalScrollView.addView(body, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        contentLayout.addView(horizontalScrollView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
 
     /**
@@ -143,6 +162,25 @@ public class ExtensibleScrollView extends ScrollView {
             @Override
             public void onClick(View view) {
                 context.startActivity(intent);
+            }
+        });
+        contentLayout.addView(body);
+    }
+
+    public void goTo(String desc, Class<? extends AppCompatActivity> c, String param) {
+        TextView body = new TextView(context);
+        body.setText("        " + desc);
+        body.setTextSize(14);
+        body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        int padding = PixelTransformUtil.dip2px(context, 5);
+        body.setPadding(0, padding, 0, padding);
+        //add增加的间距，mult增加的间距倍数
+        body.setLineSpacing(0, 1.5f);
+        body.setTextColor(context.getResources().getColor(R.color.colorMain));
+        body.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RouteUtil.goTo(context, c.getName(), param);
             }
         });
         contentLayout.addView(body);

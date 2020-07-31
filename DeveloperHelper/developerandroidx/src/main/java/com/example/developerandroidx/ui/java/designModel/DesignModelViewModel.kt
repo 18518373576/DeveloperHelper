@@ -12,7 +12,7 @@ class DesignModelViewModel : BaseViewModel<MutableList<String>>() {
     override fun initData(vararg param: String?) {
         var list: MutableList<String> = mutableListOf()
         list.add("工厂模式")
-        list.add("工厂模式")
+        list.add("建造者模式")
         list.add("工厂模式")
 
         setData(list)

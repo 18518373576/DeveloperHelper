@@ -5,10 +5,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
-import com.example.developerandroidx.App
 import com.example.developerandroidx.adapter.quickAdapter.DesignModelAdapter
 import com.example.developerandroidx.base.BaseActivityForKotlinWithViewBinding
 import com.example.developerandroidx.databinding.ActivityDesignModelBinding
+import com.example.developerandroidx.ui.java.designModel.Dialog.FactoryModelDialog
 
 class DesignModelActivity : BaseActivityForKotlinWithViewBinding<ActivityDesignModelBinding>(), OnItemClickListener {
 
@@ -36,7 +36,8 @@ class DesignModelActivity : BaseActivityForKotlinWithViewBinding<ActivityDesignM
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         when (adapter.data[position] as String?) {
             "工厂模式" ->
-                App.showNotify(adapter.data[position] as String?)
+                FactoryModelDialog().show(context)
+
         }
 
     }

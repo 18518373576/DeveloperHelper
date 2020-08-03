@@ -1,8 +1,11 @@
 package com.example.developerandroidx.ui.java.io.dialog
 
 import android.content.Context
+import android.widget.TextView
 import com.example.developerandroidx.projectInterface.FunctionDialogInterface
 import com.example.developerandroidx.utils.DialogUtils
+import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView
+import com.kongzue.dialog.v3.FullScreenDialog
 
 /**
  * 作者： zjf 7/27/20 4:00 PM

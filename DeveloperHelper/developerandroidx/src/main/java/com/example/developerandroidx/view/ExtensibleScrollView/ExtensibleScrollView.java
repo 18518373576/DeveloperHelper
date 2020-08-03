@@ -125,7 +125,7 @@ public class ExtensibleScrollView extends ScrollView {
         body.setTypeface(Typeface.DEFAULT_BOLD);
         //add增加的间距，mult增加的间距倍数
         body.setLineSpacing(0, 1.5f);
-        body.setTextColor(Color.rgb(150, 150, 150));
+        body.setTextColor(Color.rgb(180, 180, 180));
         horizontalScrollView.addView(body, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         contentLayout.addView(horizontalScrollView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }

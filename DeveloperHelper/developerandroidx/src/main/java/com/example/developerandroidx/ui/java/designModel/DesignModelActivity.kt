@@ -11,6 +11,7 @@ import com.example.developerandroidx.databinding.ActivityDesignModelBinding
 import com.example.developerandroidx.ui.java.designModel.dialog.BuilderModelDialog
 import com.example.developerandroidx.ui.java.designModel.dialog.FactoryModelDialog
 import com.example.developerandroidx.ui.java.designModel.dialog.ObserverDialog
+import com.example.developerandroidx.ui.java.designModel.dialog.SingleInstanceDialog
 
 class DesignModelActivity : BaseActivityForKotlinWithViewBinding<ActivityDesignModelBinding>(), OnItemClickListener {
 
@@ -43,6 +44,8 @@ class DesignModelActivity : BaseActivityForKotlinWithViewBinding<ActivityDesignM
                 BuilderModelDialog().show(context)
             "观察者模式" ->
                 ObserverDialog().show(context)
+            "单例模式" ->
+                SingleInstanceDialog().show(context)
 
 
         }

@@ -7,7 +7,7 @@ import com.example.developerandroidx.utils.DialogUtils
 /**
  * 作者： zjf 8/1/20 4:34 PM
  * 参考：
- * 描述：
+ * 描述：建造者模式
  */
 class BuilderModelDialog : FunctionDialogInterface {
     override fun show(context: Context) {

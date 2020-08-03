@@ -14,6 +14,7 @@ class DesignModelViewModel : BaseViewModel<MutableList<String>>() {
         list.add("工厂模式")
         list.add("建造者模式")
         list.add("观察者模式")
+        list.add("单例模式")
 
         setData(list)
     }

@@ -7,7 +7,7 @@ import com.example.developerandroidx.utils.DialogUtils
 /**
  * 作者： zjf 7/31/20 11:32 AM
  * 参考：
- * 描述：
+ * 描述：工厂模式
  */
 class FactoryModelDialog : FunctionDialogInterface {
     override fun show(context: Context) {

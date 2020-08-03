@@ -54,7 +54,7 @@ abstract class BaseFragmentForKotlin<VB : ViewBinding> : Fragment() {
     }
 
     protected abstract fun initView()
-    protected fun initData() {
+    protected open fun initData() {
 
     }
 

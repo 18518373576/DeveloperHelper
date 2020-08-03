@@ -7,7 +7,7 @@ import com.example.developerandroidx.utils.DialogUtils
 /**
  * 作者： zjf 8/2/20 1:09 PM
  * 参考：
- * 描述：
+ * 描述：观察者模式
  */
 class ObserverDialog : FunctionDialogInterface {
     override fun show(context: Context) {

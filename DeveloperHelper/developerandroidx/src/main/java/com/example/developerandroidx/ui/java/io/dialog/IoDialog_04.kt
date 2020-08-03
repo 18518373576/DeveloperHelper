@@ -22,7 +22,7 @@ class IoDialog_04 : FunctionDialogInterface {
             esv_content.addImage(R.mipmap.image_reader, 250)
             esv_content.addBoldBody("CharArrayReader")
             esv_content.addBody("适配器,从内存中的字符数组中读取字符,它的数据源是一个字符数组.")
-            esv_content.goTo("查看示例代码", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class CharArrayReaderTest {\n" +
                             "    public static void main(String[] args) throws IOException {\n" +
                             "        char[] buff = new char[]{'你', '好', ',', 'w', 'o', 'r', 'l', 'd', '!'};\n" +
@@ -42,7 +42,7 @@ class IoDialog_04 : FunctionDialogInterface {
             esv_content.addBody("装饰器,为其他Reader提供缓冲区,并且可以跟踪字符输入流的行号.")
             esv_content.addBoldBody("StringReader")
             esv_content.addBody("适配器,把字符串转换为Reader,从字符串读取字符.")
-            esv_content.goTo("查看示例代码", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class StringReaderTest {\n" +
                             "    public static void main(String[] args) throws IOException {\n" +
                             "        StringReader reader = new StringReader(\"你好,world!\");\n" +
@@ -62,7 +62,7 @@ class IoDialog_04 : FunctionDialogInterface {
             esv_content.addBody("装饰器,能够把读到的字符压回到缓冲区中.")
             esv_content.addBoldBody("InputStreamReader")
             esv_content.addBody("适配器,把InputStream转换为Reader,可以指定数据源的字符编码.")
-            esv_content.goTo("查看示例代码", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class InputStreamReaderTest {\n" +
                             "    public static void main(String[] args) throws IOException {\n" +
                             "        //test.txt采用UTF-8编码\n" +

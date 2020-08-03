@@ -16,7 +16,7 @@ class IoDialog_05 : FunctionDialogInterface {
             title.text = "对象序列化"
             esv_content.addBody("对象的序列化是指把对象写到一个输出流中,对象的反序列化,是指从一个输入流中读取一个对象.Java语言要求,只有实现了" +
                     "java.io.Serializable接口的类才能被序列化.")
-            esv_content.goTo("查看示例代码", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class ObjectStreamTest {\n" +
                             "    public static void main(String[] args) throws IOException, ClassNotFoundException {\n" +
                             "        //对象序列化\n" +

@@ -22,7 +22,7 @@ class IoDialog_02 : FunctionDialogInterface {
             esv_content.addBoldBody("①ByteArrayInputStream(byte[] buf):参数buf指定字节数组类型的数据源." + esv_content.tab +
                     "②ByteArrayInputStream(byte[] buf, int offset, int length):参数buf指定字节数组类型的数据源,参数offset指定从数组中开始读数据" +
                     "的起始下标位置,length指定从数组中读取的字节数.")
-            esv_content.goTo("查看示例", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class ByteArrayInputStreamTest {\n" +
                             "    public static void main(String[] args) throws IOException {\n" +
                             "        byte[] buff = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9};\n" +
@@ -40,7 +40,7 @@ class IoDialog_02 : FunctionDialogInterface {
             esv_content.addBody("FileInputStream类从文件中读取数据,它有以下构造方法:")
             esv_content.addBoldBody("①FileInputStream(File file):参数file指定文件数据源." + esv_content.tab +
                     "②FileInputStream(String name):参数name指定文件数据源.在参数name中包含文件路径信息.")
-            esv_content.goTo("查看示例", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class FileInputStreamTest {\n" +
                             "    public static void main(String[] args) throws IOException {\n" +
                             "        //文本内容:测试ABCD\n" +
@@ -58,7 +58,7 @@ class IoDialog_02 : FunctionDialogInterface {
             esv_content.addBody("管道输入流从一个管道输出流中读取数据.通常由一个线程向管道输出流写数据,由另一个线程从管道输入流中读数据." +
                     "两个线程可以用管道来通信.当线程A执行管道输入流的read方法时,如果暂时还没有数据,那么这个线程就会阻塞.只有当线程B向管道输出流写了新的" +
                     "数据时,线程A才会恢复.")
-            esv_content.goTo("查看示例", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class PipeInputStreamTest {\n" +
                             "    //管道输出流线程\n" +
                             "    private static class Sender extends Thread {\n" +
@@ -119,7 +119,7 @@ class IoDialog_02 : FunctionDialogInterface {
             esv_content.addBoldBody("DataInputStream类")
             esv_content.addBody("DataInputStream实现了DataInput接口,用于读取基本数据类型.与DataOutputStream搭配使用,可以按照与平台无关的方式," +
                     "从流中读取基本数据类型.")
-            esv_content.goTo("查看示例", CodeViewActivity::class.java,
+            esv_content.addCode(
                     "public class FilterInputStreamTest {\n" +
                             "    public static void main(String[] args) {\n" +
                             "        try (\n" +

@@ -1,13 +1,11 @@
 package com.example.developerandroidx.ui;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.developerandroidx.R;
 import com.example.developerandroidx.base.BaseActivityWithButterKnife;
 import com.example.developerandroidx.ui.widget.webView.TechnologyWebViewActivity;
-import com.example.developerandroidx.utils.Constant;
 import com.example.developerandroidx.utils.LogUtils;
 import com.example.developerandroidx.utils.StringUtils;
 import com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView;
@@ -47,12 +45,21 @@ public class AboutActivity extends BaseActivityWithButterKnife {
         super.initData();
         //查看有无本地更新策略
         loadUpgradeInfo();
-        esv_content.addBodyWithIntent("github", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/18518373576/DeveloperHelper"));
+        esv_content.goTo("github", TechnologyWebViewActivity.class,
+                "https://github.com/18518373576/DeveloperHelper");
         esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addBodyWithIntent("gitee", R.color.colorMain,
-                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://gitee.com/ZhangQQ_123/DeveloperHelper"));
+        esv_content.goTo("gitee", TechnologyWebViewActivity.class,
+                "https://gitee.com/ZhangQQ_123/DeveloperHelper");
         esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("android developers", TechnologyWebViewActivity.class,
+                "https://developer.android.google.cn");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addTitle_2("    参考:");
+        esv_content.addBoldBody("《Java面向对象编程(第二版)》");
+        esv_content.addBoldBody("《Kotlin从零到精通Android开发》");
+        esv_content.addBoldBody("《Java设计模式及实践》");
+        esv_content.addBoldBody("《数据结构与算法经典问题解析Java语言描述》");
+        esv_content.addBoldBody("《Android源码设计模式解析与实战》");
 //        esv_content.addBodyWithIntent("图标库：https://www.iconfont.cn", R.color.colorMain,
 //                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://www.iconfont.cn"));
 //        esv_content.addLine(R.color.lightGrayColor);

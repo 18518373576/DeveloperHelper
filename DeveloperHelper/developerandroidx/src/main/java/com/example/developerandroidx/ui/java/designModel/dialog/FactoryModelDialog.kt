@@ -1,4 +1,4 @@
-package com.example.developerandroidx.ui.java.designModel.Dialog
+package com.example.developerandroidx.ui.java.designModel.dialog
 
 import android.content.Context
 import com.example.developerandroidx.projectInterface.FunctionDialogInterface
@@ -13,6 +13,9 @@ class FactoryModelDialog : FunctionDialogInterface {
     override fun show(context: Context) {
         DialogUtils.getInstance().showEsvDialog(context) { dialog, title, esv_content ->
             title.text = "简单工厂模式"
+            esv_content.addBody("类应该保持对扩展的开放和对修改的关闭(开闭原则),每个类应该只有一个发生变化的原因(单一职责原则).每增加新的类" +
+                    "造成主要代码修改时会打破开闭原则,而主类除了其固有功能外还负责实例化对象,这种行为会打破单一职责原则.")
+            esv_content.addBody("在这种情况下就需要一种更好的设计方案,我们可以增加一个新的类来负责类的实例化,称之为简单工厂模式.")
             esv_content.addBoldBody("定义工厂抽象类")
             esv_content.addCode(
                     "public interface BaseCarFactory {\n" +

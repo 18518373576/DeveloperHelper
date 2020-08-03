@@ -13,7 +13,7 @@ class DesignModelViewModel : BaseViewModel<MutableList<String>>() {
         var list: MutableList<String> = mutableListOf()
         list.add("工厂模式")
         list.add("建造者模式")
-        list.add("工厂模式")
+        list.add("观察者模式")
 
         setData(list)
     }

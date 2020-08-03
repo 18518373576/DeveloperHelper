@@ -20,8 +20,8 @@ android {
         applicationId "com.example.developerandroidx"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 3
-        versionName "1.3"
+        versionCode 6
+        versionName "1.6"
 
         //dialog窗口模糊效果
         renderscriptTargetApi 17

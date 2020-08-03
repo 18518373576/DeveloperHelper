@@ -8,7 +8,9 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.example.developerandroidx.adapter.quickAdapter.DesignModelAdapter
 import com.example.developerandroidx.base.BaseActivityForKotlinWithViewBinding
 import com.example.developerandroidx.databinding.ActivityDesignModelBinding
-import com.example.developerandroidx.ui.java.designModel.Dialog.FactoryModelDialog
+import com.example.developerandroidx.ui.java.designModel.dialog.BuilderModelDialog
+import com.example.developerandroidx.ui.java.designModel.dialog.FactoryModelDialog
+import com.example.developerandroidx.ui.java.designModel.dialog.ObserverDialog
 
 class DesignModelActivity : BaseActivityForKotlinWithViewBinding<ActivityDesignModelBinding>(), OnItemClickListener {
 
@@ -37,6 +39,11 @@ class DesignModelActivity : BaseActivityForKotlinWithViewBinding<ActivityDesignM
         when (adapter.data[position] as String?) {
             "工厂模式" ->
                 FactoryModelDialog().show(context)
+            "建造者模式" ->
+                BuilderModelDialog().show(context)
+            "观察者模式" ->
+                ObserverDialog().show(context)
+
 
         }
 

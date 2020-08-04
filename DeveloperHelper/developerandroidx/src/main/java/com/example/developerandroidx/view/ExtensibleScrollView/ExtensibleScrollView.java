@@ -36,6 +36,10 @@ public class ExtensibleScrollView extends ScrollView {
     private OnScrollChangedListener listener;
     private final int DEFAULT_COLOR = 0;
     private final int ALERT_COLOR = 1;
+    //默认body字体大小
+    private final int BODY_TEXT_SIZE = 15;
+    //默认body字体颜色
+    private final int BODY_TEXT_COLOR = Color.rgb(79, 79, 79);
     private int defaultPadding;
     /**
      * 换行并带一个缩进
@@ -121,11 +125,11 @@ public class ExtensibleScrollView extends ScrollView {
         horizontalScrollView.setPadding(defaultPadding, defaultPadding, defaultPadding, defaultPadding);
         TextView body = new TextView(context);
         body.setText(code);
-        body.setTextSize(14);
-        body.setTypeface(Typeface.DEFAULT_BOLD);
+        body.setTextSize(BODY_TEXT_SIZE);
+//        body.setTypeface(Typeface.DEFAULT_BOLD);
         //add增加的间距，mult增加的间距倍数
         body.setLineSpacing(0, 1.5f);
-        body.setTextColor(Color.rgb(180, 180, 180));
+        body.setTextColor(Color.rgb(150, 150, 150));
         horizontalScrollView.addView(body, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         contentLayout.addView(horizontalScrollView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
     }
@@ -151,7 +155,7 @@ public class ExtensibleScrollView extends ScrollView {
     public void addBodyWithIntent(String text, int colorId, Intent intent) {
         TextView body = new TextView(context);
         body.setText("        " + text);
-        body.setTextSize(14);
+        body.setTextSize(BODY_TEXT_SIZE);
         body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
         int padding = PixelTransformUtil.dip2px(context, 5);
         body.setPadding(0, padding, 0, padding);
@@ -170,7 +174,7 @@ public class ExtensibleScrollView extends ScrollView {
     public void goTo(String desc, Class<? extends AppCompatActivity> c, String param) {
         TextView body = new TextView(context);
         body.setText("        " + desc);
-        body.setTextSize(14);
+        body.setTextSize(BODY_TEXT_SIZE);
         body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
         int padding = PixelTransformUtil.dip2px(context, 5);
         body.setPadding(0, padding, 0, padding);
@@ -200,7 +204,7 @@ public class ExtensibleScrollView extends ScrollView {
     public void addBodyWithClick(String text, int colorId, OnBodyClickListener clickListener) {
         TextView body = new TextView(context);
         body.setText("        " + text);
-        body.setTextSize(14);
+        body.setTextSize(BODY_TEXT_SIZE);
         body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
         int padding = PixelTransformUtil.dip2px(context, 5);
         body.setPadding(0, padding, 0, padding);
@@ -233,12 +237,12 @@ public class ExtensibleScrollView extends ScrollView {
         body.setTextIsSelectable(true);
         body.append("        ");
         body.append(Html.fromHtml(content));
-        body.setTextSize(14);
+        body.setTextSize(BODY_TEXT_SIZE);
         int padding = PixelTransformUtil.dip2px(context, 5);
         body.setPadding(0, padding, 0, padding);
         //add增加的间距，mult增加的间距倍数
         body.setLineSpacing(0, 1.5f);
-        body.setTextColor(Color.rgb(110, 110, 110));
+        body.setTextColor(BODY_TEXT_COLOR);
         contentLayout.addView(body);
     }
 
@@ -304,13 +308,13 @@ public class ExtensibleScrollView extends ScrollView {
                 body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 body.setTextIsSelectable(true);
                 body.setText("        " + text);
-                body.setTextSize(14);
+                body.setTextSize(BODY_TEXT_SIZE);
                 int padding = PixelTransformUtil.dip2px(context, 5);
                 body.setPadding(0, padding, 0, padding);
                 //add增加的间距，mult增加的间距倍数
                 body.setLineSpacing(0, 1.5f);
                 if (colorId == DEFAULT_COLOR) {
-                    body.setTextColor(Color.rgb(110, 110, 110));
+                    body.setTextColor(BODY_TEXT_COLOR);
                 } else if (colorId == ALERT_COLOR) {
                     body.setTextColor(Color.rgb(205, 85, 85));
                 } else {
@@ -324,13 +328,13 @@ public class ExtensibleScrollView extends ScrollView {
                 TextView body = new TextView(context);
                 body.setTextIsSelectable(true);
                 body.setText("        " + text);
-                body.setTextSize(14);
+                body.setTextSize(BODY_TEXT_SIZE);
                 int padding = PixelTransformUtil.dip2px(context, 5);
                 body.setPadding(0, padding, 0, padding);
                 //add增加的间距，mult增加的间距倍数
                 body.setLineSpacing(0, 1.5f);
                 if (colorId == DEFAULT_COLOR) {
-                    body.setTextColor(Color.rgb(110, 110, 110));
+                    body.setTextColor(BODY_TEXT_COLOR);
                 } else if (colorId == ALERT_COLOR) {
                     body.setTextColor(Color.rgb(205, 85, 85));
                 } else {
@@ -361,16 +365,17 @@ public class ExtensibleScrollView extends ScrollView {
             break;
             case TITLE_2: {
                 TextView title_2 = new TextView(context);
-                title_2.setText("    " + text);
+                title_2.setText(text);
                 title_2.setTextSize(16);
+                title_2.setGravity(Gravity.CENTER);
                 //设置字体加粗
                 title_2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 //add增加的间距，mult增加的间距倍数
                 title_2.setLineSpacing(0, 1.5f);
-                int padding = PixelTransformUtil.dip2px(context, 5);
+                int padding = PixelTransformUtil.dip2px(context, 20);
                 title_2.setPadding(0, padding, 0, padding);
                 if (colorId == DEFAULT_COLOR) {
-                    title_2.setTextColor(Color.rgb(54, 54, 54));
+                    title_2.setTextColor(Color.rgb(255, 114, 86));
                 } else {
                     title_2.setTextColor(context.getResources().getColor(colorId));
                 }

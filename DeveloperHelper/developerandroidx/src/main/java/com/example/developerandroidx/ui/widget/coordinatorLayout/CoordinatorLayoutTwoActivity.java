@@ -53,6 +53,7 @@ public class CoordinatorLayoutTwoActivity extends BaseActivity {
         toolbar = findViewById(R.id.toolbar);
 
         iv_back = findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(v -> finish());
 
         setViewOffset();
 

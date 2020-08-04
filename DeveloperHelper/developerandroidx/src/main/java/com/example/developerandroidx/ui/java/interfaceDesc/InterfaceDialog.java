@@ -24,7 +24,7 @@ public class InterfaceDialog implements FunctionDialogInterface {
                 esv_content.addTitle_2("接口的概念");
                 esv_content.addBody("一种是指概念性的接口,即指系统对外提供的所有服务.类的所有能被外部使用者访问的方法构成了类的接口.");
                 esv_content.addBody("一种是指interface修饰的接口,也称接口类型.它用于明确地描述系统对外提供的所有服务,它能够更加清晰的把系统的实现细节与接口分离.");
-                esv_content.addAlertBody("接口对其成员变量和方法做了许多限制,特征归纳如下:", R.color.colorMain);
+                esv_content.addBoldBody("接口对其成员变量和方法做了许多限制,特征归纳如下:");
                 esv_content.addBody("1.接口中的成员变量默认都是public static final类型的,必须被显示初始化.");
                 esv_content.addBody("2.接口中的方法默认都是public abstract类型的.");
                 esv_content.addBody("3.在JDK8以前的版本中,接口只能包含抽象方法.从JDK8开始,为了提高代码的可重用性,允许在接口中定义" +
@@ -36,12 +36,12 @@ public class InterfaceDialog implements FunctionDialogInterface {
                 esv_content.addBody("7.不允许创建接口的实例,但允许定义接口类型的引用变量,该变量引用接口的实现类的实例.");
                 esv_content.addBody("8.一个类只能继承一个直接父类,但能实现多个接口.");
                 esv_content.addBody("抽象类和接口");
-                esv_content.addAlertBody("相同点:", R.color.colorMain);
+                esv_content.addBoldBody("相同点:");
                 esv_content.addBody("1.代表系统抽象层.");
                 esv_content.addBody("2.都不能被实例化.");
                 esv_content.addBody("3.都能包含抽象方法.");
                 esv_content.addBody("4.从JDK8开始,不仅抽象类能为某些方法提供默认实现,接口也可以.");
-                esv_content.addAlertBody("不同点:", R.color.colorMain);
+                esv_content.addBoldBody("不同点:");
                 esv_content.addBody("1.接口中的成员变量只能是public static final类型的,而在抽象类中可以定义各种类型的成员变量和实例变量,这是抽象类的优势所在.");
                 esv_content.addBody("2.一个类只能继承一个直接的父类,但可以实现多个接口,这是接口的优势所在.");
             }

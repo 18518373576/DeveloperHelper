@@ -6,10 +6,11 @@
     <color name="colorMainDark">#1296db</color>
     <color name="colorPrimaryDark">#17abe3</color>
     <color name="colorAccent">#17abe3</color>
-    <color name="textColor">#6E6E6E</color>
+    <color name="textColor">#4F4F4F</color>
     <color name="grayColorTran">#AAFFFFFF</color>
     <color name="textColorBlack">#363636</color>
     <color name="grayColor">#AAAAAA</color>
+    <color name="navigationColor">#696969</color>
     <color name="lightGrayColor">#E5E5E5</color>
     <color name="bg_dark_white">#EDEDED</color>
     <color name="bg_interface">#F5F5F5</color>

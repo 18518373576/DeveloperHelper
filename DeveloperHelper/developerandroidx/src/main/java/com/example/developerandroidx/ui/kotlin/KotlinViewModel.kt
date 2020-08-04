@@ -12,7 +12,7 @@ class KotlinViewModel : BaseViewModel<MutableList<String>>() {
     override fun initData(vararg param: String?) {
         var list: MutableList<String> = mutableListOf()
         list.add("基本数据类型")
-        list.add("数组")
+        list.add("数组和集合")
 
         setData(list)
     }

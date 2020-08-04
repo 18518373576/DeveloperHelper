@@ -32,11 +32,11 @@ public class ExtendDialog implements FunctionDialogInterface {
                         "但参数不一致,那么可以说,一个方法是另一个方法的重载方法.");
                 esv_content.addTitle_2("方法的覆盖(Override)");
                 esv_content.addBody("如果在子类中定义的一个方法,其名称,返回类型,参数签名都与父类中的某个方法相匹配,那么可以说子类的方法覆盖了父类的方法.需要注意的是:");
-                esv_content.addAlertBody("1.子类方法不能缩小父类方法的访问权限.");
-                esv_content.addAlertBody("2.子类方法不能抛出比父类方法更多的异常.");
-                esv_content.addAlertBody("3.方法覆盖只存在于子类和父类之间,在同一个类中,方法只能重载,不能覆盖.");
-                esv_content.addAlertBody("4.父类的静态方法不能被子类覆盖为非静态方法.");
-                esv_content.addAlertBody("5.父类的抽象方法可以被子类覆盖为抽象方法");
+                esv_content.addBoldBody("1.子类方法不能缩小父类方法的访问权限.");
+                esv_content.addBoldBody("2.子类方法不能抛出比父类方法更多的异常.");
+                esv_content.addBoldBody("3.方法覆盖只存在于子类和父类之间,在同一个类中,方法只能重载,不能覆盖.");
+                esv_content.addBoldBody("4.父类的静态方法不能被子类覆盖为非静态方法.");
+                esv_content.addBoldBody("5.父类的抽象方法可以被子类覆盖为抽象方法");
                 esv_content.addTitle_2("super关键字");
                 esv_content.addBody("super和this都可以用来覆盖Java语言的默认作用域.使被屏蔽的方法或变量变为可见,在以下场合会出现方法或变量被屏蔽的现象:");
                 esv_content.addBody("1.在一个方法内,当局部变量和类的成员变量重名,或者局部变量和父类的成员变量重名,按照变量的作用于规则,只有局部变量在方法内可见.");

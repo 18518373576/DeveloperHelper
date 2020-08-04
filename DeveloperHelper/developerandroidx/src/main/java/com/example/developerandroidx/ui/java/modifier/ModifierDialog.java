@@ -49,7 +49,7 @@ public class ModifierDialog implements FunctionDialogInterface {
                 esv_content.addBody("2.用final修饰的方法不能被子类的方法覆盖.");
                 esv_content.addBody("3.用final修饰的变量表示常量,只能被赋值一次.");
                 esv_content.addBody("4.用final修饰的引用类型变量,始终只能引用一个对象,但可以改变对象的内容.");
-                esv_content.addAlertBody("注意:对于fina类型的实例变量,必须显式初始化或在构造方法中进行初始化.对于final类型的静态变量," +
+                esv_content.addBoldBody("注意:对于fina类型的实例变量,必须显式初始化或在构造方法中进行初始化.对于final类型的静态变量," +
                         "可以在定义变量时进行初始化,或在静态代码块中初始化,在构造方法中初始化编译错误.");
                 esv_content.addTitle_2("static");
                 esv_content.addBody("static修饰符可以用来修饰类的成员变量,成员方法和代码块.");

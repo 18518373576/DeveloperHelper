@@ -12,8 +12,8 @@ import com.example.developerandroidx.utils.DialogUtils
 class KotlinDialog_02 : FunctionDialogInterface {
     override fun show(context: Context) {
         DialogUtils.getInstance().showEsvDialog(context) { dialog, title, esv_content ->
-            title.text = "数组"
-            esv_content.addBody("在kotlin中声明并初始化一个数组的语句如下:")
+            title.text = "数组和集合"
+            esv_content.addTitle_2("声明数组")
             esv_content.addCode(
                     "fun main() {\n" +
                             "    //基本数据类型数组声明\n" +

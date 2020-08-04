@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
 
         nv_view.setNavigationBG(R.color.bg_interface);
         nv_view.setNavigationPager(getSupportFragmentManager(), list);
-        nv_view.setNavigationSelector(R.color.colorMain, R.color.textColor);
+        nv_view.setNavigationSelector(R.color.colorMain, R.color.navigationColor);
         nv_view.setOnNavigationChangListener(this);
         nv_view.showNotify(2, 10);
 

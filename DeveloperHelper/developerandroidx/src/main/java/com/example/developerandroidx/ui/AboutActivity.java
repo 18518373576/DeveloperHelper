@@ -54,11 +54,11 @@ public class AboutActivity extends BaseActivityWithButterKnife {
         esv_content.goTo("android developers", TechnologyWebViewActivity.class,
                 "https://developer.android.google.cn");
         esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addTitle_2("    参考:");
+        esv_content.addTitle_1("    参考资料:");
         esv_content.addBoldBody("《Java面向对象编程(第二版)》");
         esv_content.addBoldBody("《Kotlin从零到精通Android开发》");
         esv_content.addBoldBody("《Java设计模式及实践》");
-        esv_content.addBoldBody("《数据结构与算法经典问题解析Java语言描述》");
+        esv_content.addBoldBody("《数据结构与算法经典问题解析》");
         esv_content.addBoldBody("《Android源码设计模式解析与实战》");
 //        esv_content.addBodyWithIntent("图标库：https://www.iconfont.cn", R.color.colorMain,
 //                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://www.iconfont.cn"));

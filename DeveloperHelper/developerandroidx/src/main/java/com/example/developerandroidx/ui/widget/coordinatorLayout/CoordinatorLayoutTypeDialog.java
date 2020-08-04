@@ -14,7 +14,7 @@ import com.example.developerandroidx.utils.RouteUtil;
 public class CoordinatorLayoutTypeDialog implements FunctionDialogInterface {
     @Override
     public void show(Context context) {
-        DialogUtils.getInstance().showBottomMenu(context, new String[]{"标题栏移动", "结合ToolBar使用"}, new DialogUtils.OnItemClickListener() {
+        DialogUtils.getInstance().showBottomMenu(context, new String[]{"标题栏移动", "结合ToolBar使用", "自定义Behavior"}, new DialogUtils.OnItemClickListener() {
             @Override
             public void onClick(String text, int index) {
                 switch (index) {
@@ -23,6 +23,9 @@ public class CoordinatorLayoutTypeDialog implements FunctionDialogInterface {
                         break;
                     case 1:
                         RouteUtil.goTo(context, RouteUtil.getDestination(CoordinatorLayoutTwoActivity.class));
+                        break;
+                    case 2:
+                        RouteUtil.goTo(context, RouteUtil.getDestination(CoordinatorLayoutThreeActivity.class));
                         break;
                 }
             }

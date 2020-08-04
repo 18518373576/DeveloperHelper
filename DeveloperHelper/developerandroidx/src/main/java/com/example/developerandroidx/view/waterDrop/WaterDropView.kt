@@ -24,7 +24,7 @@ class WaterDropView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private var viewWidth: Int = PixelTransformForAppUtil.getDiaplayWidth()
-    private var viewHeight: Int = PixelTransformForAppUtil.getDiaplayWidth()
+    private var viewHeight: Int = PixelTransformForAppUtil.getDiaplayHeight()
     private var paint: Paint
     private lateinit var path: Path
 
@@ -49,7 +49,8 @@ class WaterDropView @JvmOverloads constructor(
     private var isAnimating = false
 
     private val circlePoints = arrayOfNulls<Point>(4)//顺时针记录绘制圆形的四个数据点,从底部正中的点开始
-    private val ctrlPoints = arrayOfNulls<Point>(8)//顺时针记录绘制圆形的四个数据点
+
+    private val ctrlPoints = arrayOfNulls<Point>(8)//顺时针记录绘制圆形贝塞尔曲线的控制点
 
     private val C = 0.552284749831f // 用来计算绘制圆形贝塞尔曲线控制点的位置的常数
 
@@ -78,7 +79,9 @@ class WaterDropView @JvmOverloads constructor(
         path = Path()
 
 //        circlePoints[0] = Point(originX + offSetX * animProgress, originY + mCircleRadius + offSetY * animProgress)
+        //控制底部一个点不随手指滑动而移动
         circlePoints[0] = Point(originX, originY + mCircleRadius)
+
         circlePoints[1] = Point(originX + mCircleRadius + offSetX * animProgress, originY + offSetY * animProgress)
         circlePoints[2] = Point(originX + offSetX * animProgress, originY - mCircleRadius + offSetY * animProgress)
         circlePoints[3] = Point(originX - mCircleRadius + offSetX * animProgress, originY + offSetY * animProgress)
@@ -101,16 +104,13 @@ class WaterDropView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        canvas.drawARGB(100,0,0,255)
-//        canvas.translate(viewWidth / 2f + offSetX * animProgress, viewHeight / 2f + offSetY * animProgress)// 将坐标系移动到画布中央
-//        canvas.scale(1f, -1f)// 翻转Y轴
-//        canvas.rotate(45f)
 
         // 绘制贝塞尔曲线
         paint.color = Color.RED
         paint.strokeWidth = 6f
+        //移动到起始点
         path.moveTo(circlePoints[0]!!.x, circlePoints[0]!!.y)
-
+        //画四条三阶贝塞尔曲线轨迹,连接圆的四个点
         path.cubicTo(ctrlPoints[0]!!.x, ctrlPoints[0]!!.y, ctrlPoints[1]!!.x, ctrlPoints[1]!!.y, circlePoints[1]!!.x, circlePoints[1]!!.y)
         path.cubicTo(ctrlPoints[2]!!.x, ctrlPoints[2]!!.y, ctrlPoints[3]!!.x, ctrlPoints[3]!!.y, circlePoints[2]!!.x, circlePoints[2]!!.y)
         path.cubicTo(ctrlPoints[4]!!.x, ctrlPoints[4]!!.y, ctrlPoints[5]!!.x, ctrlPoints[5]!!.y, circlePoints[3]!!.x, circlePoints[3]!!.y)

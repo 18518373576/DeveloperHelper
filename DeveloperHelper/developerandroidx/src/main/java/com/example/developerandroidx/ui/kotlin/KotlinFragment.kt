@@ -14,7 +14,7 @@ import com.example.developerandroidx.ui.kotlin.dialog.KotlinDialog_02
 /**
  * 作者： zjf 7/26/20 9:44 PM
  * 参考：
- * 描述：
+ * 描述：kotlin基础
  */
 class KotlinFragment : BaseFragmentForKotlin<FragmentKotlinBinding>(), OnItemClickListener {
 
@@ -37,7 +37,7 @@ class KotlinFragment : BaseFragmentForKotlin<FragmentKotlinBinding>(), OnItemCli
         when (adapter.data.get(position)) {
             "基本数据类型" ->
                 KotlinDialog_01().show(binding.root.context)
-            "数组" ->
+            "数组和集合" ->
                 KotlinDialog_02().show(binding.root.context)
 
         }

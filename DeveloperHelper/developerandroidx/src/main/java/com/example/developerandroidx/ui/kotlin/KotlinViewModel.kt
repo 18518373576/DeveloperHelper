@@ -13,6 +13,7 @@ class KotlinViewModel : BaseViewModel<MutableList<String>>() {
         var list: MutableList<String> = mutableListOf()
         list.add("基本数据类型")
         list.add("数组和集合")
+        list.add("流程控制")
 
         setData(list)
     }

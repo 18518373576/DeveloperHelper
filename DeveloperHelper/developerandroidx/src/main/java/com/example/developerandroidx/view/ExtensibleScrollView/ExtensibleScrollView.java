@@ -175,7 +175,7 @@ public class ExtensibleScrollView extends ScrollView {
         TextView body = new TextView(context);
         body.setText("        " + desc);
         body.setTextSize(BODY_TEXT_SIZE);
-        body.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+        body.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         int padding = PixelTransformUtil.dip2px(context, 5);
         body.setPadding(0, padding, 0, padding);
         //add增加的间距，mult增加的间距倍数

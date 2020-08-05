@@ -18,7 +18,6 @@ public class DataStructureViewModel extends BaseViewModel<List<String>> {
     protected void initData(@Nullable String... param) {
         List<String> list = new ArrayList<>();
         list.add("单向链表");
-        list.add("双向链表");
         setData(list);
     }
 }

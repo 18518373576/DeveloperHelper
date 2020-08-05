@@ -59,7 +59,7 @@
     <com.example.developerandroidx.view.ExtensibleScrollView.ExtensibleScrollView
         android:id="@+id/esv_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp300"
         android:layout_marginTop="@dimen/dp10"
         app:layout_constraintTop_toBottomOf="@+id/tv_version" />
 

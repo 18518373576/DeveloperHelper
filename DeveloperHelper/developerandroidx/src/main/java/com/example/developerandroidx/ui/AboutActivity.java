@@ -51,32 +51,40 @@ public class AboutActivity extends BaseActivityWithButterKnife {
         esv_content.goTo("gitee", TechnologyWebViewActivity.class,
                 "https://gitee.com/ZhangQQ_123/DeveloperHelper");
         esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBoldBody("使用的开源项目:");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("butterknife", TechnologyWebViewActivity.class, "https://github.com/JakeWharton/butterknife");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("CodeView", TechnologyWebViewActivity.class, "https://github.com/Thereisnospon/CodeView");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("kongzue.dialog", TechnologyWebViewActivity.class, "https://github.com/kongzue/DialogV3");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("eventbus", TechnologyWebViewActivity.class, "https://github.com/greenrobot/EventBus");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("BaseRecyclerViewAdapterHelper", TechnologyWebViewActivity.class, "https://github.com/CymChad/BaseRecyclerViewAdapterHelper");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("okhttp", TechnologyWebViewActivity.class, "https://github.com/square/okhttp");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("retrofit", TechnologyWebViewActivity.class, "https://github.com/square/retrofit");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.goTo("RxJava", TechnologyWebViewActivity.class, "https://github.com/ReactiveX/RxJava");
+        esv_content.addLine(R.color.lightGrayColor);
+
+        esv_content.addBoldBody("参考资料:");
+        esv_content.addLine(R.color.lightGrayColor);
         esv_content.goTo("android developers", TechnologyWebViewActivity.class,
                 "https://developer.android.google.cn");
         esv_content.addLine(R.color.lightGrayColor);
-        esv_content.addTitle_1("    参考资料:");
-        esv_content.addBoldBody("《Java面向对象编程(第二版)》");
-        esv_content.addBoldBody("《Kotlin从零到精通Android开发》");
-        esv_content.addBoldBody("《Java设计模式及实践》");
-        esv_content.addBoldBody("《数据结构与算法经典问题解析》");
-        esv_content.addBoldBody("《Android源码设计模式解析与实战》");
-//        esv_content.addBodyWithIntent("图标库：https://www.iconfont.cn", R.color.colorMain,
-//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://www.iconfont.cn"));
-//        esv_content.addLine(R.color.lightGrayColor);
-//        esv_content.addBodyWithIntent("butterknife", R.color.colorMain,
-//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/JakeWharton/butterknife"));
-//        esv_content.addLine(R.color.lightGrayColor);
-//        esv_content.addBodyWithIntent("CodeView", R.color.colorMain,
-//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/Thereisnospon/CodeView"));
-//        esv_content.addLine(R.color.lightGrayColor);
-//        esv_content.addBodyWithIntent("kongzue.dialog", R.color.colorMain,
-//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/kongzue/DialogV3"));
-//        esv_content.addLine(R.color.lightGrayColor);
-//        esv_content.addBodyWithIntent("eventbus", R.color.colorMain,
-//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/greenrobot/EventBus"));
-//        esv_content.addLine(R.color.lightGrayColor);
-//        esv_content.addBodyWithIntent("BaseRecyclerViewAdapterHelper", R.color.colorMain,
-//                new Intent(context, TechnologyWebViewActivity.class).putExtra(Constant.IntentParams.INTENT_PARAM, "https://github.com/CymChad/BaseRecyclerViewAdapterHelper"));
+        esv_content.addBody("《Java面向对象编程(第二版)》");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBody("《Kotlin从零到精通Android开发》");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBody("《Java设计模式及实践》");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBody("《数据结构与算法经典问题解析》");
+        esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBody("《Android源码设计模式解析与实战》");
+        esv_content.addLine(R.color.lightGrayColor);
     }
 
     private void loadUpgradeInfo() {

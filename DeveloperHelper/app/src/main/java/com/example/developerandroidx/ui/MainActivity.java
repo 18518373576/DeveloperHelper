@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
     NavigationView nv_view;
 
     private ArrayList<NavigationBean> list;
+    private FlutterEngine flutterEngine;
 
     /**
      * 绑定layout
@@ -97,9 +98,11 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
     }
 
     private void initFlutter() {
+        if (flutterEngine != null) {
+            return;
+        }
         // Instantiate a FlutterEngine.
-        FlutterEngine flutterEngine = new FlutterEngine(this);
-
+        flutterEngine = new FlutterEngine(this);
         // Start executing Dart code to pre-warm the FlutterEngine.
         flutterEngine.getDartExecutor().executeDartEntrypoint(
                 DartExecutor.DartEntrypoint.createDefault()
@@ -232,7 +235,9 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
     @Override
     public void onDestroy() {
         //释放flutter资源
-//        flutterEngine.destroy();
+        if (flutterEngine != null) {
+            flutterEngine.destroy();
+        }
 
         nv_view.release();
         EventBus.getDefault().unregister(this);

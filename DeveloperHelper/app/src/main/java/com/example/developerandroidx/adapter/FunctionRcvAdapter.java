@@ -134,6 +134,12 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "Flutter":
                             v.getContext().startActivity(FlutterActivity.createDefaultIntent(v.getContext()));
+                            /**
+                             *使用缓存的引擎启动,速度比较快,在{@link com.example.developerandroidx.ui.MainActivity}初始化
+                             */
+//                            v.getContext().startActivity(FlutterActivity
+//                                    .withCachedEngine("my_engine_id")
+//                                    .build(v.getContext()));
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

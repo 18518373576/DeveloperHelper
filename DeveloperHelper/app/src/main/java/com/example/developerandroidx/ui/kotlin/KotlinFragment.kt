@@ -8,9 +8,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.example.developerandroidx.adapter.quickAdapter.KotlinAdapter
 import com.example.developerandroidx.base.BaseFragmentForKotlin
 import com.example.developerandroidx.databinding.FragmentKotlinBinding
-import com.example.developerandroidx.ui.kotlin.dialog.KotlinDialog_01
-import com.example.developerandroidx.ui.kotlin.dialog.KotlinDialog_02
-import com.example.developerandroidx.ui.kotlin.dialog.KotlinDialog_03
+import com.example.developerandroidx.ui.kotlin.dialog.*
 
 /**
  * 作者： zjf 7/26/20 9:44 PM
@@ -40,8 +38,12 @@ class KotlinFragment : BaseFragmentForKotlin<FragmentKotlinBinding>(), OnItemCli
                 KotlinDialog_01().show(binding.root.context)
             "数组和集合" ->
                 KotlinDialog_02().show(binding.root.context)
-            "流程控制"->
+            "流程控制" ->
                 KotlinDialog_03().show(binding.root.context)
+            "空安全" ->
+                KotlinDialog_04().show(binding.root.context)
+            "等式判断" ->
+                KotlinDialog_05().show(binding.root.context)
 
         }
     }

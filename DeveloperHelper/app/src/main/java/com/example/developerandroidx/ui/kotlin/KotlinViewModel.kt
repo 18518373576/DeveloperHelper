@@ -14,7 +14,8 @@ class KotlinViewModel : BaseViewModel<MutableList<String>>() {
         list.add("基本数据类型")
         list.add("数组和集合")
         list.add("流程控制")
-
+        list.add("空安全")
+        list.add("等式判断")
         setData(list)
     }
 }

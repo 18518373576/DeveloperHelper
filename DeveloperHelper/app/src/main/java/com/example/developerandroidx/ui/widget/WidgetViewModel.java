@@ -50,6 +50,7 @@ public class WidgetViewModel extends BaseViewModel<List<FunctionItemBean>> {
         functionList.add(new FunctionItemBean("滑块进度条", R.mipmap.icon_sliding_block, ""));
         functionList.add(new FunctionItemBean("LoadingView", R.mipmap.icon_loading, ""));
         functionList.add(new FunctionItemBean("圆形进度条", R.mipmap.icon_progress, ""));
+        functionList.add(new FunctionItemBean("Flutter", R.mipmap.icon_flutter, ""));
 
         return functionList;
     }

@@ -1,4 +1,10 @@
 include ':calendarview'
 include ':dh_sample'
-include ':developerandroidx', ':codeview',':dialog',':zxinglib',"rcvAdapterHelper"
-rootProject.name='DeveloperHelper'
+include ':app', ':codeview', ':dialog', ':zxinglib', "rcvAdapterHelper"
+
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+        settingsDir.parentFile,
+        'flutter_module/.android/include_flutter.groovy'
+))
+rootProject.name = 'DeveloperHelper'

@@ -7,16 +7,18 @@
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/calendarview" />
             <option value="$PROJECT_DIR$/codeview" />
-            <option value="$PROJECT_DIR$/developerandroidx" />
             <option value="$PROJECT_DIR$/dh_sample" />
             <option value="$PROJECT_DIR$/dialog" />
             <option value="$PROJECT_DIR$/rcvAdapterHelper" />
             <option value="$PROJECT_DIR$/zxinglib" />
+            <option value="$PROJECT_DIR$/../flutter_module/.android/Flutter" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

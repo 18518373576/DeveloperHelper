@@ -10,6 +10,10 @@ import com.baidu.mapapi.SDKInitializer;
 import com.example.developerandroidx.receiver.AppBroadcastReceiver;
 import com.example.developerandroidx.utils.RouteUtil;
 
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
+
 /**
  * 作者： zjf 2020/7/10 5:31 PM
  * 参考：
@@ -27,7 +31,6 @@ public class WelcomeActivity extends AppCompatActivity {
         iFilter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
         mReceiver = new AppBroadcastReceiver();
         registerReceiver(mReceiver, iFilter);
-
         try {
             Thread.sleep(200);
         } catch (InterruptedException e) {

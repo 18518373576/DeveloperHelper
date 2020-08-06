@@ -11,6 +11,9 @@
         <item name="android:windowBackground">@color/colorMain</item>
     </style>
 
+    <style name="flutterActivity" parent="android:Theme.Holo.Light.NoActionBar">
+        <item name="android:windowBackground">@color/bg_interface</item>
+    </style>
     <!--    通用主题,没有actionBar-->
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->

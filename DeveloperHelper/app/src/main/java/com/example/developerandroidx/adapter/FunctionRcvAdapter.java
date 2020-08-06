@@ -39,6 +39,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.android.FlutterActivityLaunchConfigs;
+
 public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
     /**
      * 构造方法，初始化数据
@@ -128,6 +131,9 @@ public class FunctionRcvAdapter extends BaseRcvAdapter<FunctionItemBean> {
                             break;
                         case "泛型":
                             new GenericityDialog().show(v.getContext());
+                            break;
+                        case "Flutter":
+                            v.getContext().startActivity(FlutterActivity.createDefaultIntent(v.getContext()));
                             break;
                         default:
                             DialogUtils.getInstance().showWarningTip(v.getContext(), "developing");

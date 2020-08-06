@@ -34,6 +34,17 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 关于对lifecircle的理解
@@ -81,6 +92,23 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
         iv_back.setVisibility(View.GONE);
         iv_right.setVisibility(View.VISIBLE);
 
+        //初始化flutter引擎,加快flutter加载速度
+//        initFlutter();
+    }
+
+    private void initFlutter() {
+        // Instantiate a FlutterEngine.
+        FlutterEngine flutterEngine = new FlutterEngine(this);
+
+        // Start executing Dart code to pre-warm the FlutterEngine.
+        flutterEngine.getDartExecutor().executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+        );
+
+        // Cache the FlutterEngine to be used by FlutterActivity.
+        FlutterEngineCache
+                .getInstance()
+                .put("my_engine_id", flutterEngine);
     }
 
     @Override
@@ -203,6 +231,9 @@ public class MainActivity extends BaseActivityWithButterKnife implements Navigat
 
     @Override
     public void onDestroy() {
+        //释放flutter资源
+//        flutterEngine.destroy();
+
         nv_view.release();
         EventBus.getDefault().unregister(this);
         super.onDestroy();

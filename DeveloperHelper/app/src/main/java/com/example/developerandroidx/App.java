@@ -17,6 +17,10 @@ import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.v3.Notification;
 import com.tencent.bugly.Bugly;
 
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
+
 public class App extends Application {
     public static Context context;
     public static String IMPORTANCE_HIGH_CHANNEL_ID;

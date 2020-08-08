@@ -1,5 +1,7 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_module/base/baseWidget.dart';
+import 'package:flutter_module/model/descModel_01.dart';
+import 'package:flutter_module/widgets/descListView.dart';
 
 class ShowFlutterStudy extends BaseWidget {
   String title;
@@ -30,7 +32,11 @@ class Content extends BaseHomePage {
   //设置内容控件
   @override
   Widget setBody() {
-    return null;
+    switch (title) {
+      case "变量与常量":
+        return getDescListView(getDescList_01());
+        break;
+    }
   }
 
   //设置标题

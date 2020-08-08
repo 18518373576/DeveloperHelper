@@ -10,6 +10,7 @@ abstract class BaseWidget extends StatelessWidget {
     //设置透明状态栏
     setTranStatusBar(context);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter',
       theme: ThemeData(
         primarySwatch: createMaterialColor(Color(0xFFF5F5F5)),

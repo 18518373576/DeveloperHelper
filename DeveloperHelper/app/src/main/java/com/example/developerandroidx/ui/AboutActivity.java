@@ -85,6 +85,8 @@ public class AboutActivity extends BaseActivityWithButterKnife {
         esv_content.addLine(R.color.lightGrayColor);
         esv_content.addBody("《Android源码设计模式解析与实战》");
         esv_content.addLine(R.color.lightGrayColor);
+        esv_content.addBody("《Flutter从0基础到App上线》");
+        esv_content.addLine(R.color.lightGrayColor);
     }
 
     private void loadUpgradeInfo() {

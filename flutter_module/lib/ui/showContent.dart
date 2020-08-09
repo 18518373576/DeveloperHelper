@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_module/base/baseWidget.dart';
 import 'package:flutter_module/model/descModel_01.dart';
+import 'package:flutter_module/model/descModel_02.dart';
 import 'package:flutter_module/widgets/descListView.dart';
 
 class ShowFlutterStudy extends BaseWidget {
@@ -35,7 +36,8 @@ class Content extends BaseHomePage {
     switch (title) {
       case "变量与常量":
         return getDescListView(getDescList_01());
-        break;
+      case "基本数据类型":
+        return getDescListView(getDescList_02());
     }
   }
 

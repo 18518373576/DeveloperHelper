@@ -48,9 +48,12 @@ class Content extends BaseHomePage {
               ),
             ],
           ),
-          leading: Icon(
-            Icons.list,
-            color: Colors.black45,
+          leading: Image.asset(
+            index <= 6
+                ? 'asserts/images/icon_dart.png'
+                : 'asserts/images/icon_flutter.png',
+            width: 25,
+            height: 25,
           ),
         );
       },

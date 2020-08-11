@@ -12,7 +12,8 @@ getDescListView(List<Item> items) {
           //添加title
           case ItemType.TITLE:
             return Text(
-              '        ${items[index].content}',
+              '\n${items[index].content}\n',
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,
                   color: Colors.orange,
@@ -66,15 +67,23 @@ getDescListView(List<Item> items) {
                   height: 1.5),
             );
             break;
+          case ItemType.WIDGET:
+            return items[index].widget;
+            break;
         }
       });
 }
 
-enum ItemType { TITLE, BODY, CODE, BOLD_BODY }
+enum ItemType { TITLE, BODY, CODE, BOLD_BODY, WIDGET }
 
 class Item {
   String content;
   ItemType type;
+  Widget widget;
 
   Item(this.content, this.type);
+
+  Item.widgetItem(this.widget) {
+    type = ItemType.WIDGET;
+  }
 }

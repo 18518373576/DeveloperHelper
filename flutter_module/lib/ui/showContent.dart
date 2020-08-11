@@ -5,6 +5,10 @@ import 'package:flutter_module/model/descModel_02.dart';
 import 'package:flutter_module/model/descModel_03.dart';
 import 'package:flutter_module/model/descModel_04.dart';
 import 'package:flutter_module/model/descModel_05.dart';
+import 'package:flutter_module/model/descModel_06.dart';
+import 'package:flutter_module/model/descModel_07.dart';
+import 'package:flutter_module/model/descModel_08.dart';
+import 'package:flutter_module/model/descModel_09.dart';
 import 'package:flutter_module/widgets/descListView.dart';
 
 class ShowFlutterStudy extends BaseWidget {
@@ -51,6 +55,18 @@ class Content extends BaseHomePage {
         break;
       case "面向对象":
         return getDescListView(getDescList_05());
+        break;
+      case "运算符重载":
+        return getDescListView(getDescList_06());
+        break;
+      case "异步任务":
+        return getDescListView(getDescList_07());
+        break;
+      case "Flutter基础":
+        return getDescListView(getDescList_08());
+        break;
+      case "文本(Text)":
+        return getDescListView(getDescList_09());
         break;
     }
   }

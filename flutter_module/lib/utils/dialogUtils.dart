@@ -17,3 +17,9 @@ show(BuildContext context) {
     print(val);
   });
 }
+
+showSnackBar(BuildContext context, String content) {
+  final snackBar = new SnackBar(content: new Text(content));
+
+  Scaffold.of(context).showSnackBar(snackBar);
+}

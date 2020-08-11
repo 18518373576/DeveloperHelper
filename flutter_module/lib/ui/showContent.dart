@@ -9,6 +9,7 @@ import 'package:flutter_module/model/descModel_06.dart';
 import 'package:flutter_module/model/descModel_07.dart';
 import 'package:flutter_module/model/descModel_08.dart';
 import 'package:flutter_module/model/descModel_09.dart';
+import 'package:flutter_module/model/descModel_10.dart';
 import 'package:flutter_module/widgets/descListView.dart';
 
 class ShowFlutterStudy extends BaseWidget {
@@ -19,17 +20,19 @@ class ShowFlutterStudy extends BaseWidget {
     return Content(context, title);
   }
 
-  ShowFlutterStudy(String title) {
-    this.title = title;
-  }
+  /*
+   *构造方法
+   */
+  ShowFlutterStudy(this.title);
 }
 
 class Content extends BaseHomePage {
   String title;
 
-  Content(BuildContext context, String title) : super(context) {
-    this.title = title;
-  }
+  /*
+   * 构造方法
+   */
+  Content(BuildContext context, this.title) : super(context);
 
   //设置action按钮,没有就返回空
   @override
@@ -67,6 +70,9 @@ class Content extends BaseHomePage {
         break;
       case "文本(Text)":
         return getDescListView(getDescList_09());
+        break;
+      case "按钮(Button)":
+        return getDescListView(getDescList_10());
         break;
     }
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_module/base/baseWidget.dart';
 import 'package:flutter_module/model/mainModel.dart';
@@ -31,7 +32,7 @@ class Content extends BaseHomePage {
         return ListTile(
           //item点击事件
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+            Navigator.push(context, CupertinoPageRoute(builder: (context) {
               return ShowFlutterStudy('${list[index]}');
             }));
           },
@@ -77,16 +78,16 @@ class Content extends BaseHomePage {
     return PopupMenuButton<String>(
       icon: Icon(Icons.hdr_weak, color: Colors.black54),
       itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-            PopupMenuItem(
-              child: Text('菜单1'),
-            ),
-            PopupMenuItem(
-              child: Text('菜单2'),
-            ),
-            PopupMenuItem(
-              child: Text('菜单3'),
-            ),
-          ],
+        PopupMenuItem(
+          child: Text('菜单1'),
+        ),
+        PopupMenuItem(
+          child: Text('菜单2'),
+        ),
+        PopupMenuItem(
+          child: Text('菜单3'),
+        ),
+      ],
     );
   }
 }

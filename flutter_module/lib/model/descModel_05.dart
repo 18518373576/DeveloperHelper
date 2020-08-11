@@ -22,8 +22,8 @@ getDescList_05() {
           "    return 'Num{mum_01: \$mum_01, mum_02: \$mum_02}';\n" +
           "  }\n" +
           "}\n\n"
-          "创建类的实例即对象:\n"
-          "var num = Num(1, 2);",
+              "创建类的实例即对象:\n"
+              "var num = Num(1, 2);",
       ItemType.CODE));
   list.add(Item("类的继承和接口实现", ItemType.TITLE));
   list.add(Item("Dart是一种单继承多实现的面向对象编程语言,继承使用extends关键字,实现使用with和implements关键字.",
@@ -65,7 +65,7 @@ getDescList_05() {
           "}\n" +
           "\n" +
           "//五菱汽车,首先这是一辆汽车,继承了Car类,实现了Car的方法,具有了Car的属性.\n"
-          "//其次这是一辆私家车(with)具有接送属性,使用(with)实现的类的方法不必要覆写.\n" +
+              "//其次这是一辆私家车(with)具有接送属性,使用(with)实现的类的方法不必要覆写.\n" +
           "//再其次这辆车还实现(implements)了货拉拉接口可以拉货赚钱.使用(implements)实现的类的方法必须覆写.\n" +
           "class WuLing extends Car with PrivateCar implements HuoLaLa {\n" +
           "  //覆写汽车的抽象方法\n" +
@@ -108,8 +108,8 @@ getDescList_05() {
   list.add(Item(
       "class WuLing extends Car {\n" +
           "  //车架号\n" +
-          "  final String id;\n"
-          "\nfinal修饰的_map的引用不可更改,但是map对象的内容可修改\n" +
+          "  final String id;\n\n" +
+          "  //final修饰的_map的引用不可更改,但是map对象的内容可修改\n" +
           "  static final Map<String, WuLing> _map = {};\n" +
           "\n" +
           "  factory WuLing(String id) {\n" +

@@ -10,5 +10,7 @@ List<String> getData() {
   list.add("Flutter基础");
   list.add("文本(Text)");
   list.add("按钮(Button)");
+  list.add("Image和Icon");
+  list.add("单选按钮和复选框");
   return list;
 }

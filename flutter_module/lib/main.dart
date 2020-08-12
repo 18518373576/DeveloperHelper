@@ -4,23 +4,22 @@ import 'package:flutter_module/base/baseWidget.dart';
 import 'package:flutter_module/model/mainModel.dart';
 import 'package:flutter_module/ui/showContent.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MyApp("Flutter"));
 
 /*
  * BaseWidget
  */
 class MyApp extends BaseWidget {
+  MyApp(String title) : super(title);
+
   @override
-  StatefulWidget createHomePage(BuildContext context) {
-    return Content(context);
+  StatefulWidget createHomePage() {
+    return Content();
   }
 }
 
-// ignore: must_be_immutable
 class Content extends BaseHomePage {
-  List<String> list = getData();
-
-  Content(BuildContext context) : super(context);
+  final List<String> list = getData();
 
   @override
   Widget setBody() {
@@ -70,7 +69,7 @@ class Content extends BaseHomePage {
     return "Flutter";
   }
 
-  /**
+  /*
    * 添加右侧更多按钮
    */
   @override

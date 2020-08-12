@@ -20,7 +20,6 @@ getDescListView(List<Item> items) {
                   height: 1.5,
                   fontWeight: FontWeight.w500),
             );
-            break;
           //添加内容
           case ItemType.BODY:
             //首航缩进
@@ -32,7 +31,6 @@ getDescListView(List<Item> items) {
                   height: 1.5,
                   fontWeight: FontWeight.w300),
             );
-            break;
           //添加代码
           case ItemType.CODE:
             return Container(
@@ -53,8 +51,6 @@ getDescListView(List<Item> items) {
                     ),
                   ),
                 ));
-
-            break;
           //添加加粗的内容
           case ItemType.BOLD_BODY:
             //首航缩进
@@ -66,10 +62,22 @@ getDescListView(List<Item> items) {
                   fontWeight: FontWeight.w500,
                   height: 1.5),
             );
-            break;
           case ItemType.WIDGET:
-            return items[index].widget;
+            //如果是文本控件,直接返回,因为在Row里面会超出屏幕
+            if (items[index].widget is Text) {
+              return items[index].widget;
+            } else {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.all(15), child: items[index].widget)
+                ],
+              );
+            }
             break;
+          default:
+            return null;
         }
       });
 }
@@ -80,10 +88,12 @@ class Item {
   String content;
   ItemType type;
   Widget widget;
+  double widgetWidth;
+  double widgetHeight;
 
   Item(this.content, this.type);
 
-  Item.widgetItem(this.widget) {
+  Item.widgetItem(this.widget, {widgetWidth, widgetHeight}) {
     type = ItemType.WIDGET;
   }
 }

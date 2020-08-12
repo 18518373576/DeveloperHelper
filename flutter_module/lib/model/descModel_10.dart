@@ -40,5 +40,60 @@ getDescList_10() {
           "    onPressed: () {},\n" +
           "  )",
       ItemType.CODE));
+  list.add(Item("IconButton", ItemType.TITLE));
+  list.add(Item.widgetItem(IconButton(
+    icon: Icon(Icons.call),
+    iconSize: 50,
+    color: Colors.blue,
+    onPressed: () {},
+  )));
+  list.add(Item(
+      "IconButton(\n" +
+          "    icon: Icon(Icons.call),\n" +
+          "    iconSize: 50,\n" +
+          "    color: Colors.blue,\n" +
+          "    onPressed: () {},\n" +
+          "  )",
+      ItemType.CODE));
+  list.add(Item("带图标的按钮", ItemType.TITLE));
+  list.add(Item.widgetItem(OutlineButton.icon(
+      onPressed: () {}, icon: Icon(Icons.add), label: Text("添加"))));
+  list.add(Item(
+      "OutlineButton.icon(\n" +
+          "      onPressed: () {}, icon: Icon(Icons.add), label: Text(\"添加\"))",
+      ItemType.CODE));
+  list.add(Item("定义按钮属性", ItemType.TITLE));
+  list.add(Item.widgetItem(RaisedButton(
+    //按钮颜色
+    color: Colors.blue,
+    //点击后的颜色
+    highlightColor: Colors.blue[700],
+    //水波纹颜色,这里设置透明色
+    splashColor: Colors.transparent,
+    child: Text("按钮"),
+    textColor: Colors.white,
+    //设置圆角背景
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    elevation: 3,
+    highlightElevation: 5,
+    onPressed: () {},
+  )));
+  list.add(Item(
+      "RaisedButton(\n" +
+          "    //按钮颜色\n" +
+          "    color: Colors.blue,\n" +
+          "    //点击后的颜色\n" +
+          "    highlightColor: Colors.blue[700],\n" +
+          "    //水波纹颜色,这里设置透明色\n" +
+          "    splashColor: Colors.transparent,\n" +
+          "    child: Text(\"按钮\"),\n" +
+          "    textColor: Colors.white,\n" +
+          "    //设置圆角背景\n" +
+          "    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),\n" +
+          "    elevation: 3,\n" +
+          "    highlightElevation: 5,\n" +
+          "    onPressed: () {},\n" +
+          "  )",
+      ItemType.CODE));
   return list;
 }

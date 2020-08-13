@@ -13,6 +13,7 @@ import 'package:flutter_module/model/descModel_10.dart';
 import 'package:flutter_module/model/descModel_11.dart';
 import 'package:flutter_module/model/descModel_12.dart';
 import 'package:flutter_module/model/descModel_13.dart';
+import 'package:flutter_module/model/descModel_14.dart';
 import 'package:flutter_module/utils/constant.dart';
 import 'package:flutter_module/utils/onClick.dart';
 import 'package:flutter_module/widgets/descListView.dart';
@@ -58,12 +59,12 @@ class Content extends BaseHomePage implements OnClick {
         return getDescListView(getDescList_10());
       case "Image和Icon":
         return getDescListView(getDescList_11());
-        break;
       case "单选按钮和复选框":
         return getDescListView(getDescList_12(this));
-        break;
       case "输入框和表单":
         return getDescListView(getDescList_13(rootContext));
+      case "进度指示器":
+        return getDescListView(getDescList_14());
         break;
       default:
         return null;

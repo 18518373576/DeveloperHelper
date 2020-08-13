@@ -23,11 +23,11 @@ class KotlinFragment : BaseFragmentForKotlin<FragmentKotlinBinding>(), OnItemCli
 
     override fun initData() {
         super.initData()
-        var adapter = KotlinAdapter();
+        val adapter = KotlinAdapter();
         binding.rcvKotlin.adapter = adapter
         adapter.setOnItemClickListener(this)
-        var viewModel: KotlinViewModel = getViewModel(this, KotlinViewModel::class.java)
-        viewModel.getData().observe(viewLifecycleOwner, Observer {
+        val viewModel: KotlinViewModel = getViewModel(this, KotlinViewModel::class.java)
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             adapter.setList(it)
         })
     }

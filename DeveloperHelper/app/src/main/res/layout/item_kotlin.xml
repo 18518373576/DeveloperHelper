@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp5"
+    android:background="@drawable/bg_corner_white_color"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingTop="@dimen/dp15"
     android:paddingBottom="@dimen/dp15"
-    android:background="@drawable/bg_round_corner_light_gray"
     android:stateListAnimator="@drawable/selector_btn_animator">
+
+    <ImageView
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginStart="@dimen/dp10"
+        android:padding="@dimen/dp10"
+        android:src="@mipmap/icon_kotlin_colors" />
 
     <TextView
         android:id="@+id/tv_kotlin"
@@ -20,4 +29,4 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

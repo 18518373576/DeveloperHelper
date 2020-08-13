@@ -12,12 +12,12 @@ getDescListView(List<Item> items) {
           //添加title
           case ItemType.TITLE:
             return Text(
-              '\n${items[index].content}\n',
+              '${items[index].content}',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,
                   color: Colors.orange,
-                  height: 1.5,
+                  height: 2,
                   fontWeight: FontWeight.w500),
             );
           //添加内容
@@ -41,7 +41,7 @@ getDescListView(List<Item> items) {
                 ),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Text(
+                  child: SelectableText(
                     '${items[index].content}',
                     style: TextStyle(
                       fontSize: 15,
@@ -64,7 +64,10 @@ getDescListView(List<Item> items) {
             );
           case ItemType.WIDGET:
             //如果是文本控件,直接返回,因为在Row里面会超出屏幕
-            if (items[index].widget is Text) {
+            if (items[index].widget is Text ||
+                items[index].widget is Column ||
+                items[index].widget is Row ||
+                items[index].widget is Form) {
               return items[index].widget;
             } else {
               return Row(
@@ -93,7 +96,7 @@ class Item {
 
   Item(this.content, this.type);
 
-  Item.widgetItem(this.widget, {widgetWidth, widgetHeight}) {
+  Item.widgetItem(this.widget, {this.widgetWidth, this.widgetHeight}) {
     type = ItemType.WIDGET;
   }
 }

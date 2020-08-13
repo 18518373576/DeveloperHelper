@@ -12,14 +12,15 @@ import 'package:flutter_module/model/descModel_09.dart';
 import 'package:flutter_module/model/descModel_10.dart';
 import 'package:flutter_module/model/descModel_11.dart';
 import 'package:flutter_module/model/descModel_12.dart';
+import 'package:flutter_module/model/descModel_13.dart';
 import 'package:flutter_module/utils/constant.dart';
 import 'package:flutter_module/utils/onClick.dart';
 import 'package:flutter_module/widgets/descListView.dart';
 
 class ShowFlutterStudy extends BaseWidget {
   @override
-  StatefulWidget createHomePage() {
-    return Content();
+  StatefulWidget createHomePage(BuildContext context, String title) {
+    return Content(context, title);
   }
 
   /*
@@ -29,10 +30,12 @@ class ShowFlutterStudy extends BaseWidget {
 }
 
 class Content extends BaseHomePage implements OnClick {
+  Content(BuildContext rootContext, String title) : super(rootContext, title);
+
   //设置内容控件
   @override
   Widget setBody() {
-    switch (pageTitle) {
+    switch (title) {
       case "变量与常量":
         return getDescListView(getDescList_01());
       case "基本数据类型":
@@ -59,13 +62,16 @@ class Content extends BaseHomePage implements OnClick {
       case "单选按钮和复选框":
         return getDescListView(getDescList_12(this));
         break;
+      case "输入框和表单":
+        return getDescListView(getDescList_13(rootContext));
+        break;
       default:
         return null;
     }
   }
 
   @override
-  onClickListener(int id, var value) {
+  onClickListener(int id, {var value}) {
     switch (id) {
       case Constant.switch_id:
         homePageState.setState(() {

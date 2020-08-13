@@ -4,33 +4,29 @@ import 'package:flutter/services.dart';
 import 'package:flutter_module/utils/colorUtil.dart';
 import 'package:flutter_module/utils/themeUtils.dart';
 
-String pageTitle; //页面标题
-BuildContext rootContext;
-
 abstract class BaseWidget extends StatelessWidget {
-  BaseWidget(String title) {
-    pageTitle = title;
-  } // This widget is the root of your application.
+  final String title; //页面标题
+  BaseWidget(this.title);
+
+  // 根节点
   @override
   Widget build(BuildContext context) {
-    rootContext = context;
     //设置透明状态栏
     setTranStatusBar(context);
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter',
-      theme: ThemeData(
-        primarySwatch: createMaterialColor(Color(0xFFF5F5F5)),
-        accentColor: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      //添加内容控件,由子类实现
-      home: createHomePage(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter',
+        theme: ThemeData(
+          primarySwatch: createMaterialColor(Color(0xFFF5F5F5)),
+          accentColor: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        //添加内容控件,由子类实现
+        home: createHomePage(context, title));
   }
 
   //创建homePage,抽象方法由子类实现
-  StatefulWidget createHomePage();
+  StatefulWidget createHomePage(BuildContext context, String title);
 }
 
 /*
@@ -38,6 +34,10 @@ abstract class BaseWidget extends StatelessWidget {
  */
 abstract class BaseHomePage extends StatefulWidget {
   final MyHomePageState homePageState = MyHomePageState();
+  final BuildContext rootContext;
+  final String title;
+
+  BaseHomePage(this.rootContext, this.title);
 
   //设置内容
   Widget setBody();
@@ -77,7 +77,7 @@ class MyHomePageState extends State<BaseHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          pageTitle,
+          widget.title,
           style: TextStyle(color: Colors.black54, fontSize: 18),
         ),
         elevation: 0,
@@ -85,11 +85,11 @@ class MyHomePageState extends State<BaseHomePage> {
           icon: Icon(Icons.arrow_back, color: Colors.black54),
           onPressed: () {
             //如果是首页的话
-            if (pageTitle == "Flutter") {
+            if (widget.title == "Flutter") {
               close();
             } else {
               //不是首页返回上一页
-              Navigator.pop(rootContext);
+              Navigator.pop(widget.rootContext);
             }
           },
         ),

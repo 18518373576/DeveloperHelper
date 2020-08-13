@@ -13,13 +13,15 @@ class MyApp extends BaseWidget {
   MyApp(String title) : super(title);
 
   @override
-  StatefulWidget createHomePage() {
-    return Content();
+  StatefulWidget createHomePage(BuildContext context, String title) {
+    return Content(context, title);
   }
 }
 
 class Content extends BaseHomePage {
   final List<String> list = getData();
+
+  Content(BuildContext rootContext, String title) : super(rootContext, title);
 
   @override
   Widget setBody() {

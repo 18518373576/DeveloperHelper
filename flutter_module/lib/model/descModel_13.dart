@@ -22,7 +22,8 @@ getDescList_13(BuildContext context) {
   GlobalKey _formKey = new GlobalKey<FormState>();
   List<Item> list = [];
   list.add(Item("TextFiled", ItemType.TITLE));
-  list.add(Item.widgetItem(Column(children: <Widget>[
+  list.add(
+      Item.widgetItem(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
     Container(
       height: 20,
     ),
@@ -127,6 +128,7 @@ getDescList_13(BuildContext context) {
     autovalidate: true,
     key: _formKey,
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         TextFormField(
           controller: _formController,

@@ -14,6 +14,7 @@ import 'package:flutter_module/model/descModel_11.dart';
 import 'package:flutter_module/model/descModel_12.dart';
 import 'package:flutter_module/model/descModel_13.dart';
 import 'package:flutter_module/model/descModel_14.dart';
+import 'package:flutter_module/model/descModel_15.dart';
 import 'package:flutter_module/utils/constant.dart';
 import 'package:flutter_module/utils/onClick.dart';
 import 'package:flutter_module/widgets/descListView.dart';
@@ -65,6 +66,9 @@ class Content extends BaseHomePage implements OnClick {
         return getDescListView(getDescList_13(rootContext));
       case "进度指示器":
         return getDescListView(getDescList_14());
+        break;
+      case "线性布局(Row和Column)":
+        return getDescListView(getDescList_15());
         break;
       default:
         return null;

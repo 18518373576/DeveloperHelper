@@ -6,6 +6,7 @@ getDescList_14() {
   list.add(Item("LinearProgressIndicator", ItemType.TITLE));
   list.add(Item("不设置value属性,进度条执行重复动画.", ItemType.BODY));
   list.add(Item.widgetItem(Column(
+    mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Container(
         padding: EdgeInsets.all(15),
@@ -31,6 +32,7 @@ getDescList_14() {
       ItemType.CODE));
   list.add(Item("设置value属性0-1,进度条按照设置的进度显示.", ItemType.BODY));
   list.add(Item.widgetItem(Column(
+    mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Container(
         padding: EdgeInsets.all(15),

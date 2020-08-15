@@ -14,5 +14,6 @@ List<String> getData() {
   list.add("单选按钮和复选框");
   list.add("输入框和表单");
   list.add("进度指示器");
+  list.add("线性布局(Row和Column)");
   return list;
 }

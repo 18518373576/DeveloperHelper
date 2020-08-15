@@ -18,17 +18,19 @@ getDescListView(List<Item> items) {
                   fontSize: 18,
                   color: Colors.orange,
                   height: 2,
+                  wordSpacing: 2,
                   fontWeight: FontWeight.w500),
             );
           //添加内容
           case ItemType.BODY:
             //首航缩进
             return Text(
-              '        ${items[index].content}',
+              '    ${items[index].content}',
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.black54,
-                  height: 1.5,
+                  height: 1.8,
+                  wordSpacing: 2,
                   fontWeight: FontWeight.w300),
             );
           //添加代码
@@ -45,9 +47,10 @@ getDescListView(List<Item> items) {
                     '${items[index].content}',
                     style: TextStyle(
                       fontSize: 15,
+                      wordSpacing: 2,
                       color: Color(0xFF969696),
                       fontWeight: FontWeight.w500,
-                      height: 1.5,
+                      height: 1.8,
                     ),
                   ),
                 ));
@@ -55,12 +58,13 @@ getDescListView(List<Item> items) {
           case ItemType.BOLD_BODY:
             //首航缩进
             return Text(
-              '        ${items[index].content}',
+              '    ${items[index].content}',
               style: TextStyle(
                   fontSize: 15,
                   color: Colors.black54,
                   fontWeight: FontWeight.w500,
-                  height: 1.5),
+                  wordSpacing: 2,
+                  height: 1.8),
             );
           case ItemType.WIDGET:
             //如果是文本控件,直接返回,因为在Row里面会超出屏幕

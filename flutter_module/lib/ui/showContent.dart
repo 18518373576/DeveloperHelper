@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_module/base/baseWidget.dart';
+import 'package:flutter_module/model/descMdel_19.dart';
 import 'package:flutter_module/model/descModel_01.dart';
 import 'package:flutter_module/model/descModel_02.dart';
 import 'package:flutter_module/model/descModel_03.dart';
@@ -15,6 +16,9 @@ import 'package:flutter_module/model/descModel_12.dart';
 import 'package:flutter_module/model/descModel_13.dart';
 import 'package:flutter_module/model/descModel_14.dart';
 import 'package:flutter_module/model/descModel_15.dart';
+import 'package:flutter_module/model/descModel_16.dart';
+import 'package:flutter_module/model/descModel_17.dart';
+import 'package:flutter_module/model/descModel_18.dart';
 import 'package:flutter_module/utils/constant.dart';
 import 'package:flutter_module/utils/onClick.dart';
 import 'package:flutter_module/widgets/descListView.dart';
@@ -69,6 +73,18 @@ class Content extends BaseHomePage implements OnClick {
         break;
       case "线性布局(Row和Column)":
         return getDescListView(getDescList_15());
+        break;
+      case "弹性布局(Flex)":
+        return getDescListView(getDescList_16());
+        break;
+      case "流式布局(Wrap和Flow)":
+        return getDescListView(getDescList_17());
+        break;
+      case "层叠布局(Stack)":
+        return getDescListView(getDescList_18());
+        break;
+      case "相对定位(Align)":
+        return getDescListView(getDescList_19());
         break;
       default:
         return null;

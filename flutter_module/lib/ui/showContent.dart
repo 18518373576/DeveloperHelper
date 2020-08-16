@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_module/base/baseWidget.dart';
-import 'package:flutter_module/model/descMdel_19.dart';
+import 'package:flutter_module/model/descModel_19.dart';
 import 'package:flutter_module/model/descModel_01.dart';
 import 'package:flutter_module/model/descModel_02.dart';
 import 'package:flutter_module/model/descModel_03.dart';
@@ -19,6 +19,8 @@ import 'package:flutter_module/model/descModel_15.dart';
 import 'package:flutter_module/model/descModel_16.dart';
 import 'package:flutter_module/model/descModel_17.dart';
 import 'package:flutter_module/model/descModel_18.dart';
+import 'package:flutter_module/model/descModel_20.dart';
+import 'package:flutter_module/model/descModel_21.dart';
 import 'package:flutter_module/utils/constant.dart';
 import 'package:flutter_module/utils/onClick.dart';
 import 'package:flutter_module/widgets/descListView.dart';
@@ -86,6 +88,11 @@ class Content extends BaseHomePage implements OnClick {
       case "相对定位(Align)":
         return getDescListView(getDescList_19());
         break;
+      case "填充(Padding)":
+        return getDescListView(getDescList_20());
+        break;
+      case "尺寸限制容器":
+        return getDescListView(getDescList_21());
       default:
         return null;
     }

@@ -5,10 +5,13 @@ import 'package:flutter_module/widgets/descListView.dart';
 getDescList_11() {
   List<Item> list = [];
   list.add(Item("加载asset图片", ItemType.TITLE));
-  list.add(Item.widgetItem(Image(
-    image: AssetImage("asserts/images/icon_dart.png"),
-    width: 50,
-    height: 50,
+  list.add(Item.widgetItem(Container(
+    margin: EdgeInsets.all(15),
+    child: Image(
+      image: AssetImage("asserts/images/icon_dart.png"),
+      width: 50,
+      height: 50,
+    ),
   )));
   list.add(Item(
       "Image(\n" +
@@ -18,10 +21,13 @@ getDescList_11() {
           "  )",
       ItemType.CODE));
   list.add(Item("加载网络图片", ItemType.BOLD_BODY));
-  list.add(Item.widgetItem(Image.network(
-    "https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/icon_lancher.png",
-    width: 150,
-    height: 150,
+  list.add(Item.widgetItem(Container(
+    margin: EdgeInsets.all(15),
+    child: Image.network(
+      "https://gitee.com/ZhangQQ_123/DeveloperHelper/raw/master/pics/icon_lancher.png",
+      width: 150,
+      height: 150,
+    ),
   )));
   list.add(Item(
       "Image.network(\n" +
@@ -35,19 +41,22 @@ getDescList_11() {
   list.add(Item("Icon", ItemType.TITLE));
   list.add(Item("在Flutter中可以使用字体图标,这种图标具有①体积小,②矢量,③可以和文本混合使用,④可以改变颜色的特点.",
       ItemType.BODY));
-  list.add(Item.widgetItem(Text.rich(
-    TextSpan(children: [
-      TextSpan(
-          text: "\uE90D",
-          style: TextStyle(
-              height: 1.5,
-              fontFamily: "MaterialIcons",
-              fontSize: 20,
-              color: Colors.green)),
-      TextSpan(
-          text: "文本",
-          style: TextStyle(height: 1.5, fontSize: 16, color: Colors.green)),
-    ]),
+  list.add(Item.widgetItem(Container(
+    margin: EdgeInsets.all(15),
+    child: Text.rich(
+      TextSpan(children: [
+        TextSpan(
+            text: "\uE90D",
+            style: TextStyle(
+                height: 1.5,
+                fontFamily: "MaterialIcons",
+                fontSize: 20,
+                color: Colors.green)),
+        TextSpan(
+            text: "文本",
+            style: TextStyle(height: 1.5, fontSize: 16, color: Colors.green)),
+      ]),
+    ),
   )));
   list.add(Item(
       "Text.rich(\n" +
@@ -66,10 +75,13 @@ getDescList_11() {
           "  )",
       ItemType.CODE));
   list.add(Item("使用Icon", ItemType.BOLD_BODY));
-  list.add(Item.widgetItem(Icon(
-    Icons.android,
-    color: Colors.green,
-    size: 100,
+  list.add(Item.widgetItem(Container(
+    margin: EdgeInsets.all(15),
+    child: Icon(
+      Icons.android,
+      color: Colors.green,
+      size: 100,
+    ),
   )));
   list.add(Item(
       "Icon(\n" +
@@ -79,10 +91,13 @@ getDescList_11() {
           "  )",
       ItemType.CODE));
   list.add(Item("使用自定义图标字体", ItemType.BOLD_BODY));
-  list.add(Item.widgetItem(Icon(
-    MyIcon.love,
-    size: 100,
-    color: Colors.red,
+  list.add(Item.widgetItem(Container(
+    margin: EdgeInsets.all(15),
+    child: Icon(
+      MyIcon.love,
+      size: 100,
+      color: Colors.red,
+    ),
   )));
   list.add(Item(
       "Icon(\n" +

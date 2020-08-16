@@ -12,11 +12,16 @@ void setValue(bool value) {
 getDescList_12(OnClick click) {
   List<Item> list = [];
   list.add(Item("单选按钮Switch", ItemType.TITLE));
-  list.add(Item.widgetItem(Switch(
-    value: _value,
-    onChanged: (value) {
-      click.onClickListener(Constant.switch_id, value: value);
-    },
+  list.add(Item.widgetItem(Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Switch(
+        value: _value,
+        onChanged: (value) {
+          click.onClickListener(Constant.switch_id, value: value);
+        },
+      )
+    ],
   )));
   list.add(Item(
       "Switch(\n" +

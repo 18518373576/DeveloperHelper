@@ -36,6 +36,7 @@ getDescListView(List<Item> items) {
           //添加代码
           case ItemType.CODE:
             return Container(
+                margin: EdgeInsets.only(top: 15, bottom: 15),
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
@@ -68,21 +69,7 @@ getDescListView(List<Item> items) {
             );
           case ItemType.WIDGET:
             //如果是文本控件,直接返回,因为在Row里面会超出屏幕
-            if (items[index].widget is Text ||
-                items[index].widget is Column ||
-                items[index].widget is Row ||
-                items[index].widget is Form) {
-              return items[index].widget;
-            } else {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.all(15), child: items[index].widget)
-                ],
-              );
-            }
-            break;
+            return items[index].widget;
           default:
             return null;
         }

@@ -5,9 +5,16 @@ getDescList_10() {
   List<Item> list = [];
   list.add(Item("RaisedButton", ItemType.TITLE));
   list.add(Item("RaisedButton默认带有背景", ItemType.BODY));
-  list.add(Item.widgetItem(RaisedButton(
-    child: Text("按钮"),
-    onPressed: () {},
+  list.add(Item.widgetItem(Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Container(
+          padding: EdgeInsets.all(15),
+          child: RaisedButton(
+            child: Text("按钮"),
+            onPressed: () {},
+          ))
+    ],
   )));
   list.add(Item(
       "RaisedButton(\n" +
@@ -17,9 +24,16 @@ getDescList_10() {
       ItemType.CODE));
   list.add(Item("FlatButton", ItemType.TITLE));
   list.add(Item("FlatButton默认背景透明,带有点击效果", ItemType.BODY));
-  list.add(Item.widgetItem(FlatButton(
-    child: Text("按钮"),
-    onPressed: () {},
+  list.add(Item.widgetItem(Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Container(
+          padding: EdgeInsets.all(15),
+          child: FlatButton(
+            child: Text("按钮"),
+            onPressed: () {},
+          ))
+    ],
   )));
   list.add(Item(
       "FlatButton(\n" +
@@ -28,10 +42,17 @@ getDescList_10() {
           "  )",
       ItemType.CODE));
   list.add(Item("OutlineButton", ItemType.TITLE));
-  list.add(Item.widgetItem(OutlineButton(
-    child: Text("按钮"),
-    borderSide: BorderSide(color: Colors.blue, width: 1),
-    onPressed: () {},
+  list.add(Item.widgetItem(Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Container(
+          padding: EdgeInsets.all(15),
+          child: OutlineButton(
+            child: Text("按钮"),
+            borderSide: BorderSide(color: Colors.blue, width: 1),
+            onPressed: () {},
+          ))
+    ],
   )));
   list.add(Item(
       "OutlineButton(\n" +
@@ -56,27 +77,42 @@ getDescList_10() {
           "  )",
       ItemType.CODE));
   list.add(Item("带图标的按钮", ItemType.TITLE));
-  list.add(Item.widgetItem(OutlineButton.icon(
-      onPressed: () {}, icon: Icon(Icons.add), label: Text("添加"))));
+  list.add(Item.widgetItem(Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Container(
+          padding: EdgeInsets.all(15),
+          child: OutlineButton.icon(
+              onPressed: () {}, icon: Icon(Icons.add), label: Text("添加")))
+    ],
+  )));
   list.add(Item(
       "OutlineButton.icon(\n" +
           "      onPressed: () {}, icon: Icon(Icons.add), label: Text(\"添加\"))",
       ItemType.CODE));
   list.add(Item("定义按钮属性", ItemType.TITLE));
-  list.add(Item.widgetItem(RaisedButton(
-    //按钮颜色
-    color: Colors.blue,
-    //点击后的颜色
-    highlightColor: Colors.blue[700],
-    //水波纹颜色,这里设置透明色
-    splashColor: Colors.transparent,
-    child: Text("按钮"),
-    textColor: Colors.white,
-    //设置圆角背景
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    elevation: 3,
-    highlightElevation: 5,
-    onPressed: () {},
+  list.add(Item.widgetItem(Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Container(
+          padding: EdgeInsets.all(15),
+          child: RaisedButton(
+            //按钮颜色
+            color: Colors.blue,
+            //点击后的颜色
+            highlightColor: Colors.blue[700],
+            //水波纹颜色,这里设置透明色
+            splashColor: Colors.transparent,
+            child: Text("按钮"),
+            textColor: Colors.white,
+            //设置圆角背景
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 3,
+            highlightElevation: 5,
+            onPressed: () {},
+          ))
+    ],
   )));
   list.add(Item(
       "RaisedButton(\n" +

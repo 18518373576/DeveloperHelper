@@ -34,23 +34,26 @@ getDescList_15() {
       "而crossAxisAlignment.end和crossAxisAlignment.start正好相反；",
       ItemType.BOLD_BODY));
   list.add(Item("⑥children ：子组件数组。", ItemType.BOLD_BODY));
-  list.add(Item.widgetItem(Row(
-    //子控件水平方向对齐方式
-    mainAxisAlignment: MainAxisAlignment.center,
-    //子控件竖向对齐方式
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[
-      Icon(
-        Icons.android,
-        color: Colors.green,
-        size: 60,
-      ),
-      Text(
-        "测试一下Row布局",
-        style: TextStyle(
-            color: Colors.black54, fontWeight: FontWeight.w700, fontSize: 30),
-      )
-    ],
+  list.add(Item.widgetItem(Container(
+    margin: EdgeInsets.all(15),
+    child: Row(
+      //子控件水平方向对齐方式
+      mainAxisAlignment: MainAxisAlignment.center,
+      //子控件竖向对齐方式
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          Icons.android,
+          color: Colors.green,
+          size: 60,
+        ),
+        Text(
+          "测试一下Row布局",
+          style: TextStyle(
+              color: Colors.black54, fontWeight: FontWeight.w700, fontSize: 30),
+        )
+      ],
+    ),
   )));
   list.add(Item(
       "Row(\n" +

@@ -19,5 +19,7 @@ List<String> getData() {
   list.add("流式布局(Wrap和Flow)");
   list.add("层叠布局(Stack)");
   list.add("相对定位(Align)");
+  list.add("填充(Padding)");
+  list.add("尺寸限制容器");
   return list;
 }

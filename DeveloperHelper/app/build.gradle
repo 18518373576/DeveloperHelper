@@ -5,14 +5,11 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     ndkVersion '21.3.6528147'
-    dataBinding {
-        //noinspection DataBindingWithoutKapt,使用dataBinding
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
-    }
+
     buildFeatures {
+        dataBinding = true
+        // for view binding :
+        viewBinding = true
         // Enables Jetpack Compose for this module,使用compose
         compose true
     }
@@ -81,6 +78,7 @@ android {
 
     lintOptions {
         abortOnError false
+        checkReleaseBuilds false
     }
 }
 
